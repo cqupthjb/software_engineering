@@ -1,0 +1,23 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: "微软雅黑";
+}
+body{
+	min-width: 1280px;
+}
+ul li{
+	list-style: none;
+	display: inline-block;
+}
+a{
+	color: #000;
+	text-decoration: none;
+}
+.w1300{
+	width: 1300px;
+	margin: 0 auto;
+}
+.cle{
+	clear: both;
+}
