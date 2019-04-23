@@ -1,0 +1,21 @@
+
+
+<!--第三种-->
+<notempty name="invoice_list">
+    <foreach name="invoice_list" item="vo" key="k">
+        <li class="Funds_li" <if condition="$k eq count(invoice_list)"> style="border:0"</if>>
+            <span class="icon <if condition='$k eq 0'>on</if>"></span>
+            <span><em>{$vo.context}</em></span>
+            <span>{$vo.time}</span>
+        </li>
+    </foreach>
+    <else/>
+    <li class="Funds_li" >
+        <span class="icon on"></span>
+        <span><em>暂无物流消息</em></span>
+        <span><a href="http://www.kuaidi100.com/" target="_blank" style="color:#e41735;">在线查询</a></span>
+        <span>{:date('Y-m-d H:i:s',time())}</span>
+    </li>
+</notempty>
+
+

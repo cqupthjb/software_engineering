@@ -1,0 +1,17 @@
+<foreach name="store_list" item="vo">
+  		<li>
+              <div class="imgurl">
+              	<a href="{:U('Store/index',array('store_id'=>$vo[store_id]))}" >
+              	<img src="{$vo.store_logo}" width="100" height="100"></a>
+              </div>
+              <a href="{:U('Store/index',array('store_id'=>$vo[store_id]))}">
+              <div class="order_info">
+                <dl>
+                  <dt>{$vo.store_name|getSubstr=0,14}</dt>
+                </dl>
+              </div>
+              </a>
+              <div class="dingdancaozuo" >
+              <a href="javascript:void(0);" data-href="{:U('Store/cancel_collect',array('log_id'=>$vo[log_id]))}" class="s_out" style=" color:#fff" >删除</a></div>
+        </li>
+</foreach>

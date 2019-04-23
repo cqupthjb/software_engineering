@@ -1,0 +1,110 @@
+<include file="Public/min-header" />
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content ">
+        <!-- Main content -->
+        <div class="container-fluid">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i>银行信息</h3>
+                </div>
+                <div class="navbar navbar-default">
+                    <div class="form-group">
+                        <p class="text-warning" style="text-align: center;">在提现中可以选择已保存的银行信息</p>
+                    </div>
+                </div>
+                <div class="panel-body ">   
+                    <!--表单数据-->
+                    <form method="post" id="withdrawals_form">                    
+                        <!--通用信息-->
+                    <div class="tab-content col-md-10">                 	  
+                        <div class="tab-pane active" id="tab_tongyong">                           
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td>银行名称：</td>
+                                    <td>
+	                                    <input type="text" class="form-control" placeholder="如:微信,支付宝,中国银行等..." name="bank_name" id="bank_name" value="{$info.bank_name}" />
+                                    </td>
+                                    <td></td>                                    
+                                </tr>                                
+                                <tr>
+                                    <td>收款账号：</td>
+                                    <td>
+	                                    <input type="text" class="form-control" placeholder="如:微信号,支付宝账号,中国银行账号" name="account_bank" id="account_bank" value="{$info.account_bank}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>开户名：</td>
+                                    <td>
+	                                    <input type="text" class="form-control" placeholder="开户人姓名" name="account_name" id="account_name" value="{$info.account_name}" />
+                                    </td>
+                                </tr>                                             
+                                </tbody> 
+                                <tfoot>
+                                	<tr>
+                                	<td>
+                                        <if condition="isset($info)">
+                                            <input type="hidden" name="bank_id" value="{$info.bank_id}">
+                                        </if>
+                                	</td>
+                                	<td class="text-right"><input class="btn btn-primary btn-save" type="button"  value="保存"></td></tr>
+                                </tfoot>                               
+                                </table>
+                        </div>                           
+                    </div>              
+			    	</form><!--表单数据-->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    //提交表单
+    $('.btn-save').on('click',function(){
+        checkSubmit();
+    })
+
+// 表单验证提交
+function checkSubmit(){
+
+
+	var bank_name = $.trim($('#bank_name').val());
+	var account_bank = $.trim($('#account_bank').val());
+	var account_name = $.trim($('#account_name').val());
+
+    if(bank_name == '')
+	{
+        popLayer('银行名称必填');
+		return false;
+	}
+	if(account_bank == '')
+	{
+        popLayer('收款账号必填');
+		return false;
+	}
+	if(account_name == '')
+	{
+        popLayer('开户名必填');
+		return false;
+	}
+    function popLayer(msg){
+        layer.msg(msg);
+    }
+	//修改 | 添加
+	$.post("{:U('add_bank')}",$('#withdrawals_form').serialize(),function (data) {
+        if (data.hasOwnProperty('msg')){
+            popLayer(data.msg);
+        }
+        if (data.hasOwnProperty('status')){
+            if (data.status == 1){
+                setTimeout(function () {
+                    window.parent.call_back_fun();
+                },1000);
+            }
+        }
+    },'json');
+}
+</script>
+</body>
+</html>

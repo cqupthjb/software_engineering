@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="IE=edge" http-equiv="X-UA-Compatible">
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<meta content="zh-cn" http-equiv="content-language">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand" />
+		<meta http-equiv="Cache-control" content="public" max-age="no-cache" />
+		<title>首页-{$tpshop_config['shop_info_store_title']} </title>
+		<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+		<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+		<link rel="stylesheet" href="__PUBLIC__/yq/css/public.css" />
+		<link rel="stylesheet" href="__PUBLIC__/yq/css/index.css" />
+		<script type="text/javascript" src="__PUBLIC__/yq/js/jquery-1.7.1.min.js" ></script>
+		<script type="text/javascript" src="__PUBLIC__/yq/js/index.js" ></script>
+	</head>
+	<body>
+		<div class="header">
+			<adv pid="1" limit="1" item="v">
+				<div class="w1300">
+					<a class="img-small"
+						<if condition="$v['target'] eq 1">target="_blank"</if>
+						href="{$v.ad_link}">
+							<img class="img100" src="{$v[ad_code]}"  title="{$v[title]}" style="{$v[style]}"/>
+					</a>
+
+				</div>
+			</adv>
+		</div>
+		<div class="header1">
+			<div class="w1300">
+				<div class="header_left">
+					<span>588欢迎你！</span>
+					<ul class="nav1">
+						<li><a href="{:U('Home/user/login')}">登录</a></li>
+						<li><a href="{:U('Home/user/reg')}">免费注册</a></li>
+					</ul>
+				</div>
+				<ul class="header_right">
+					<li><a href="#">我的订单</a></li>
+					<li>个人中心<span class="shanjiao"></span></li>
+					<li>客户服务<span class="shanjiao"></span></li>
+					<li><a href="#">游戏充值</a></li>
+					<li>消费者告知书</li>
+					<li>更多<span class="shanjiao"></span></li>
+				</ul>
+				<div class="cle"></div>
+			</div>
+		</div>
+		<div class="header2">
+			<div class="w1300">
+				<div class="header2_left">
+					<img src="__PUBLIC__/yq/img/logo.png" class="logo1" />
+					<img src="__PUBLIC__/yq/img/logo1.png" class="logo2" />
+					<div class="logo3">
+						<img src="__PUBLIC__/yq/img/logo2.png" /><span>海外购</span>
+					</div>
+				</div>
+				<div class="header2_midd">
+					<div class="search">
+						<form name="sourch_form" id="sourch_form" method="post" action="{:U("/Home/Goods/search")}">
+							<input type="text" name="q" id="q" value="<?php echo I('q'); ?>" placeholder="搜索关键字"/>
+							<div class="search_btn" data-role="btn" href="javascript:void(0);" onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();">
+								搜索
+							</div>
+						</form>
+					</div>
+					<ul class="search_nav">
+						<foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+							<li>
+								<a href="{:U('Home/Goods/search',array('q'=>$wd))}" <if condition="$wd eq I('q')">class="ht"</if>>{$wd}</a>
+							</li>
+						</foreach>
+					</ul>
+				</div>
+				<div class="header2_right">
+					<img src="__PUBLIC__/yq/img/shoppingCart.png" />购物车
+				</div>
+				<div class="cle"></div>
+			</div>
+		</div>
+		<div class="nav">
+			<div class="w1300">
+				<dl class="all" id="navList">
+					<dt>所有商品分类</dt>
+					<dd>
+						<div class="nav_list">
+							<div class="txt1">
+								<img src="__PUBLIC__/yq/img/navImg1.png" class="nav_img1" /><span>母婴用品</span>
+							</div>
+							<div class="txt2">进口奶粉/纸尿裤/辅食</div>
+						</div>
+						<div class="nav_list">
+							<div class="txt1">
+								<img src="__PUBLIC__/yq/img/navImg2.png" class="nav_img2" /><span>美妆个护</span>
+							</div>
+							<div class="txt2">彩妆/面膜/洗护护理</div>
+						</div>
+						<div class="nav_list">
+							<div class="txt1">
+								<img src="__PUBLIC__/yq/img/navImg3.png" class="nav_img3" /><span>食品保健</span>
+							</div>
+							<div class="txt2">饼干糕点/酒水饮料/休闲零食</div>
+						</div>
+					</dd>
+				</dl>
+				<ul class="index_nav">
+					<li class="active">
+						<a class="menu-item active" target="_blank" href="/" style="overflow: visible;">首页 </a>
+					</li>
+					<tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 ORDER BY `sort` DESC limit 0,6" key="k" item='v'>
+						<li>
+							<a  class="menu-item" href="{$v[url]}"> {$v[name]} </a>
+						</li>
+					</tpshop>
+				</ul>
+			</div>
+		</div>
+		<div class="banner">
+			<img src="__PUBLIC__/yq/img/banner_02.png" />
+		</div>
+		<div class="content1">
+			<div class="w1300">
+				<p class="content_h1">新品上架 <span>极速发货 全球底价</span></p>
+				<div class="more">更多<span></span>&gt;</div>
+				<div class="content1_one">
+					<div class="img1 mar2">
+						<img src="__PUBLIC__/yq/img/contentImg1.png" class="content1_one_img1" />
+						<p>ptamil爱他美</p>
+						<p>德国原装原罐进口</p>
+						<div class="enter">进入会场</div>
+					</div>
+					<div class="img1">
+						<img src="__PUBLIC__/yq/img/contentImg2.png" class="content1_one_img2" />
+						<div class="content1_txt1">
+							￥48<div class="baoyou">包邮</div>
+						</div>
+						<div class="content1_txt2">爱薇牛 澳洲进口学生配方奶粉400克</div>
+						<div class="content1_txt2 red">
+							<div class="baoyou">促</div>满99元减10元
+						</div>
+						<div class="content1_txt3">
+							<div class="bor number">1</div>
+							<div class="direction">
+								<div class="bor">∧</div>
+								<div class="bor mar1">∨</div>
+							</div>
+							<div class="bor shopCart">加入购物车</div>
+						</div>
+						<div class="cle"></div>
+						<div class="dianpu">澳洲爱薇牛旗舰店</div>
+					</div>
+					<div class="img1">
+						<img src="__PUBLIC__/yq/img/contentImg2.png" class="content1_one_img2" />
+						<div class="content1_txt1">
+							￥48<div class="baoyou">包邮</div>
+						</div>
+						<div class="content1_txt2">爱薇牛 澳洲进口学生配方奶粉400克</div>
+						<div class="content1_txt2 red">
+							<div class="baoyou">促</div>满99元减10元
+						</div>
+						<div class="content1_txt3">
+							<div class="bor number">1</div>
+							<div class="direction">
+								<div class="bor">∧</div>
+								<div class="bor mar1">∨</div>
+							</div>
+							<div class="bor shopCart">加入购物车</div>
+						</div>
+						<div class="cle"></div>
+						<div class="dianpu">澳洲爱薇牛旗舰店</div>
+					</div>
+					<div class="img1">
+						<img src="__PUBLIC__/yq/img/contentImg2.png" class="content1_one_img2" />
+						<div class="content1_txt1">
+							￥48<div class="baoyou">包邮</div>
+						</div>
+						<div class="content1_txt2">爱薇牛 澳洲进口学生配方奶粉400克</div>
+						<div class="content1_txt2 red">
+							<div class="baoyou">促</div>满99元减10元
+						</div>
+						<div class="content1_txt3">
+							<div class="bor number">1</div>
+							<div class="direction">
+								<div class="bor">∧</div>
+								<div class="bor mar1">∨</div>
+							</div>
+							<div class="bor shopCart">加入购物车</div>
+						</div>
+						<div class="cle"></div>
+						<div class="dianpu">澳洲爱薇牛旗舰店</div>
+					</div>
+					<div class="img1">
+						<img src="__PUBLIC__/yq/img/contentImg2.png" class="content1_one_img2" />
+						<div class="content1_txt1">
+							￥48<div class="baoyou">包邮</div>
+						</div>
+						<div class="content1_txt2">爱薇牛 澳洲进口学生配方奶粉400克</div>
+						<div class="content1_txt2 red">
+							<div class="baoyou">促</div>满99元减10元
+						</div>
+						<div class="content1_txt3">
+							<div class="bor number">1</div>
+							<div class="direction">
+								<div class="bor">∧</div>
+								<div class="bor mar1">∨</div>
+							</div>
+							<div class="bor shopCart">加入购物车</div>
+						</div>
+						<div class="cle"></div>
+						<div class="dianpu">澳洲爱薇牛旗舰店</div>
+					</div>
+					<div class="img1">
+						<img src="__PUBLIC__/yq/img/contentImg2.png" class="content1_one_img2" />
+						<div class="content1_txt1">
+							￥48<div class="baoyou">包邮</div>
+						</div>
+						<div class="content1_txt2">爱薇牛 澳洲进口学生配方奶粉400克</div>
+						<div class="content1_txt2 red">
+							<div class="baoyou">促</div>满99元减10元
+						</div>
+						<div class="content1_txt3">
+							<div class="bor number">1</div>
+							<div class="direction">
+								<div class="bor">∧</div>
+								<div class="bor mar1">∨</div>
+							</div>
+							<div class="bor shopCart">加入购物车</div>
+						</div>
+						<div class="cle"></div>
+						<div class="dianpu">澳洲爱薇牛旗舰店</div>
+					</div>
+					<div class="cle"></div>
+				</div>
+			</div>
+		</div>
+		<div class="content2">
+			<div class="w1300">
+				<p class="content2_h1">
+					<img src="__PUBLIC__/yq/img/clock.png" class="content2_logo" />
+					<span>今日限时抢购</span>
+				</p>
+				<div class="content2_one">
+					<div class="content2_one_left">
+						<img src="__PUBLIC__/yq/img/contentImg2.png" />
+						<div>
+							<p class="content2_txt3">￥129.00</p>
+							<p class="content2_txt4"><span>1700+</span>个评论</p>
+							<div class="cle"></div>
+						</div>
+						<div class="content2_txt5">Swisse澳洲保健品<span>月见草</span>油软胶囊200粒</div>
+					</div>
+					<div class="content2_one_left">
+						<img src="__PUBLIC__/yq/img/contentImg2.png" />
+						<div>
+							<p class="content2_txt3">￥129.00</p>
+							<p class="content2_txt4"><span>1700+</span>个评论</p>
+							<div class="cle"></div>
+						</div>
+						<div class="content2_txt5">Swisse澳洲保健品<span>月见草</span>油软胶囊200粒</div>
+					</div>
+					<div class="content2_one_left">
+						<img src="__PUBLIC__/yq/img/contentImg2.png" />
+						<div>
+							<p class="content2_txt3">￥129.00</p>
+							<p class="content2_txt4"><span>1700+</span>个评论</p>
+							<div class="cle"></div>
+						</div>
+						<div class="content2_txt5">Swisse澳洲保健品<span>月见草</span>油软胶囊200粒</div>
+					</div>
+					<div class="content2_one_left">
+						<img src="__PUBLIC__/yq/img/contentImg2.png" />
+						<div>
+							<p class="content2_txt3">￥129.00</p>
+							<p class="content2_txt4"><span>1700+</span>个评论</p>
+							<div class="cle"></div>
+						</div>
+						<div class="content2_txt5">Swisse澳洲保健品<span>月见草</span>油软胶囊200粒</div>
+					</div>
+					<div class="content2_one_left">
+						<img src="__PUBLIC__/yq/img/contentImg2.png" />
+						<div>
+							<p class="content2_txt3">￥129.00</p>
+							<p class="content2_txt4"><span>1700+</span>个评论</p>
+							<div class="cle"></div>
+						</div>
+						<div class="content2_txt5">Swisse澳洲保健品<span>月见草</span>油软胶囊200粒</div>
+					</div>
+					<div class="content2_one_right">
+						<img src="__PUBLIC__/yq/img/content2_img1.png" class="content2_right_img" />
+						<p class="content2_txt1">今日限时购</p>
+						<p class="content2_txt2">每日10点更新</p>
+					</div>
+					<div class="cle"></div>
+				</div>
+			</div>
+		</div>
+		<div class="content3">
+			<div class="w1300">
+				<p class="content_h1">热卖商品 <span>极速发货 全球底价</span></p>
+				<div class="more mar3">更多<span></span>&gt;</div>
+				<div class="content3_one">
+					<div class="content3_one_t1">
+						<div class="content3_one_img1">
+							<div class="content3_img1_left">
+								<p class="content3_left_txt1">澳洲Swisse保健品<span>月见草</span>油胶囊200粒/瓶海外原装进口保健品</p>
+								<p class="content3_left_txt2">￥1088<span>￥1088</span></p>
+							</div>
+							<div class="content3_img1_right"><img src="__PUBLIC__/yq/img/contentImg2.png" /></div>
+							<div class="cle"></div>
+						</div>
+						<div class="content3_one_img1">
+							<div class="content3_one_content">
+								<img src="__PUBLIC__/yq/img/contentImg2.png" class="content3Img1" />
+								<img src="__PUBLIC__/yq/img/content2_img_03.png" class="content3Img2" />
+								<div style="clear: right;"></div>
+								<p class="content3_content_txt1">X'beino涂抹式水光针保湿精华 补水</p>
+								<p class="content3_left_txt2">￥196<span>￥196</span></p>
+							</div>
+						</div>
+						<div class="content3_one_img1">
+							<div class="content3_img1_left1">
+								<p class="content3_content_txt1">X'beino涂抹式水光针保湿精华 补水</p>
+								<p class="content3_left_txt2">￥196<span>￥196</span></p>
+							</div>
+							<div class="content3_img1_right1"><img src="__PUBLIC__/yq/img/contentImg2.png" /></div>
+						</div>
+						<div class="cle"></div>
+					</div>
+					<div class="content3_one_t2">
+						<div class="content3_one_img1">
+							<div class="content3_one_img2">
+								<div class="content3_img">
+									<img src="__PUBLIC__/yq/img/contentImg2.png" />
+								</div>
+								<div class="mar4">
+									<p class="content3_img_txt1">￥196</p>
+									<p class="content3_img_txt2">海外购</p>
+									<div class="cle"></div>
+								</div>
+								<p class="content3_content_txt2">澳佳宝 Blackmores<span> 黑蜂胶</span>软胶囊<span>1000mg</span> 220粒<span>澳佳宝 Blackmores</span></p>
+							</div>
+							<div class="content3_one_img2">
+								<div class="content3_img">
+									<img src="__PUBLIC__/yq/img/contentImg2.png" />
+								</div>
+								<div class="mar4">
+									<p class="content3_img_txt1">￥196</p>
+									<p class="content3_img_txt2">海外购</p>
+									<div class="cle"></div>
+								</div>
+								<p class="content3_content_txt2">澳佳宝 Blackmores<span> 黑蜂胶</span>软胶囊<span>1000mg</span> 220粒<span>澳佳宝 Blackmores</span></p>
+							</div>
+						</div>
+						<div class="content3_one_img1">
+							<div class="content3_one_img2">
+								<div class="content3_img">
+									<img src="__PUBLIC__/yq/img/contentImg2.png" />
+								</div>
+								<div class="mar4">
+									<p class="content3_img_txt1">￥196</p>
+									<p class="content3_img_txt2">海外购</p>
+									<div class="cle"></div>
+								</div>
+								<p class="content3_content_txt2">澳佳宝 Blackmores<span> 黑蜂胶</span>软胶囊<span>1000mg</span> 220粒<span>澳佳宝 Blackmores</span></p>
+							</div>
+							<div class="content3_one_img2">
+								<div class="content3_img">
+									<img src="__PUBLIC__/yq/img/contentImg2.png" />
+								</div>
+								<div class="mar4">
+									<p class="content3_img_txt1">￥196</p>
+									<p class="content3_img_txt2">海外购</p>
+									<div class="cle"></div>
+								</div>
+								<p class="content3_content_txt2">澳佳宝 Blackmores<span> 黑蜂胶</span>软胶囊<span>1000mg</span> 220粒<span>澳佳宝 Blackmores</span></p>
+							</div>
+						</div>
+						<div class="content3_one_img1">
+							<div class="content3_one_img2">
+								<div class="content3_img">
+									<img src="__PUBLIC__/yq/img/contentImg2.png" />
+								</div>
+								<div class="mar4">
+									<p class="content3_img_txt1">￥196</p>
+									<p class="content3_img_txt2">海外购</p>
+									<div class="cle"></div>
+								</div>
+								<p class="content3_content_txt2">澳佳宝 Blackmores<span> 黑蜂胶</span>软胶囊<span>1000mg</span> 220粒<span>澳佳宝 Blackmores</span></p>
+							</div>
+							<div class="content3_one_img2">
+								<div class="content3_img">
+									<img src="__PUBLIC__/yq/img/contentImg2.png" />
+								</div>
+								<div class="mar4">
+									<p class="content3_img_txt1">￥196</p>
+									<p class="content3_img_txt2">海外购</p>
+									<div class="cle"></div>
+								</div>
+								<p class="content3_content_txt2">澳佳宝 Blackmores<span> 黑蜂胶</span>软胶囊<span>1000mg</span> 220粒<span>澳佳宝 Blackmores</span></p>
+							</div>
+						</div>
+						<div class="cle"></div>
+					</div>
+				</div>
+				<p class="content3_h1">美妆个护 PERSONAL CARE</p>
+				<div class="content4">
+					<dl class="content4_list">
+						<dt>最热HOT</dt>
+						<dd class="listColor">面膜</dd>
+						<dd>口红</dd>
+						<dd>香水</dd>
+						<dd>洗面奶</dd>
+						<dd>面霜</dd>
+						<dd class="listColor">护手霜</dd>
+						<dd>雪花秀</dd>
+						<dd>香奈儿</dd>
+						<dd>眼霜</dd>
+						<dd>悦诗风吟</dd>
+						<dd class="listColor">迪奥</dd>
+						<dd>气垫</dd>
+						<dd>兰芝</dd>
+					</dl>
+					<div class="content4_new">
+						<div class="content4_txt1">
+							<p>国际美妆</p>
+							<p class="content4_txt2">低价正品</p>
+						</div>
+					</div>
+					<div class="content4_imgbox">
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+					</div>
+					<div class="content4_right">
+						<div class="content_right_h1">
+							<p class="h1_txt1">BRAND</p>
+							<p class="h1_txt2">美容护肤热卖品牌</p>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="cle"></div>
+						<div class="content4_right_bottom">
+							<div class="content4_bc1"></div>
+							<div class="content4_bc2"></div>
+							<div class="content4_bc2"></div>
+						</div>
+					</div>
+				</div>
+				<p class="content3_h2">母婴 BABY CARE</p>
+				<div class="content4">
+					<dl class="content4_list">
+						<dt>最热HOT</dt>
+						<dd class="listColor">奶粉</dd>
+						<dd>辅食</dd>
+						<dd>爱他美</dd>
+						<dd class="listColor">诺优能</dd>
+						<dd>特福芬</dd>
+						<dd class="listColor">纸尿裤</dd>
+						<dd>奶瓶</dd>
+						<dd>婴儿洗发</dd>
+						<dd>婴儿沐浴</dd>
+						<dd>儿童营养</dd>
+						<dd class="listColor">玩具</dd>
+						<dd>孕妇</dd>
+						<dd>书包</dd>
+					</dl>
+					<div class="content5_new">
+						<div class="content5_txt1">爆款不只5折&gt;</div>
+						<div class="content5_txt2">
+							<p>双11母婴会场</p>
+							<span>全球好货抢先加购</span>
+						</div>
+					</div>
+					<div class="content4_imgbox">
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+					</div>
+					<div class="content4_right">
+						<div class="content_right_h1">
+							<p class="h1_txt1">BRAND</p>
+							<p class="h2_txt2">最热品牌</p>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="cle"></div>
+						<div class="content4_right_bottom">
+							<div class="content4_bc1"></div>
+							<div class="content4_bc2"></div>
+							<div class="content4_bc2"></div>
+						</div>
+					</div>
+				</div>
+				<p class="content3_h3">营养保健 HEALTH PRODUCTS</p>
+				<div class="content6">
+					<dl class="content4_list">
+						<dt>最热HOT</dt>
+						<dd class="listColor1">瘦身</dd>
+						<dd>酵素</dd>
+						<dd>排毒</dd>
+						<dd>维生素C</dd>
+						<dd>清肠</dd>
+						<dd class="listColor1">补钙</dd>
+						<dd>蛋白粉</dd>
+						<dd>普丽普莱</dd>
+						<dd>健美生</dd>
+						<dd>澳佳宝</dd>
+						<dd class="listColor1">德国铁元</dd>
+						<dd>美国ON</dd>
+						<dd>Nature's Way</dd>
+					</dl>
+					<div class="content6_new">
+						<div class="content6_txt1">
+							<p>保健品专区</p>
+							<div class="k_more">查看更多&gt;</div>
+						</div>
+					</div>
+					<div class="content4_imgbox">
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+						<div class="content4_img">
+							<img src="__PUBLIC__/yq/img/contentImg1.png" />
+						</div>
+					</div>
+					<div class="content4_right">
+						<div class="content_right_h1">
+							<p class="h2_txt1">BRAND</p>
+							<p class="h2_txt2">最热品牌</p>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="content4_one">
+							<img src="__PUBLIC__/yq/img/content4_img.png" />
+							<div class="content4_one_txt">韩国LG旗下彩妆</div>
+						</div>
+						<div class="cle"></div>
+						<div class="content4_right_bottom">
+							<div class="content4_bc1"></div>
+							<div class="content4_bc2"></div>
+							<div class="content4_bc2"></div>
+						</div>
+					</div>
+				</div>
+				<img src="__PUBLIC__/yq/img/footerImg.png" class="footerImg" />
+			</div>
+		</div>
+		<div class="footer1">
+			<div class="w1300">
+				<div class="footer_content1">
+					<div class="fContent_one">
+						<img src="__PUBLIC__/yq/img/footerImg1.png" />
+						<p class="fContent_one_txt1">原装进口</p>
+						<p>100%原产国原包装进口</p>
+					</div>
+					<div class="fContent_one">
+						<img src="__PUBLIC__/yq/img/footerImg2.png" />
+						<p class="fContent_one_txt1">保税区发货</p>
+						<p>电子清关 保税区极速发货</p>
+					</div>
+					<div class="fContent_one">
+						<img src="__PUBLIC__/yq/img/footerImg3.png" />
+						<p class="fContent_one_txt1">海关监管</p>
+						<p>海关全程严格监管</p>
+					</div>
+					<div class="fContent_one">
+						<img src="__PUBLIC__/yq/img/footerImg4.png" />
+						<p class="fContent_one_txt1">正品保障</p>
+						<p>海外直采 100%确保正品</p>
+					</div>
+					<div class="cle"></div>
+				</div>
+				<div class="footer_content2">
+					<div class="tel_phone">
+						<div class="tel_txt1">
+							<p>4001133997</p>
+							<span>(62388780)</span>
+						</div>
+						<div class="tel_txt2">
+							周一到周五  09:00-17:00
+						</div>
+					</div>
+					<dl class="footer_list">
+						<dt>新手上路</dt>
+						<dd>购物入门</dd>
+						<dd>交易条款</dd>
+						<dd>新会员注册</dd>
+						<dd>常见问题</dd>
+						<dd>会员登录</dd>
+					</dl>
+					<dl class="footer_list">
+						<dt>订购说明</dt>
+						<dd>如何下单</dd>
+						<dd>订单查询</dd>
+					</dl>
+					<dl class="footer_list">
+						<dt>支付方式</dt>
+						<dd>在线支付</dd>
+					</dl>
+					<dl class="footer_list">
+						<dt>配送方式</dt>
+						<dd>快递运输</dd>
+					</dl>
+					<dl class="footer_list">
+						<dt>售后服务</dt>
+						<dd>退换货流程</dd>
+						<dd>退换货政策</dd>
+						<dd>退款说明</dd>
+					</dl>
+					<dl class="footer_list">
+						<dt>关于我们</dt>
+						<dd>联系我们</dd>
+						<dd>公司介绍</dd>
+						<dd>在线QQ</dd>
+					</dl>
+					<div class="erweima">
+						<img src="__PUBLIC__/yq/img/erweima.png" />
+						<p>扫描关注微信公众号</p>
+					</div>
+					<div class="cle"></div>
+				</div>
+			</div>
+		</div>
+		<div class="footer2">
+			<div class="w1300">
+				<p>&copy;经营方:<span>重庆五八八实力有限公司</span></p>
+				<p>-技术支持:<span>重庆有趣科技有限公司</span></p>
+			</div>
+		</div>
+	</body>
+</html>

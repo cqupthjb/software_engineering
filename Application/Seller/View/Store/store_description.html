@@ -1,0 +1,99 @@
+<include file="Public/min-header"/>
+<include file="Public/editor"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content" style="padding:0px 15px;">
+        <!-- Main content -->
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+                <if condition="get_column('store','store_id='.$_store_id,'role_id') gt 0">
+                    <a data-url="{:U('agreement')}" class="btn btn-default btn-agreement" href="javascript:void(0);"><i class="fa fa-question-circle"></i>入驻协议</a>
+                </if>
+            </div>
+            <div class="panel panel-default">           
+                <div class="panel-body ">   
+                    <include file="store_setting_navtabs"/>
+                    <!--表单数据-->
+                    <div style="margin: 20px 0;border-bottom: solid 1px #ccc">审核中/未通过/新增简介:</div>
+                    <form method="post" id="handlepost" action="{:U('Store/store_description')}">
+                        <input type="hidden" name="store_id" value="{$store_id}">
+                        <div style="width: 100%;margin: 10px 0">
+                            <textarea class="span12 ckeditor" id="goods_content" name="description" title="">{$reviewing}</textarea>
+                        </div>
+                        <div style="margin: 10px 0;">
+                            <input class="btn btn-primary" type="button" onclick="adsubmit()" value="提交审核">
+                        </div>
+                    </form>
+
+                    <notempty name="reviewed">
+                        <div style="margin: 20px 0;border-bottom: solid 1px #ccc">已审核简介:</div>
+                        <div>
+                            {$reviewed|htmlspecialchars_decode}
+                        </div>
+                    </notempty>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+function adsubmit(){
+	$('#handlepost').submit();
+}
+
+function goset(obj){
+	window.location.href = $(obj).attr('data-url');
+}
+
+function callback1(img_str){
+	$('input[name="store_logo"]').val(img_str);
+	$('#store_logo').attr('src',img_str);
+}
+
+function callback2(img_str){
+	$('input[name="store_banner"]').val(img_str);
+	$('#store_banner').attr('src',img_str);
+}
+</script>
+<script>
+    //Layer iframe窗
+    function pop_iframe(url,title){
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['100%', '100%'],
+            content: url
+        });
+    }
+    $('.btn-agreement').on('click',function () {
+        var url=$(this).data('url');
+        pop_iframe(url,'入驻协议');
+    })
+</script>
+<script>
+    $(function(){
+        var post_type = parseInt("{$store['postage_type']}");
+        check_postage_type(post_type);
+    })
+    //选择运费模式 显示隐藏邮费限制
+    function check_postage_type(type){
+        if (type == 1){
+            $('#postage-max').css('display','');
+            $('#postage').css('display','none');
+        }else{
+            $('#postage-max').css('display','none');
+            $('#postage').css('display','');
+        }
+    }
+    $(':radio[name="postage_type"]').on('click',function () {
+        var type = parseInt($(':radio[name="postage_type"]:checked').val());
+        check_postage_type(type);
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+<include file="Public/header"/>
+<if condition="isset($store) and !empty($store)">
+	<style>
+		.Wallet ul li{
+			width: 25%;
+		}
+	</style>
+	<else/>
+	<style>
+		.Wallet ul li{
+			width: 33.333333%;
+		}
+	</style>
+</if>
+
+<body>
+<div id="tbh5v0">
+	<div class="user_com">
+
+		<include file="Public/uer_topnav"/>
+
+		<div class="Wallet">
+			<!--<ul>
+                <li class="bain1"><strong>￥{$user['user_money']}元</strong><span>余额</span></li>
+                <li class="bain1"><strong>{$coupon_count}</strong><span>优惠券</span></li>
+                <li><strong>{$user['pay_points']}</strong><span>积分</span></li>
+            </ul>-->
+			<if condition="isset($store) and !empty($store)">
+				<ul>
+					<li class="bain1">
+						<strong>￥{:floatval($user['user_money'])}元</strong>
+						<span><a href="{:U('points')}" style="height:auto;margin-left:0px;">余额</a></span>
+					</li>
+					<li class="bain1">
+						<strong>￥{:floatval($user['card_money'])}元</strong>
+						<span><a href="{:U('UserCard/index')}" style="height:auto;margin-left:0px;">充值金额</a></span>
+					</li>
+					<li class="bain1">
+						<strong>￥{:floatval($store['store_money'])}元</strong>
+						<span><a href="{:U('store_points')}" style="height:auto;margin-left:0px;">店铺资金</a></span>
+					</li>
+					<li><strong>￥
+						<notempty name="sales_volume">
+							{:floatval($sales_volume)}
+							<else/>
+							0.00
+						</notempty>
+						元</strong>
+						<span><a href="{:U('Distribut/index')}" style="height:auto;margin-left:0px;">慈善贡献奖</a></span>
+					</li>
+				</ul>
+				<else/>
+				<ul>
+					<li class="bain1">
+						<strong>￥{:floatval($user['user_money'])}元</strong>
+						<span><a href="{:U('points')}" style="height:auto;margin-left:0px;">余额</a></span>
+					</li>
+					<li class="bain1">
+						<strong>￥{:floatval($user['card_money'])}元</strong>
+						<span><a href="{:U('UserCard/index')}" style="height:auto;margin-left:0px;">充值金额</a></span><!--{:U('card_money')}-->
+					</li>
+					<li><strong>￥
+						<notempty name="sales_volume">
+							{:floatval($sales_volume)}
+							<else/>
+							0.00
+						</notempty>
+						元</strong>
+						<span><a href="{:U('Distribut/index')}" style="height:auto;margin-left:0px;">红利</a></span>
+					</li>
+					<!--<li ><strong>￥{$zmoney|default='0.00'}元</strong><span><a href="{:U('User/rebate')}" style="margin-left:0px;">我的返利</a></span></li>-->
+				</ul>
+			</if>
+
+			<a href="{:U('User/account')}"><em class="Icon Icon1"></em><dl><dt>我的钱包</dt><dd style="color:#aaaaaa;">查看我的钱包</dd></dl></a>
+<!--
+			<a href="{:U('Distribut/qr_code')}"><em class="Icon" style="background: url(__STATIC__/images/qrcode.png) 0 no-repeat;background-size: 70% 70%;"></em><dl><dt>我的二维码</dt><dd style="color:#aaaaaa;">查看我的二维码</dd></dl></a>
+-->
+
+			<if condition="isset($store) and !empty($store)">
+				<if condition="$store['role_id'] eq 5">
+					<a href="{:U('storeReceiptCode')}">
+						<em class="Icon" style="background: url(__STATIC__/images/qrcode.png) 0 no-repeat;background-size: 70% 70%;"></em>
+						<dl>
+							<dt>店铺收款码</dt>
+							<dd style="color:#aaaaaa;">店铺收款码</dd>
+						</dl>
+					</a>
+					<a href="{:U('Distribut/qr_code')}">
+						<em class="Icon" style="background: url(__STATIC__/images/qrcode.png) 0 no-repeat;background-size: 70% 70%;"></em>
+						<dl>
+							<dt>我的二维码</dt>
+							<dd style="color:#aaaaaa;">查看我的二维码</dd>
+						</dl>
+					</a>
+					<else/>
+					<a href="{:U('storeQrCode')}">
+						<em class="Icon" style="background: url(__STATIC__/images/qrcode.png) 0 no-repeat;background-size: 70% 70%;"></em>
+						<dl>
+							<dt>推广{:get_role_name(get_next_role_id($store['role_id']))}二维码</dt>
+							<dd style="color:#aaaaaa;">推广{:get_role_name(get_next_role_id($store['role_id']))}二维码</dd>
+						</dl>
+					</a>
+				</if>
+				<else/>
+				<a href="{:U('Distribut/qr_code')}"><em class="Icon" style="background: url(__STATIC__/images/qrcode.png) 0 no-repeat;background-size: 70% 70%;"></em><dl><dt>我的二维码</dt><dd style="color:#aaaaaa;">查看我的二维码</dd></dl></a>
+			</if>
+
+		</div>
+
+
+		<div class="Wallet">
+			<a href="{:U('User/order_list')}" ><em class="Icon Icon2"></em><dl class="b"><dt>商品订单</dt><dd>查看商品订单</dd></dl></a>
+			<!--<a href="{:U('User/coupon')}"><em class="Icon Icon3"></em><dl class="b"><dt>我的优惠券</dt><dd>&nbsp;</dd></dl></a>-->
+			<a href="{:U('User/comment')}"><em class="Icon Icon4"></em><dl class="b"><dt>我的评价</dt><dd>查看评价</dd></dl></a>
+			<a href="{:U('User/scan_order_list')}" ><em class="Icon Icon2"></em><dl class="b"><dt>扫码订单</dt><dd>查看扫码订单</dd></dl></a>
+
+			<a href="{:U('Store/collect_list')}"><em class="Icon Icon10"></em><dl class="b"><dt>店铺收藏</dt><dd>&nbsp;</dd></dl></a>
+			<!--<a href="{:U('User/withdrawals')}"><em class="Icon Icon1"></em><dl><dt class="b">申请提现</dt><dd>&nbsp;</dd></dl></a>-->
+			<a href="{:U('User/points')}"><em class="Icon Icon1"></em><dl class="b"><dt >资金提现管理</dt><dd>&nbsp;</dd></dl></a>
+
+			<a href="{:U('ActivityCard/my_card')}">
+				<em class="Icon" style="background: url(__STATIC__/images/activity.png) 0 no-repeat;background-size: 75% 75%;"></em>
+				<dl class="b"><dt>我参加的活动</dt><dd>&nbsp;</dd></dl>
+			</a>
+			<a href="{:U('UserCard/index')}">
+				<em class="Icon" style="background: url(__STATIC__/images/activity.png) 0 no-repeat;background-size: 75% 75%;"></em>
+				<dl><dt class="b">会员卡激活</dt><dd>&nbsp;</dd></dl>
+			</a>
+		</div>
+		<div class="Wallet">
+			<a href="{:U('Distribut/index')}"><em class="Icon Icon1"></em><dl class="b"><dt>发展收益</dt><dd>&nbsp;</dd></dl></a>
+			<a href="/index.php?m=Mobile&c=NewJoin&a=index&first_leader=184467&iskaidian=1&end_time=1536118643">
+			  <em class="Icon Icon11"></em><dl class="b"><dt>商家入驻</dt><dd>&nbsp;</dd></dl>
+			</a>
+			<a href="/index.php?m=Mobile&c=NewJoin&a=wholesaler_register">
+				<em class="Icon Icon11"></em><dl class="b"><dt>批发商入驻</dt><dd>&nbsp;</dd></dl>
+			</a>
+			<a href="{:U('User/address_list')}"><em class="Icon Icon5"></em><dl class="b"><dt>地址管理</dt><dd>&nbsp;</dd></dl></a>
+			<!--<a href="{:U('User/points')}"><em class="Icon Icon6"></em><dl class="b"><dt>我的积分</dt><dd>&nbsp;</dd></dl></a>-->
+			<a href="{:U('User/message_list')}"><em class="Icon Icon7"></em><dl class="b"><dt>我的留言</dt><dd>&nbsp;</dd></dl></a>
+			<!--<a href="{:U('User/return_goods_list')}"><em class="Icon Icon11"></em><dl><dt>售后服务</dt><dd>&nbsp;</dd></dl></a>-->
+			
+			<a href="{:U('User/myNews')}"><em class="Icon Icon4" style="margin-top:6px;"></em><dl class="b"><dt>我的消息</dt><dd>查看消息</dd></dl></a>
+			<!--<a href="javascript:phone({$shop_config['shop_info_phone']})"><em class="Icon Icon10" style="margin-top:10px;"></em><dl><dt>联系我们</dt><dd>&nbsp;</dd></dl></a>-->
+			<if condition="$about_type eq 0 and !empty($about_me)">
+				<a href="{:U('User/about_me')}"><em class="Icon Icon11"></em><dl><dt>关于我们</dt><dd>&nbsp;</dd></dl></a>
+				<elseif condition="$about_type eq 1 and !empty($about_link)"/>
+				<a href="{$about_link}"><em class="Icon Icon11"></em><dl><dt>关于我们</dt><dd>&nbsp;</dd></dl></a>
+			</if>
+		</div>
+		<div class="Wallet">
+			<a href="javascript:void(0);" data-href="{:U('User/logout')}" class="logout">
+				<em class="Icon Icon8"></em>
+				<dl><dt>
+					<if condition="strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger')">
+						清除缓存
+						<else/>
+						注销登录
+					</if>
+				</dt></dl>
+			</a>
+		</div>
+	</div>
+	<include file="Public/footer"/>
+	<!--<script>
+        $(function () {
+			apiready = function(){
+                change_header();
+			}
+            change_header();
+        })
+        //region 状态栏颜色
+		var change_header = function () {
+            var css = 'background-color:#EC8816;';
+            var bar = {
+                style: 'light',
+                color: '#EC8816'
+            };
+            api.execScript({
+                name : 'root',  //由于直接在index上使用openFrame，因此只需name root。script:fun_name({param1:value1,param2:value2})
+                script: 'change_header('+ JSON.stringify({css:css,bar:bar}) +')'
+            });
+        }
+        //endregion
+	</script>-->
+</div>
+<include file="Public/footer_nav"/>
+<script>
+    function phone(data){
+        window.location.href = 'tel://' + data;
+    }
+</script>
+<!--微信上传图片-->
+<include file="Public/upload_image"/>
+<!--{/*<if condition="strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger')">
+	<include file="Public/upload_image"/>
+	<else/>
+	&lt;!&ndash;apicloud&ndash;&gt;
+	<script type="text/javascript">
+        apiready = function(){
+            //var version = api.version;  //比如： 1.0.0
+			//api.alert({msg:version});
+        };
+        $('.head_pic').on('click',function () {
+            showAction();
+        })
+
+		// 上传图片
+		function showAction(){
+			api.actionSheet({
+				title: '上传头像',
+				cancelTitle: '取消',
+				buttons: ['拍照','从手机相册选择']
+			}, function(ret, err) {
+				if (ret) {
+					getPicture(ret.buttonIndex);
+				}
+			});
+		}
+		function getPicture(sourceType) {
+			if(sourceType==1){ // 拍照
+				api.getPicture({
+					sourceType: 'camera',
+					encodingType: 'jpg',
+					mediaValue: 'pic',
+					allowEdit: false,
+					destinationType: 'url',
+					quality: 90,
+					saveToPhotoAlbum: true
+				}, function(ret, err) {
+                    //ajax_upload(ret.base64Data);
+                    //ajax_upload(ret.data);
+                    ajax_upload(ret);
+				});
+			} else if(sourceType==2){ // 从相册中选择
+                api.getPicture({
+                    sourceType: 'library',
+                    encodingType: 'jpg',
+                    mediaValue: 'pic',
+                    destinationType: 'url',//'base64',//
+                    allowEdit: true,
+                    //quality: 50,
+                    targetWidth:100,
+                    targetHeight:100,
+                    saveToPhotoAlbum: true
+                }, function(ret, err) {
+				    //api.alert({msg:JSON.stringify(ret)});
+					if (ret) {
+                        ajax_upload(ret);
+					} else {
+						alert(JSON.stringify(err));
+					}
+				});
+			}
+		}
+
+		function ajax_upload(ret){
+		    var url = "{:U('App/Index/upload_mobile','','',true)}";
+		    api.alert({msg:JSON.stringify(ret)});
+            api.ajax({
+                type:'post',
+                url:url,
+                dataType:'json',
+                returnAll:false,
+                data:{
+                    values:{file:ret.data},
+                    files: {file:ret.data}
+				},
+            },function(data,err){
+                api.alert({msg:JSON.stringify(data)})
+                if(data.hasOwnProperty('path')){
+                    $('.head_pic').attr('src',data.path);
+                }else{
+                    api.alert(data.msg);
+                }
+            })
+		}
+
+	</script>
+</if>*/}-->
+<script>
+    //region 退出登录
+    $('.logout').on('click',function () {
+        //清除登录信息
+        window.localStorage.setItem('wx_unionid','');
+        window.localStorage.setItem('wx_openid','');
+        //退出
+        location.href = $(this).data('href');
+    })
+    //endregion
+</script>
+</body>
+</html>

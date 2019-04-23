@@ -1,0 +1,134 @@
+<include file="Public/min-header"/>
+<style>
+    ul.group-list {
+        width: 96%;
+        min-width: 1000px;
+        margin: auto 5px;
+        list-style: disc outside none;
+    }
+
+    ul.group-list li {
+        white-space: nowrap;
+        float: left;
+        width: 150px;
+        height: 25px;
+        padding: 3px 5px;
+        list-style-type: none;
+        list-style-position: outside;
+        border: 0px;
+        margin: 0px;
+    }
+
+    th.title {
+        background: #F3F3F3;
+        border-bottom: 1px solid #D7D7D7;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+</style>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default"
+                   data-original-title="返回分销角色列表"><i class="fa fa-reply"></i></a>
+                <a href="javascript:;" class="btn btn-default"
+                   data-url="http://www.tp-shop.cn/Doc/Index/article/id/1002/developer/user.html"
+                   onclick="get_help(this)"><i class="fa fa-question-circle"></i> 帮助</a>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i> {$row ? '编辑' : '新增'}折扣</h3>
+                </div>
+                <div class="panel-body ">
+                    <form action="{:U('discountSave')}" id="roleform" method="post">
+                        <notempty name="row.discount_id">
+                            <input type="hidden" name="discount_id" value="{$row.discount_id}">
+                        </notempty>
+                        <div class="form-group">
+                            <label for="name">折扣名称</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="折扣名称" value="{$row.name|default=''}">
+                        </div>
+                        <div class="form-group">
+                            <label for="rate">返佣率</label>
+                            <input type="number" class="form-control" name="rate" id="rate" placeholder="返利比例" max="100" min="0" value="{$row.rate|default='0'}">
+                            <span class="help-block">例如：9.2折，返佣率就为： 8%</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="platform_rate">平台返利比例</label>
+                            <input type="text" class="form-control" name="platform_rate" id="platform_rate" placeholder="返利比例" max="100" min="0" value="{$row.platform_rate|default='0'}">
+                            <span class="help-block">百分比</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="province_rate">省级返利比例</label>
+                            <input type="text" class="form-control" name="province_rate" id="province_rate" placeholder="返利比例" max="100" min="0" value="{$row.province_rate|default='0'}">
+                            <span class="help-block">百分比</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="city_rate">地级返利比例</label>
+                            <input type="text" class="form-control" name="city_rate" id="city_rate" placeholder="返利比例" max="100" min="0" value="{$row.city_rate|default='0'}">
+                            <span class="help-block">百分比</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="county_rate">县级返利比例</label>
+                            <input type="text" class="form-control" name="county_rate" id="county_rate" placeholder="返利比例" max="100" min="0" value="{$row.county_rate|default='0'}">
+                            <span class="help-block">百分比</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="distributor_rate">经销商返利比例</label>
+                            <input type="text" class="form-control" name="distributor_rate" id="distributor_rate" placeholder="返利比例" max="100" min="0" value="{$row.distributor_rate|default='0'}">
+                            <span class="help-block">百分比</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="shop_rate">店铺返利比例</label>
+                            <input type="text" class="form-control" name="shop_rate" id="shop_rate" placeholder="返利比例" max="100" min="0" value="{$row.shop_rate|default='0'}">
+                            <span class="help-block">百分比</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="user_rate">用户返利比例</label>
+                            <input type="text" class="form-control" name="user_rate" id="user_rate" placeholder="返利比例" max="100" min="0" value="{$row.user_rate|default='0'}">
+                            <span class="help-block">百分比</span>
+                        </div>
+                        <button type="submit" class="btn btn-default">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(":checkbox[cka]").click(function () {
+            var $cks = $(":checkbox[ck='" + $(this).attr("cka") + "']");
+            if ($(this).is(':checked')) {
+                $cks.each(function () {
+                    $(this).prop("checked", true);
+                });
+            } else {
+                $cks.each(function () {
+                    $(this).removeAttr('checked');
+                });
+            }
+        });
+    });
+
+    function choosebox(o) {
+        var vt = $(o).is(':checked');
+        if (vt) {
+            $('input[type=checkbox]').prop('checked', vt);
+        } else {
+            $('input[type=checkbox]').removeAttr('checked');
+        }
+    }
+
+    function roleSubmit() {
+        if ($('#role_name').val() == '') {
+            layer.alert('角色名称不能为空', {icon: 2});
+            return false;
+        }
+        $('#roleform').submit();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content" style="padding:0px 15px;">
+        <!-- Main content -->
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+                <if condition="get_column('store','store_id='.$_store_id,'role_id') gt 0">
+                    <a data-url="{:U('agreement')}" class="btn btn-default btn-agreement" href="javascript:void(0);"><i class="fa fa-question-circle"></i>入驻协议</a>
+                </if>
+                <!--<a onclick="get_help(this)" data-url="http://www.tp-shop.cn/Doc/Indexbbc/article/id/1064/developer/user.html" class="btn btn-default" href="javascript:void(0);"><i class="fa fa-question-circle"></i> 帮助</a>-->
+            </div>
+            <div class="panel panel-default">           
+                <div class="panel-body ">   
+                    <include file="store_setting_navtabs"/>
+                    <!--表单数据-->
+                    <form method="post" id="handlepost" action="{:U('Store/setting_save')}">                    
+                        <!--通用信息-->
+                    <div class="tab-content" style="padding:20px 0px;">                 	  
+                        <div class="tab-pane active" id="tab_tongyong">                           
+                            <table class="table table-bordered">
+                                <tbody> 
+                                <!--<tr><td>店铺等级：</td>-->
+                                	<!--<td colspan="2">{$store.grade_name}</td>-->
+                                <!--</tr>-->
+                                <tr>
+                                    <td>
+                                        店铺名称：
+                                    </td>
+                                	<td><input type="text" name="store_name" value="{$store.store_name}"></td>
+                                	<td></td>
+                                </tr>
+                                <if condition="in_array($_seller['role_id'],array(5,0))">
+                                    <tr>
+                                        <td>主营商品：</td>
+                                        <td><textarea rows="4" name="store_zy" cols="80" >{$store.store_zy}</textarea></td>
+                                        <td class="text-warning">关键字最多可输入50字，请用","进行分隔，例如”男装,女装,童装”</td>
+                                    </tr>
+                                </if>
+
+                                <tr>
+                                    <td>店铺LOGO：</td>
+                                    <td><div style="width: 200px;height: 80px;">
+                                    		 <img height="80" id="store_logo" src="<empty name='store.store_logo'><else/>{$store.store_logo}</empty>" nc_type="store_label">
+         								 </div>
+         								 <input type="hidden" name="store_logo" value="{$store.store_logo}">
+                         		 		<input type="button" class="button" onClick="GetUploadify(1,'store_logo','seller','callback1')"  value="上传  logo"/>
+                                   </td>
+                                	<td  class="text-warning">建议使用宽60像素-高60像素内的PNG透明图片；点击下方"提交"按钮后生效。</td>
+                                </tr>
+
+                                <if condition="in_array($_seller['role_id'],array(5,0))">
+                                    <tr>
+                                        <td>店铺banner：</td>
+                                        <td><div style="height:100px;">
+                                            <img height="100" id="store_banner" src="<empty name='store.store_banner'>__PUBLIC__/images/not_adv.jpg<else/>{$store.store_banner}</empty>" nc_type="store_label">
+                                        </div>
+                                            <input type="hidden" name="store_banner" value="{$store.store_banner}">
+                                        </td>
+                                        <td >
+                                            <span class="text-warning">建议使用宽1000像素*高250像素的图片；点击下方"提交"按钮后生效。</span>
+                                            <p><input type="button" class="button" onClick="GetUploadify(1,'store_banner','seller','callback2')"  value="上传banner"/></p>
+                                            <p>banner背景颜色<input class="form-control" name="bgcolor" type="color" value="{$info.bgcolor}" style="width:200px;"/></p>
+                                        </td>
+                                    </tr>
+
+                                    <!--region 店铺分类绑定-->
+                                    <tr>
+                                        <td>店铺分类：</td>
+                                        <td>
+                                            <select name="sc_id" id="" class="form-control">
+                                                <volist name="store_class" id="vo">
+                                                    <option value="{$vo.sc_id}" {$vo['sc_id'] == $store['sc_id'] ? 'selected':''}>{$vo.sc_name}</option>
+                                                </volist>
+                                            </select>
+                                           <!-- <if condition="$store.sc_id gt 0">
+                                                {:get_column('store_class',array('sc_id'=>$store['sc_id']),'sc_name')}
+                                                <else/>
+                                                <select name="sc_id" id="" class="form-control">
+                                                    <volist name="store_class" id="vo">
+                                                        <option value="{$vo.sc_id}">{$vo.sc_name}</option>
+                                                    </volist>
+                                                </select>
+                                            </if>-->
+                                        </td>
+                                        <td  class="text-warning">绑定店铺分类才能在店铺街中查看</td>
+                                    </tr>
+                                    <!--endregion 店铺分类绑定-->
+                                    <if condition="isset($discount_list) and !empty($discount_list)">
+                                        <tr>
+                                            <td>店铺折扣选择</td>
+                                            <td>
+                                                <select name="discount_id" class="form-control">
+                                                    <volist name="discount_list" id="vo">
+                                                        <option value="{$vo.discount_id}" {$vo['discount_id'] == $store['discount_id'] ? 'selected':''}>{$vo.name}</option>
+                                                    </volist>
+                                                </select>
+                                            </td>
+                                            <td  class="text-warning">选择分销折扣方式</td>
+                                        </tr>
+                                    </if>
+                                </if>
+                                <tr>
+                                    <td>店铺电话：</td>
+                                    <td ><input type="text"  pattern="^\d{11,}$" title="只能输入数字"  class="input-sm" name="store_phone" value="{$store.store_phone}"></td>
+                                    <td class="text-warning">用于店铺客服电话，和订单通知，请填写手机号</td>
+                                </tr>
+                                <tr>
+                                    <td>店铺地址：</td>
+                                    <td colspan="2">
+                                        <div class="col-xs-2">
+                                            <select onchange="get_city(this)" id="province" name="province_id" class="form-control" style="margin-left:-15px;">
+                                                <option  value="0">选择省份</option>
+                                                <volist name="province" id="vo">
+                                                    <option value="{$vo.id}" <if condition="$store[province_id] eq $vo[id]">selected</if>>{$vo.name}</option>
+                                                </volist>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <select onchange="get_area(this)" id="city" name="city_id" class="form-control">
+                                                <option value="0">选择城市</option>
+                                                <volist name="city" id="vo">
+                                                    <option value="{$vo.id}" <if condition="$store[city_id] eq $vo[id]">selected</if>>{$vo.name}</option>
+                                                </volist>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <select id="district" name="district" class="form-control">
+                                                <option value="0">选择区域</option>
+                                                <volist name="area" id="vo">
+                                                    <option value="{$vo.id}" <if condition="$store[district] eq $vo[id]">selected</if>>{$vo.name}</option>
+                                                </volist>
+                                            </select>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>详细地址：</td>
+                                    <td colspan="2">
+                                        <div class="col-xs-5">
+                                            <input type="text" placeholder="详细地址" class="form-control" name="store_address" value="{$store.store_address}">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <input type="text" placeholder="纬度" class="form-control" name="store_lat" value="{$store.store_lat|default=''}">
+                                        </div>
+                                        <div class="col-xs-2">
+                                            <input type="text" placeholder="精度" class="form-control" name="store_lng" value="{$store.store_lng|default=''}">
+                                        </div>
+                                        <div class="col-xs-1">
+                                            <button type="button" id="get_address" class="btn btn-primary" data-toggle="modal" data-target="#map">选取经纬度</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <if condition="in_array($_seller['role_id'],array(5,0))">
+                                    <!--<tr>
+                                        <td>客服QQ：</td>
+                                        <td colspan="2"><input type="number" name="store_qq" class="input-sm" value="{$store.store_qq}"></td>
+                                    </tr>-->
+                                    <!--<tr>
+                                        <td>阿里旺旺：</td>
+                                        <td colspan="2"><input type="text" name="store_aliwangwang" class="input-sm" value="{$store.store_aliwangwang}"></td>
+                                    </tr>-->
+
+                                    <tr>
+                                        <td>满多少免运费：</td>
+                                        <td><input type="text" class="form-control" name="store_free_price" value="{$store.store_free_price}" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" style="width: 100px;"></td>
+                                        <td class="text-warning">超出该金额免运费，大于0才表示该值有效</td>
+                                    </tr>
+                                    <tr>
+                                        <td>运费模式：</td>
+                                        <td>
+                                            <label for="all_postage"><input type="radio" id="all_postage" name="postage_type" value="0" checked>统一运费</label>
+                                            <label for="one_postage"><input type="radio" id="one_postage" name="postage_type" value="1" {$store['postage_type'] == 1 ? 'checked':''}>单品运费</label>
+                                        </td>
+                                        <td class="text-warning">单品邮费：每件商品单独设置邮费，单品实际邮费=每个不同单品邮费累加之和</td>
+                                    </tr>
+                                    <tr id="postage">
+                                        <td>统一运费：</td>
+                                        <td>
+                                            <input type="text" class="form-control" name="postage" value="{$store.postage|default=0}" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" style="width: 100px;">
+                                        </td>
+                                        <td class="text-warning">即此店铺全场商品需支付的邮费</td>
+                                    </tr>
+                                    <tr id="postage-max" style="display: none;">
+                                        <td>运费限制：</td>
+                                        <td>
+                                            <input type="text" class="form-control" name="postage_max" value="{$store.postage_max|default=0}" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" style="width: 100px;">
+                                        </td>
+                                        <td class="text-warning">单品邮费时可以设置的限制：当运费超出此金额时，此金额作为运费，0为不限制</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SEO关键字：</td>
+                                        <td><input type="text" class="form-control" name="seo_keywords" value="{$store.seo_keywords}"></td>
+                                        <td class="text-warning">用于店铺搜索引擎的优化，关键字之间请用英文逗号分隔</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>SEO店铺描述：</td>
+                                        <td colspan="2">
+                                            <textarea rows="4" cols="80" name="seo_description">{$store.seo_description}</textarea>
+                                        </td>
+                                    </tr>
+                                </if>
+
+                                </tbody> 
+                                <tfoot>
+                                	<tr>
+                                	<td><input type="hidden" name="store_id" value="{$store.store_id}"></td>
+                                	<td></td>
+                                	<td class="text-right"><input class="btn btn-primary" type="button" onclick="adsubmit()" value="保存"></td>
+                                	</tr>
+                                </tfoot>                               
+                                </table>
+                        </div>                           
+                    </div>              
+			    	</form><!--表单数据-->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!--模态框  百度地图-->
+<div class="modal fade" id="map" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">百度地图</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success" role="alert">
+                    输入正确地址后->点击地图红点->获取坐标
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <!--头部输入框-->
+                <div class="row form-group">
+                    <div class="col-xs-6"><input type="text" id="suggestId" class="form-control" value="" placeholder="请输入具体地址"  /></div>
+                    <div class="col-xs-2"><input type='text' name='lng' id='lng' class="form-control" value="" placeholder="经度"/></div>
+                    <div class="col-xs-2"><input type='text' id='lat' name='lat' class="form-control" value="" placeholder="纬度"/></div>
+                    <div class="col-xs-1"><button class="btn btn-minw btn-primary" onclick="showInfo();" data-dismiss="modal">确认</button></div>
+                </div>
+                <!--头部输入框-->
+                <!--地图容器-->
+                <div class="form-group">
+                    <div id="searchResultPanel" class="col-xs-6" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none; z-index: 9;"></div>
+                    <div id="allmap" class="col-xs-12" style="height:390px;"></div>
+                </div>
+                <!--地图容器-->
+                <style>
+                    .tangram-suggestion{z-index:9999;}/*不设置层级为9999，地址栏选择无法正常显示*/
+                </style>
+                <script src="http://api.map.baidu.com/api?v=2.0&ak=Mp7Zcf70EDxR4Of5ppSR7NmCFRKUVN7i&s=1" type="text/javascript"></script>
+                <script type="text/javascript" src="__LIBS__/jquery-mousewheel/jquery-mousewheel.js"></script>
+                <script type="text/javascript">
+                    // 百度地图API功能
+                    var map = new BMap.Map("allmap");//allmap
+                    map.centerAndZoom(new BMap.Point( "{$lng|default=''}" , "{$lat|default=''}" ), 15);
+                    var point = new BMap.Point( "{$lng|default=''}" , "{$lat|default=''}" );
+                    map.centerAndZoom(point, 15);
+                    var marker = new BMap.Marker(point);  // 创建标注
+                    map.clearOverlays();
+                    map.addOverlay(marker);              // 将标注添加到地图中
+                    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+
+                    //百度坐标转 其它坐标（腾讯可用）
+                     function BdmapEncryptToMapabc(bd_lat,bd_lon)
+                     {
+                         var point=new Object();
+                         var x_pi = Math.PI * 3000.0 / 180.0;
+                         var x = new Number(bd_lon - 0.0065);
+                         var y = new Number(bd_lat - 0.006);
+                         var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
+                         var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);
+                         var Mars_lon = z * Math.cos(theta);
+                         var Mars_lat = z * Math.sin(theta);
+                         //point.lng=Mars_lon;
+                         //point.lat=Mars_lat;
+                         point.lng=parseFloat(Mars_lon);
+                         point.lng=point.lng.toFixed(6);
+                         point.lat=parseFloat(Mars_lat);
+                         point.lat=point.lat.toFixed(6);
+                         return point;
+                     }
+
+                    //将数据传回父页面
+                    function showInfo(e) {
+                        var lat_lng = BdmapEncryptToMapabc($('#lat').val(),$('#lng').val());
+                        $('input[name="store_address"]').val( $('#suggestId').val()); //地址
+//                        $('input[name="store_lat"]').val( $('#lat').val());       //纬度
+//                        $('input[name="store_lng"]').val( $('#lng').val());       //经度
+                        $('input[name="store_lat"]').val( lat_lng.lat);       //纬度
+                        $('input[name="store_lng"]').val( lat_lng.lng);       //经度
+                    }
+                    function showPoint(e) {
+                        $('#lat').val(e.point.lat);
+                        $('#lng').val(e.point.lng);
+                        var p = new BMap.Point(e.point.lng,e.point.lat);
+                        var mk = new BMap.Marker(p);
+                        map.clearOverlays();
+                        map.addOverlay(mk);
+                        mk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                    }
+                    map.enableScrollWheelZoom(true);
+                    map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+                    map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+                    map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+                    map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+                    map.addEventListener("click", showPoint);
+                    function G(id) {
+                        return document.getElementById(id);
+                    }
+
+                    var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+                        {"input": "suggestId"
+                            , "location": map
+                        });
+
+                    ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+                        var str = "";
+                        var _value = e.fromitem.value;
+                        var value = "";
+                        if (e.fromitem.index > -1) {
+                            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                        }
+                        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+                        value = "";
+                        if (e.toitem.index > -1) {
+                            _value = e.toitem.value;
+                            value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                        }
+                        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+                        G("searchResultPanel").innerHTML = str;
+                    });
+
+                    var myValue;
+                    ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+                        var _value = e.item.value;
+                        myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+                        G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+                        setPlace();
+                    });
+
+                    //设置地址
+                    function setPlace() {
+                        map.clearOverlays();    //清除地图上所有覆盖物
+                        var options = {
+                            onSearchComplete: function() {
+                                var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+                                map.centerAndZoom(pp, 18);
+                                map.addOverlay(new BMap.Marker(pp));    //添加标注
+                            }
+                        };
+                        var local = new BMap.LocalSearch(map,options);
+                        local.search(myValue);
+                    }
+                </script>
+
+            </div>
+            <div class="modal-footer form-group">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--模态框  百度地图-->
+<script>
+function adsubmit(){
+	$('#handlepost').submit();
+}
+
+function goset(obj){
+	window.location.href = $(obj).attr('data-url');
+}
+
+function callback1(img_str){
+	$('input[name="store_logo"]').val(img_str);
+	$('#store_logo').attr('src',img_str);
+}
+
+function callback2(img_str){
+	$('input[name="store_banner"]').val(img_str);
+	$('#store_banner').attr('src',img_str);
+}
+</script>
+<script>
+    //Layer iframe窗
+    function pop_iframe(url,title){
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['100%', '100%'],
+            content: url
+        });
+    }
+    $('.btn-agreement').on('click',function () {
+        var url=$(this).data('url');
+        pop_iframe(url,'入驻协议');
+    })
+</script>
+<script>
+    $(function(){
+        var post_type = parseInt("{$store['postage_type']}");
+        check_postage_type(post_type);
+    })
+    //选择运费模式 显示隐藏邮费限制
+    function check_postage_type(type){
+        if (type == 1){
+            $('#postage-max').css('display','');
+            $('#postage').css('display','none');
+        }else{
+            $('#postage-max').css('display','none');
+            $('#postage').css('display','');
+        }
+    }
+    $(':radio[name="postage_type"]').on('click',function () {
+        var type = parseInt($(':radio[name="postage_type"]:checked').val());
+        check_postage_type(type);
+    })
+</script>
+</body>
+</html>

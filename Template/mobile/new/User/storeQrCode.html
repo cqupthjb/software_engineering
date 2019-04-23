@@ -1,0 +1,121 @@
+<include file="Public/header"/>
+<body>      
+<div id="tbh5v0">
+<div class="user_com">
+<!--<include file="Public/uer_topnav"/>-->
+    <div class="com_top">
+        <h2><a href="{:U('Mobile/User/userinfo')}">设置</a></h2>
+        <p class="tuij_cas">
+            {$user['nickname']}
+            <if condition="$first_nickname neq ''">
+                <span>由( {$first_nickname} )推荐</span>
+            </if>
+        </p>
+        <div style="font-size: 16px;line-height: 1.5;text-align: center;color:white">
+            <div>打造百万家 实体联盟</div>
+
+            <div>30亿电商产业资金</div>
+        </div>
+        <dl>
+            <dt>
+                <img src="{$user['head_pic']|default=' __STATIC__/images/user68.jpg'}" class="head_pic">
+
+            <dd>{$level_name}</dd>
+            </dt>
+        </dl>
+    </div>
+    <div class="uer_topnav">
+        <ul>
+            <li class="bain"><a href="{:U('Mobile/User/order_list')}" ><span>{$order_count}</span>我的订单</a></li>
+            <li class="bain"><a href="{:U('Mobile/User/collect_list')}"><span>{$goods_collect_count}</span>商品收藏</a></li>
+            <li><a href="{:U('Mobile/User/comment')}"><span>{$comment_count}</span>我的评价</a></li>
+        </ul>
+    </div>
+<if condition="$qr_url neq null">
+    <div class="endorse_hend">
+        <p>推广{:get_role_name(get_next_role_id($store['role_id']))}二维码</p>
+    </div>
+    <div class="Wallet" style="text-align:center;">
+        <!--/**<img alt="扫码推广" src="/index.php?m=Home&c=Index&a=qr_code&data=" style="width:150px;height:150px;"/>**/	-->
+					<!--<div style="position:relative;text-align:center">
+		    <img src="/qr_wrapper.jpeg" style="height:400px;width:400px"/>
+			<div style="display:inline-block;position:absolute;left:20%;top:29.25%;">
+			<img alt="收款码" src="{$qr_url}" style="width:236px;height:220px;"/>
+		</div>
+		</div>-->		
+		<div style="position:relative;text-align:center">
+		    <img src="/qr_wrapper.jpeg" style="height:400px;width:400px"/>
+			<div style="display:inline-block;position:absolute;left:19%;top:29.75%;">
+			<img alt="推广{:get_role_name(get_next_role_id($store['role_id']))}二维码" src="{$qr_url}" style="width:249px;height:225px;background:white;"/>
+		</div>
+		</div>
+		
+       <!-- <img alt="推广{:get_role_name(get_next_role_id($store['role_id']))}二维码" src="{$qr_url}" style="width:200px;height:200px;"/>-->
+        <!--<if condition="check_need_consumption($_uid)">
+            <a href="javascript:void(0)" class="share-code">分享给朋友</a>
+        </if>-->
+        <script>
+            var ShareLink = "{$share_link}";
+            if (ShareLink == ''){
+                ShareLink = "http://{$_SERVER[HTTP_HOST]}/index.php?m=App&c=Index&a=index"; //默认分享链接
+            }
+            var ShareImgUrl = "http://{$_SERVER[HTTP_HOST]}{$tpshop_config['shop_info_store_logo']}"; // 分享图标
+            var ShareTitle = "{$tpshop_config['shop_info_store_title']}";
+            var ShareDesc = "{$tpshop_config['shop_info_store_desc']}";
+            var wxpc = 'fs://qr_code.png';
+//            apiready = function () {
+//                var wx = api.require('wx');
+//                $('.share-code').on('click',function () {
+//                    wx.shareWebpage({
+//                        apiKey: '',
+//                        scene: 'session',//会话//'timeline',//朋友圈
+//                        title: ShareTitle,
+//                        description: ShareDesc,
+//                        thumb: ShareImgUrl,
+//                        contentUrl: ShareLink
+//                    }, function(ret, err) {
+//                        if (ret.status) {
+//                            alert('分享成功');
+//                        } else {
+//                            alert(err.code);
+//                        }
+//                    });
+//                })
+//
+//            }
+            apiready = function(){
+
+            }
+
+            $('.share-code').on('click',function () {
+                var info = {};
+                info.title = ShareTitle;
+                info.description = ShareDesc;
+                info.thumb = ShareImgUrl;
+                info.contentUrl = ShareLink;
+                info.wx_scene = 'session';
+                info.wxpc = wxpc;
+                //alert(JSON.stringify(info));
+                //api.alert({msg:JSON.stringify(info)});
+                app_wx_share(info);
+            });
+
+
+
+        </script>
+    </div>
+<else />
+    <div class="endorse_hend">
+        <p>你还不是分销商</p>
+    </div>
+    <div class="Wallet" style="text-align:center;">
+		
+	      <img alt="扫码推广" src="__STATIC__/images/sorry.jpg" style="width:190px;"/>	      
+    </div>
+  </if>	
+</div>
+<include file="Public/footer"/>
+</div>
+<include file="Public/footer_nav"/>
+</body>
+</html>

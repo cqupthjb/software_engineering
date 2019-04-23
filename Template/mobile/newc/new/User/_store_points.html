@@ -1,0 +1,11 @@
+<foreach name="account_log" item="vo">
+    <li class="list_add J_add">
+        <div class="td_l">
+            <p>金额: {:floatval($vo['store_money'])}</p>
+        </div>
+        <div class="td_r">
+            <p class="il_money">{$vo.desc}</p>
+            <p class="time">{$vo.change_time|date='Y-m-d',###}</p>
+        </div>
+    </li>
+</foreach>      

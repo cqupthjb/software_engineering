@@ -1,0 +1,233 @@
+<meta name="Generator" content="TPSHOP v2.1.8"/>
+<meta charset="UTF-8">
+<meta name="Keywords" content="{$store.seo_keywords}"/>
+<meta name="Description" content="{$store.seo_description}"/>
+<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>地图找店</title>
+<link rel="shortcut icon" href="favicon.ico"/>
+<link rel="icon" href="animated_favicon.gif" type="image/gif"/>
+<link rel="alternate" type="application/rss+xml" title="RSS|  " href=""/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/dianpu.css">
+<script src="__PUBLIC__/js/global.js"></script>
+<link rel="stylesheet" href="__STATIC__/css/stores.css">
+<script type="text/javascript" src="__STATIC__/js/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript"
+        src="https://webapi.amap.com/maps?v=1.4.10&key=67a12372718e47fca3dd260accefe44f"></script>
+<style>
+    .description {
+        padding: 10px 10px 68px 10px;
+        line-height: 1.8;
+        font-size: 16px;
+    }
+
+    .description img {
+        max-width: 100%;
+    }
+
+    .video {
+        position: relative;
+        line-height: 1;
+    }
+
+    .video-mask {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 2px;
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .video-mask img {
+        position: absolute;
+        left: 50%;
+        right: 0;
+        height: 60px;
+        width: 60px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #container {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 45px;
+    }
+    #info{
+        position: fixed;
+        top: 45px;
+        left: 0;
+        right: 0;
+        padding: 10px;
+        overflow: scroll;
+        white-space: normal;
+        background: white;
+    }
+    #store_info{
+        display: none;
+        position: fixed;
+        left: 0;
+        margin: 10px;
+        border-radius: 2px;
+        box-shadow: 0 1px 4px 0px rgba(0,0,0,0.3);
+        right: 0;
+        bottom: 0;
+        padding: 10px;
+        overflow: scroll;
+        white-space: normal;
+        background: white;
+    }
+</style>
+</head>
+<body style=" background:#F5F5F5">
+<header>
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="{:U('store/index',array('store_id'=>$store['store_id']))}"
+                                   title="返回"></a></div>
+            <div class="h-mid">
+                地图找店
+            </div>
+        </div>
+    </div>
+</header>
+<div id="container">
+
+</div>
+<div id="store_info">
+    <div onclick="closeStore()" style="float: right">收起</div>
+    <section class="rzs_info">
+        <dl>
+            <dt><a  class="flow-datu" id="store_logo"> </a></dt>
+            <dd><strong><a  id="store_name"> 店铺：{$store['store_name']}</a></strong>
+                <p id="store_address">所在地：{$store['province_name']},{$store['city_name']},{$store['district_name']}</p>
+            </dd>
+        </dl>
+        <ul>
+            <li>
+                <span>宝贝描述</span>
+                <strong id="des_credit">:5.0</strong>
+                <em id="des_text"></em>
+            </li>
+            <li><span>卖家服务</span><strong id="service_credit">:<if condition="$store['store_servicecredit'] eq 0">5.0<else />{$store['store_servicecredit']|number_format=1}</if></strong>
+                <em id="service_text"><between name="store.store_desccredit" value="0,1.99">低</between>
+                    <between name="store.store_desccredit" value="2,3.99">中</between>
+                    <between name="store.store_desccredit" value="4,5">高</between></em>
+            </li>
+            <li><span>物流服务</span><strong id="deli_credit">:<if condition="$store['store_deliverycredit'] eq 0">5.0<else />{$store['store_deliverycredit']|number_format=1}</if></strong>
+                <em id="deli_text"><between name="store.store_desccredit" value="0,1.99">低</between>
+                    <between name="store.store_desccredit" value="2,3.99">中</between>
+                    <between name="store.store_desccredit" value="4,5">高</between></em>
+            </li>
+        </ul>
+        <div class="s_dianpu">
+            <span><a href="tel:{$store['store_phone']}" style=" margin-left:7%" id="store_phone"><em class="bg1"></em>联系客服</a></span>
+            <span><a href="{:U('Mobile/Store/index',array('store_id'=>$store['store_id']))}" style=" margin-left:3%" id="go_shop"><em class="bg2"></em>进入店铺</a></span>
+        </div>
+    </section>
+
+</div>
+<script>
+    var map = new AMap.Map('container', {
+        zoom: 15,//级别
+        center: [{$lng}, {$lat}],//中心点坐标
+        viewMode: '3D',//使用3D视图
+        resizeEnable: true
+    });
+    AMap.plugin('AMap.ToolBar',function(){
+        var toolbar = new AMap.ToolBar();
+        map.addControl(toolbar);
+    });
+    AMap.plugin("AMap.Geolocation",function () {
+        var geolocation = new AMap.Geolocation({
+            enableHighAccuracy: true,//是否使用高精度定位，默认:true
+            timeout: 10000,          //超过10秒后停止定位，默认：5s
+            buttonPosition:'RB',    //定位按钮的停靠位置
+            buttonOffset: new AMap.Pixel(15, 140),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+            zoomToAccuracy: true,   //定位成功后是否自动调整地图视野到定位点
+        })
+        map.addControl(geolocation);
+        geolocation.getCurrentPosition()
+    })
+    map.on("moveend",function (ev) {
+        var center  = map.getCenter()
+        var lat = center.lat;
+        var lng = center.lng;
+        getStore(lat,lng)
+    })
+    var markers = []
+    function getStore(lat, lng) {
+        $.ajax({
+            type : "GET",
+            url:"{:U('Mobile/Index/get_map_shop')}",//+tab,
+            data:{lat:lat,lng:lng}, //
+            dataType:'json',
+            success: function(data){
+                var list = data.list;
+                map.remove(markers)
+                list.forEach(function (item) {
+                    var m = new AMap.Marker({
+                        position: [item['store_lng'], item['store_lat']],
+                        clickable:true,
+                        topWhenClick:true,
+                    });
+                    markers.push(m)
+                    m.on("click",function () {
+                        showStore(
+                            item["store_id"],
+                            item['store_name'],
+                            item['store_phone'],
+                            item["province_name"]+item["city_name"]+item["district_name"],
+                            item["store_logo"],
+                            item['store_desccredit'],
+                            item['store_servicecredit'],
+                            item['store_deliverycredit'])
+                    })
+                    map.add(m)
+                })
+            }
+        });
+    }
+
+    function showStore(id,name,phone,address,logo,desCredit,serviceCredit,deliCredit) {
+        $("#store_info").css("display","block")
+        var nameEle = $("#store_name");
+        nameEle.text("店铺:"+name);
+        nameEle.attr("href","/index.php/Mobile/Store/index?store_id="+id)
+        $("#store_address").text("所在地:"+address)
+        $("#store_phone").attr("href","tel:"+phone);
+        var logoEle = $("#store_logo")
+        logoEle.css("background-image","url("+logo+")")
+        logoEle.attr("href","/index.php/Mobile/Store/index?store_id="+id)
+        $("#go_shop").attr("href","/index.php/Mobile/Store/index?store_id="+id)
+        displayScore("des",desCredit)
+        displayScore("service",serviceCredit)
+        displayScore("deli",deliCredit)
+    }
+
+    function displayScore(sel, score) {
+        if (score<=0){
+            score = 5;
+        }
+        var text ="高"
+        if (score < 3.99){
+            text ="中"
+        }
+        if (score < 1.99){
+            text = "低"
+        }
+        $("#"+sel+"_credit").text(":"+score)
+        $("#"+sel+"_text").text(text)
+    }
+
+    function closeStore() {
+        $("#store_info").css("display","none")
+
+    }
+</script>
+</body>
+</html>

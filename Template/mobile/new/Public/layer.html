@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="__STATIC__/js/layer/need/layer.css">
+<style>
+    .layui-m-layer2 .layui-m-layercont i{background-color: #44B54C;}
+</style>
+<script src="__STATIC__/js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    //开启动画
+    function popLoading(){
+        layer.open({ type: 2 ,shade:false,className:'ajax_load' });
+    }
+    //关闭动画
+    function closeLoading(){
+        setTimeout(function () {
+            layer.closeAll();
+        },200);
+    }
+    //提示
+    function popLayer(msg,skin,time){
+        //if(typeof (skin) == 'undefined') skin = 'msg';
+        //if(typeof (time) == 'undefined') time = 2;
+        layer.open({
+            content: msg
+            ,skin: 'msg'//skin
+            ,time: 1//time
+        });
+    }
+</script>

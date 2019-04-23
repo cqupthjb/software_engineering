@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="applicable-device" content="mobile">
+    <title>物流信息</title>
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+    <style>
+        .timeLine dl:after{
+            /*content: '';
+            position: absolute;
+            left: 50px;
+            width: 1px;
+            !*height: 100%;*!
+            background-color: #fff;
+            display: block;
+            z-index: 1;*/
+        }
+        .timeLine:after {
+            content: '';
+            position: fixed;
+            left: 50px;
+            width: 1px;
+            height: 96%;
+            background-color: #B35858;
+            display: block;
+            z-index: 1;
+            top: 2%;
+        }
+
+        .timeLine dl.title dt{
+            background: none;
+            margin-left: 20px;
+        }
+        .timeLine dl.title dt em{
+            margin-left: 8px;
+            font-style: normal;
+        }
+        .timeLine dl dt{
+            margin-left: 48px;
+            background: url(__STATIC__/images/timeline.png) no-repeat left center;/*timeline.png*/
+            background-size: 18px 19px;
+            z-index: 2;
+            padding-left: 18px;
+        }
+        .timeLine dl dt span{
+            display: inline-block;
+            background: #5872A2;;
+            border-radius: 0 9px 9px 0;
+            padding: 0 25px 0 10px;
+            height: 19px;
+            line-height: 19px;
+            color: #FFFFFF;
+        }
+
+        .timeLine dl dd{
+            margin-left: 60px;
+            margin-top: 20px;
+            line-height: 30px;
+        }
+        .font-16{
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="timeLine">
+    <dl class="title">
+        <dt>
+            <i class="icon icon-record"></i>
+            <em>物流信息</em>
+        </dt>
+        <dd><p>物流号：{$invoice_no}</p></dd>
+    </dl>
+
+</div>
+<script>
+    $(document).ready(function(){
+        var url = "{:U('get_invoice_100')}";//快递100
+        //var url = "{:U('get_invoice')}";//快递鸟
+        var invoice_no = "{$invoice_no}";
+        var shipping = "{$shipping}";
+        $.getJSON(url,{invoice_no:invoice_no,shipping:shipping},function (data) {
+            if (data.hasOwnProperty('status')){
+                if (data.status == 1){
+                    $('.timeLine').append(data.content);
+                    return;
+                }
+                /*if (data.status == 200){
+                 if (data.hasOwnProperty('data')){
+                 if (data.data != ''){
+                 $.each(data.data,function () {
+                 console.log($(this));
+                 })
+                 var html = '';
+                 //$('.post-content').html(html);
+                 }
+                 }
+                 }*/
+            }
+        })
+
+        /* $.ajax({
+         type:"GET",
+         async: true,
+         url:url,
+         dataType:"jsonp",
+         jsonpCallback:"MyCallbackFunction",
+         /!*success:function(data){
+         // 这里就不再编写我们接收json数据后的处理了，不然会重复调用
+         },*!/
+         error:function(){
+         alert('error');
+         }
+         });*/
+
+    });
+
+    function MyCallbackFunction(data){
+        console.log(data);
+    }
+</script>
+</body>
+</html>

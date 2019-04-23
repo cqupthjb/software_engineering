@@ -1,0 +1,19 @@
+<!--微信JS-SDK-->
+<!--<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>-->
+<script src="__STATIC__/apicloud/jweixin-1.0.0.js"></script>
+<script>
+    $(document).ready(function () {
+        // 微信配置
+        wx.config({
+            debug: false,
+            appId: "{$signPackage['appId']}",
+            timestamp: '{$signPackage["timestamp"]}',
+            nonceStr: '{$signPackage["nonceStr"]}',
+            signature: '{$signPackage["signature"]}',
+            jsApiList: [] // 功能列表，我们要使用JS-SDK的什么功能
+        });
+        wx.ready(function () {
+            wx.hideOptionMenu();
+        })
+    });
+</script>

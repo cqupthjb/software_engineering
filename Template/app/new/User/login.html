@@ -1,0 +1,578 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="TPshop1.2"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>登录-{$tpshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}"/>
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}"/>
+
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/login.css"/>
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/common.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.js"></script>
+    <script type="text/javascript" src="__STATIC__/apicloud/api.js"></script>
+    <style>
+        .ta-wx {
+            background: url(__STATIC__/images/wx_user.png) no-repeat;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+<header id="header" class='header'>
+    <div class="h-left"><a href="javascript:history.back(-1)" class="sb-back"></a></div>
+    <div class="h-mid">会员登录</div>
+</header>
+<div class="denglu">
+    <form action="" method="post">
+        <div class="Login">
+            <dl>
+                <dt>用户名：</dt>
+                <dd><input type="text" name="username" id="username" placeholder="请输手机号" value=""/></dd>
+            </dl>
+            <dl style=" margin-top:15px;">
+                <dt>密码：</dt>
+                <dd><input type="password" name="password" id="password" placeholder="密码"/></dd>
+            </dl>
+            <div class="field submit-btn">
+                <input type="button" class="btn_big1" onClick="checkSubmit()" value="登 录"/>
+                <input type="hidden" name="referurl" id="referurl" value="{$referurl}">
+            </div>
+            <div class="ng-foot" style="display: none;">
+                <div class="ng-cookie-area">
+                    <!--<label class="bf1 login_ffri">
+                        <input type="checkbox" name="remember" value="1" checked=""> &nbsp;自动登录
+                    </label>-->
+                </div>
+                <div class="ng-link-area">
+                    <span style=" margin-right:5px; border-right:1px solid #eeeeee">
+                      <a href="{:U('User/reg')}" >免费注册</a>
+                    </span>
+                    <span class="user_line"></span>
+                    <span>
+                  <a href="{:U('User/forget_pwd')}">忘记密码？</a>
+                </span>
+                </div>
+                <div class="third-area ">
+                    <div class="third-area-a">微信登录</div>
+                    <a class="ta-wx" href="javascript:void(0);" id="wx_login"  title="微信"></a>
+                    <!--<a class="ta-qq" href="{:U('LoginApi/login',array('oauth'=>'wx'))}" target="_blank" title="QQ"></a>-->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+
+    function checkSubmit() {
+
+        var username = $.trim($('#username').val());
+        var password = $.trim($('#password').val());
+        var referurl = $('#referurl').val();
+        if (username == '') {
+            showErrorMsg('用户名不能为空!');
+            return false;
+        }
+        if (!checkMobile(username) && !checkEmail(username)) {
+            showErrorMsg('账号格式不匹配!');
+            return false;
+        }
+        if (password == '') {
+            showErrorMsg('密码不能为空!');
+            return false;
+        }
+
+        if ($.trim($('#verify_code').val()) == '') {
+            //showErrorMsg('验证码不能为空!');
+            //return false;
+        }
+        //$('#login-form').submit();
+        layer_loading();//加载动画
+        $.ajax({
+            type: 'post',
+            url: '/index.php?m=App&c=User&a=do_login&t=' + Math.random(),
+            data: {username: username, password: password, referurl: referurl},
+            dataType: 'json',
+            success: function (res) {
+                close_loading();//关闭动画
+                if (res.status == 1) {
+                    var result = res.result;
+                    //alert(result.unionid)
+                    if (result.unionid != ''){
+                        window.localStorage.setItem('wx_unionid',result.unionid);
+                        window.localStorage.setItem('wx_openid',result.app_openid);
+                        get_reg_id(result.unionid);//绑定极光推送reg_id
+                    }
+                    setTimeout(function () {
+                        location.href = "{:U('User/index')}";
+                    },300);
+                } else {
+                    showErrorMsg(res.msg);
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                showErrorMsg('网络失败，请刷新页面后重试');
+            }
+        })
+    }
+
+
+    function checkMobile(tel) {
+        var reg = /(^1[3|4|5|7|8][0-9]{9}$)/;
+        if (reg.test(tel)) {
+            return true;
+        } else {
+            return false;
+        }
+        ;
+    }
+
+    function checkEmail(str) {
+        var reg = /^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if (reg.test(str)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function showErrorMsg(msg) {
+        //$('.msg-err').show();
+        //$('.J-errorMsg').html(msg);
+        layer.open({content: msg, time: 2});
+    }
+
+    function verify() {
+        $('#verify_code_img').attr('src', '/index.php?m=Home&c=User&a=verify&r=' + Math.random());
+    }
+
+</script>
+
+<script>
+    //region 点击微信登录
+    $('#wx_login').on('click',function () {
+        //apicloud
+        var wx = api.require('wx');
+        wx.isInstalled(function (ret, err) {
+            if (ret.installed) {
+                //>>1.微信授权
+                get_auth(wx);
+            } else {
+                api.alert({msg:'当前设备未安装微信客户端'});
+            }
+        });
+    })
+    //endregion
+
+    //region 微信授权
+    var get_auth = function (wx) {
+        //>>1.获取授权code
+        wx.auth({
+            apiKey: ''
+        }, function (ret, err) {
+            //alert(JSON.stringify(ret));
+            //alert(JSON.stringify(err));
+            if (ret.status) {
+                //>>2.获取accessToken
+//                    //region>>2.1.从web中获取存储的accessToken
+//                    var url = "{:U('Index/get_app_access_token','','',true)}";
+//                    api.ajax({
+//                        url: url,
+//                        method: 'get',
+//                        dataType:'json',
+//                    }, function(data, err) {
+//                        if (data == '' || typeof (data) == 'undefined'){
+//                            api.alert({msg:JSON.stringify(err)});
+//                        }
+//                        //如果存在access_token
+//                        if (data.hasOwnProperty('access_token')){
+//                            if (data.access_token != ''){
+//
+//                            }else{
+//
+//                            }
+//                        }else{
+//
+//                        }
+//
+//                    });
+//                    //endregion
+                //>>2.获取access_token
+                get_token(wx,ret.code);
+            } else {
+                var msg = '授权失败';
+                if (err.code != 1){
+                    switch (err.code){
+                        case -1:msg = '授权失败';break;
+                        case 1:msg = '取消授权';break;
+                        case 2:msg = '拒绝授权';break;
+                        case 3:msg = '当前设备未安装微信应用';break;
+                    }
+                    api.alert({msg:msg});
+                }
+            }
+        });
+        //endregion
+    }
+    //endregion
+
+    //region 获取access_token
+    var get_token = function (wx,code) {
+        if (code == '' || code == null || typeof (code) == 'undefined'){
+            alert('参数错误');
+            return false;
+        }
+        //region>>2.2.获取accessToken
+        wx.getToken({
+            code:code,
+        },function (ret,err) {
+            //alert(JSON.stringify(ret));
+            //alert(JSON.stringify(err));
+            //api.alert({msg:JSON.stringify(err)});
+            if (ret.status){
+                //保存accessToken
+                //save_access_token(ret);
+                //>>3.获取用户信息
+                get_info(wx,ret.accessToken,ret.openId);
+            }else{
+                var msg = '授权失败';
+                switch (err.code){
+                    case -1:msg = '未知错误';break;
+                    case 1:msg = '配置错误,请联系管理员';break;
+                    case 2:msg = '配置错误,请联系管理员';break;
+                    case 3:msg = '获取参数错误';break;
+                    case 4:msg = '网络超时';break;
+                }
+                api.alert({msg:msg});
+            }
+        })
+        //endregion
+    }
+    //endregion
+
+    //region 保存accessToken
+    var save_access_token = function (ret) {
+        $.ajax({
+            url: "{:U('Index/set_app_access_token')}",
+            method: 'post',
+            dataType:'json',
+            data: {
+                access_token:ret.accessToken,
+                expires:ret.expires,
+                dynamic_token:ret.dynamicToken,
+            }
+        }, function(data, err) {
+            //alert(JSON.stringify(data));
+            //alert(JSON.stringify(err));
+        });
+    }
+    //endregion
+
+    //region 获取 refreshToken
+    var get_refresh_token = function (wx) {
+        //>>1.从服务器获取 dynamicToken
+        var url = "{:U('Index/get_dynamic_token')}";
+        api.ajax({
+            url: url,
+            method: 'post',
+            dataType:'json',
+            data: {values:info},
+        }, function(data, err) {
+            if (data.hasOwnProperty('dynamicToken')){
+                wx.refreshToken({
+                    apiKey: '',
+                    dynamicToken: data.dynamicToken
+                }, function(ret, err) {
+                    if (ret.status) {
+                        //alert(JSON.stringify(ret));
+                        //保存accessToken
+                        save_access_token(ret);
+                        //>>3.获取用户信息
+                        get_info(wx,ret.accessToken,ret.openId);
+                    } else {
+                        alert(err.code);
+                    }
+                });
+            }else{
+                var msg = '授权失败';
+                switch (err.code){
+                    case -1:msg = '未知错误';break;
+                    case 1:msg = '配置错误,请联系管理员';break;
+                    case 2:msg = '配置错误,请联系管理员';break;
+                    case 3:msg = '获取参数错误';break;
+                    case 4:msg = '网络超时';break;
+                }
+                api.alert({msg:msg});
+            }
+        })
+    }
+    //endregion
+
+    //region 获取用户信息
+    var get_info = function (wx,accessToken,openId){
+        if (accessToken == '' || accessToken == null || typeof (accessToken) == 'undefined' || openId == '' || openId == null || typeof(openId) == 'undefined'){
+            alert('参数错误');
+            return false;
+        }
+        //region
+        wx.getUserInfo({
+            accessToken: accessToken,
+            openId: openId
+        }, function(ret, err) {
+            //alert(JSON.stringify(ret));
+            //alert(JSON.stringify(err));
+            if (ret.status) {
+                //>>4.登录
+                get_login(ret);
+            } else {
+                var msg = '授权失败';
+                switch (err.code){
+                    case -1:msg = '未知错误';break;
+                    case 1:msg = get_refresh_token(wx);break;//'参数过期,请联系管理员';break;//1 （accessToken 过期）,
+                    case 2:msg = '参数非法,请联系管理员';break;//2  (openId非法),
+                    case 3:msg = '参数为空,请联系管理员';break;//3  (openId值为空),
+                    case 4:msg = '参数为空,请联系管理员';break;//4  (accessToken值为空),
+                    case 5:msg = '参数非法,请联系管理员';break;//5  (accessToken非法)
+                    case 6:msg = '网络超时';break;//6     (网络超时)
+                }
+                api.alert({msg:msg});
+            }
+        });
+        //endregion
+    }
+    //endregion
+
+    //region 登录
+    var get_login = function(info,is_auto){
+        if (!(info.hasOwnProperty('unionid'))){
+            alert('未获取到用户信息');
+            return false;
+        }
+        var url = "{:U('App/LoginApi/wx_login','','',true)}";
+        layer_loading();//加载动画
+        $.post(url,info,function(data) {
+            //alert(JSON.stringify(data));
+            //alert(JSON.stringify(err));
+            close_loading();//关闭动画
+            if (data.hasOwnProperty('status')){
+                if (data.status == 1){
+                    window.localStorage.setItem('wx_unionid',info.unionid);
+                    window.localStorage.setItem('wx_openid',info.openid);
+                    get_reg_id(info.unionid);//绑定极光推送reg_id
+                    setTimeout(function () {
+                        if (is_auto == true){
+                            location.href = "{:U('User/index')}";
+                        }else{
+                            location.href = "{:U('User/index')}";
+                        }
+                    },300);
+                }else{
+                    if (data.hasOwnProperty('msg')){
+                        alert(data.msg);
+                    }
+                }
+            }else{
+                if (data.hasOwnProperty('msg')){
+                    alert(data.msg);
+                }
+            }
+        },'json').error(function (err) {
+            //alert(JSON.stringify(err));
+        });
+        /*api.ajax({
+            url: url,
+            method: 'post',
+            dataType:'json',
+            data: {values:info},
+        }, function(data, err) {
+            //alert(JSON.stringify(ret));
+            //alert(JSON.stringify(err));
+            close_loading();//关闭动画
+            if (data.hasOwnProperty('status')){
+                if (data.status == 1){
+                    window.localStorage.setItem('wx_unionid',info.unionid);
+                    window.localStorage.setItem('wx_openid',info.openid);
+                    get_reg_id(info.unionid);//绑定极光推送reg_id
+                    if (is_auto == true){
+                        location.href = "{:U('User/index')}";
+                    }else{
+                        //Jpush别名绑定
+                        //设备唯一标识
+                        //var deviceId = api.deviceId
+                        //bind_jpush_alias(deviceId,info.unionid);//使用微信的unionid
+                        //location.href = data.url;
+                        location.href = "{:U('User/index')}";
+                    }
+                }
+            }
+            if (data.hasOwnProperty('msg')){
+                api.alert({msg:data.msg})
+            }
+        });*/
+    }
+    //endregion
+
+
+    //region 绑定Jpush Reg_id
+    var get_reg_id = function(unionid){
+        var ajpush = api.require('ajpush');
+        var systemType = api.systemType;//ios   //android   //win   //wp
+        if (systemType == 'ios'){
+            bind_reg_id(ajpush,unionid);//ios自动初始化
+        }else{
+            ajpush.init(function(ret) {
+                if (ret && ret.status){
+                    //success
+                    bind_reg_id(ajpush,unionid);
+                }
+            });
+        }
+    }
+    var bind_reg_id = function(ajpush,unionid){
+        ajpush.getRegistrationId(function(ret) {
+            //alert(JSON.stringify(ret))
+            var reg_id = ret.id;
+            //alert(reg_id);
+            if (reg_id != null && reg_id != '' && typeof (reg_id) != 'undefined'){
+                var url = "{:U('App/LoginApi/save_jpush_info','','',true)}";
+                $.post(url,{reg_id:reg_id,unionid:unionid},function (data) {
+                    //alert(JSON.stringify(data));
+                    window.localStorage.setItem('jpush_reg_id',data.reg_id);
+                    //alert(JSON.stringify(data));
+                },'JSON').error(function (err) {
+                    //alert(JSON.stringify(err));
+                })
+            }
+        });
+    }
+    //endregion
+
+    //region 绑定Jpush Reg_id_bak
+    var get_reg_id_bak = function(unionid){
+        var ajpush = api.require('ajpush');
+        var systemType = api.systemType;
+        if (systemType == 'ios'){
+            ajpush.getRegistrationId(function(ret) {
+                var reg_id = ret.id;
+                if (reg_id != null && reg_id != '' && typeof (reg_id) != 'undefined'){
+                    var url = "{:U('App/LoginApi/save_jpush_info','','',true)}";
+                    $.post(url,{reg_id:reg_id,unionid:unionid},function (data) {
+                        //alert(JSON.stringify(data))
+                        window.localStorage.setItem('jpush_reg_id',reg_id);
+                    },'JSON').error(function (err) {
+                       //alert(JSON.stringify(err));
+                    })
+                }
+            });
+        }else{
+            //alert('login');
+            ajpush.init(function(ret) {
+                if (ret && ret.status){
+                    //success
+                    ajpush.getRegistrationId(function(ret) {
+                        var reg_id = ret.id;
+                        //alert(reg_id);
+                        if (reg_id != null && reg_id != '' && typeof (reg_id) != 'undefined'){
+                            var url = "{:U('App/LoginApi/save_jpush_info','','',true)}";
+                            $.post(url,{reg_id:reg_id,unionid:unionid},function (data) {
+                                window.localStorage.setItem('jpush_reg_id',reg_id);
+                                //alert(JSON.stringify(data));
+                            },'JSON').error(function (err) {
+                                //alert(JSON.stringify(err));
+                            })
+                        }
+                    });
+                }
+            });
+        }
+    }
+    //endregion
+
+    //region 自动登录 & 微信登录隐藏
+    $(function () {
+        var user_id = parseInt("{$_uid}");//alert(user_id);
+        if (user_id == '' || user_id == null || user_id == 0 || isNaN(user_id)){
+            apiready = function(){
+                customRefresh();//下拉刷新
+                var unionid = window.localStorage.getItem('wx_unionid');
+                var openid  = window.localStorage.getItem('wx_openid');
+                if (unionid != '' && unionid !=null && typeof(unionid) != 'undefined' && openid != '' && openid !=null && typeof(openid) != 'undefined'  ){
+                    //登录
+                    get_login({unionid:unionid,openid:openid,is_auto:true},true);
+                }
+                //region预判断是否安装微信
+                var systemType = api.systemType;
+                if (systemType == 'ios'){
+                    var wx = api.require('wx');
+                    wx.isInstalled(function (ret, err) {
+                        if (ret.installed) {
+                            $('.ng-foot').css('display','block');
+                        } else {
+                            $('.ng-foot').css('display','none');
+                        }
+                    });
+                }else{
+                    $('.ng-foot').css('display','block');
+                }
+                //endregion
+            }
+        }
+    })
+    //endregion
+
+    //region layer_loading
+    var layer_loading = function(){
+        layer.open({type: 2});
+    }
+    var close_loading = function (time) {
+        if (time == '' || time == 0 || typeof (time) == 'undefined' || time == null){
+            time = 300;
+        }
+        setTimeout(function () {
+            layer.closeAll();
+        },time);
+    }
+    console.log('唉,谁懂猿的殇');
+    //endregion
+
+    //region 下拉刷新
+    var customRefresh = function(){
+        api.setCustomRefreshHeaderInfo({
+            //visible : true,
+            bgColor: '#eee',
+            images: [
+                'widget://image/loading1.png',
+                'widget://image/loading2.png',
+                'widget://image/loading3.png',
+                'widget://image/loading4.png',
+                'widget://image/loading5.png',
+                'widget://image/loading6.png',
+                'widget://image/loading7.png',
+                'widget://image/loading8.png',
+            ],
+            tips: {
+                pull: '下拉刷新',
+                threshold: '松开试试',
+                load: '正在刷新'
+            }
+        }, function() {
+            //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+            //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+            api.addEventListener({
+                name: 'shake'
+            }, function(ret, err) {
+                api.refreshHeaderLoadDone()
+            });
+            window.location.reload()
+            api.refreshHeaderLoadDone();
+        });
+    }
+
+    //endregion
+</script>
+</body>
+</html>

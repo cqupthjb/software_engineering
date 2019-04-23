@@ -1,0 +1,86 @@
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <!--<td style="width: 1px;" class="text-center">
+                <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);">
+            </td>-->
+            <td class="text-center">
+                用户
+            </td>
+            <td class="text-center">
+                标题
+            </td>
+            <td class="text-center">
+                评论内容
+            </td>
+            <td class="text-center">
+                类型
+            </td>
+            <td class="text-center">
+                评论时间
+            </td>
+            <td class="text-center">操作</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <volist name="msg_list" id="list">
+            <tr>
+                <!--<td class="text-center">
+                    <input type="checkbox" name="selected[]" value="{$list.msg_id}">
+                </td>-->
+                <td class="text-center">{$list.nickname}</td>
+                <td class="text-left">{$list.msg_title}</td>
+                <td class="text-left">{$list.msg_content}</td>
+                <td>
+                    <switch name="list.msg_type" >
+                        <case value="0" >留言</case>
+                        <case value="1" >投诉</case>
+                        <case value="2">询问</case>
+                        <case value="3">售后</case>
+                        <default />其他
+                    </switch>
+                </td>
+                <td class="text-center">{$list.msg_time|date='Y-m-d H:i',###}</td>
+                <td class="text-center">
+                    <a href="{:U('detail',array('id'=>$list[msg_id]))}" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="编辑"><i class="fa fa-eye"></i></a>
+                    <a href="{:U('del',array('id'=>$list[msg_id]))}" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="删除"><i class="fa fa-remove"></i></a>
+                </td>
+            </tr>
+        </volist>
+
+        </tbody>
+    </table> 
+</div>
+<div class="row">
+    <div class="col-sm-6 text-left"></div>
+    <div class="col-sm-6 text-right">{$page}</div>
+</div>
+<script>
+    $(".pagination a").click(function(){
+        var page = $(this).data('p');
+        ajax_get_table('search-form2',page);
+    });
+
+    // 修改指定表的指定字段值
+    function changeTableVal2(table,id_name,id_value,field,obj)
+    {
+        var src = "";
+        if($(obj).attr('src').indexOf("cancel.png") > 0 )
+        {
+            src = '/Public/images/yes.png';
+            var value = 1;
+
+        }else{
+            src = '/Public/images/cancel.png';
+            var value = 0;
+        }
+        $.ajax({
+            url:"/index.php?m=Seller&c=Index&a=changeTableVal&table="+table+"&id_name="+id_name+"&id_value="+id_value+"&field="+field+'&value='+value,
+            success: function(data){
+                $(obj).attr('src',src);
+            }
+        });
+    }
+</script>

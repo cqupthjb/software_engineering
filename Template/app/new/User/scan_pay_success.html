@@ -1,0 +1,113 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="tpshop"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{$store.store_name} 商户支付</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}"/>
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}"/>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" href="__STATIC__/css/public.css">
+    <link rel="stylesheet" href="__STATIC__/css/flow.css">
+    <link rel="stylesheet" href="__STATIC__/css/style_jm.css">
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <style>
+        .c_checkbox_t{
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body style="background: rgb(235, 236, 237);position:relative;">
+<div class="tab_nav">
+    <div class="header">
+        <div class="h-left">
+            <a class="sb-back" href="{:U('User/scan_pay',array('store_id'=>$order['store_id']))}" title="返回"></a>
+        </div>
+        <div class="h-mid"> 订单</div>
+    </div>
+</div>
+
+<div class="screen-wrap fullscreen login">
+    <form action="{:U('Payment/getCode')}" method="post" name="cart4_form" id="cart4_form">
+        <div class="content_success ">
+            <div class="con-ct   fo-con">
+                <h4 class="successtijiao">订单已经支付成功！</h4>
+                <ul class="ct-list">
+                    <li>订单号：
+                        <em>
+                            {$order['order_sn']}
+                        </em>
+                    </li>
+                    <li>支付金额：
+                        <em>
+                            {$order['account']}
+                        </em>
+                    </li>
+                    <li>实付金额：
+                        <em>
+                            {$order['need_pay']}
+                        </em>
+                    </li>
+                </ul>
+            </div>
+
+            <section class="order-info">
+                <div class="order-list">
+                    <div class="content ptop0">
+                        <div class="panel panel-default info-box">
+                            <div class="panel-body" id="pay_div">
+                                <div class="title" id="zhifutitle" style="border-bottom:1px solid #eeeeee;"><span
+                                        class="i-icon-arrow-down i-icon-arrow-up" id="zhifuip"></span> <span
+                                        class="text">支付方式</span><!-- <a href="javascript:void(0)" title="修改商品列表"
+                                                                    class="link">必选</a> <em class="qxz" id="emzhifu">请选择支付方式</em>-->
+                                </div>
+                                <ul class="nav nav-list-sidenav" id="zhifu68"
+                                    style="display:block; border-bottom:none;">
+                                    <foreach name="paymentList" item="v" key="k">
+                                        <li class="clearfix" name="payment_name">
+                                            <label>
+                                                <input type="radio" value="pay_code={$v['code']}" class="c_checkbox_t"
+                                                       name="pay_radio"/>
+                                                <div class="fl shipping_title">
+                                                    <img src="/plugins/{$v['type']}/{$v['code']}/{$v['icon']}"
+                                                          width="110" height="40"/>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </foreach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="pay-btn">
+                <a href="{:U('index/index')}"  class="sub-btn btnRadius">商城首页</a>
+            </div>
+        </div>
+    </form>
+    <script>
+        $(document).ready(function () {
+            $("input[name='pay_radio']").first().trigger('click');
+        });
+        $(function(){
+            pushHistory();
+            window.addEventListener("popstate", function(e) {
+                pushHistory();
+            }, false);
+            function pushHistory() {
+                var state = {
+                    title: "商户支付",
+                    url: "{:U('User/scan_pay',array('store_id'=>$order['store_id']))}"
+                };
+                window.history.pushState(state, "商户支付", "{:U('User/scan_pay',array('store_id'=>$order['store_id']))}");
+            }
+        });
+    </script>
+
+</div>
+<include file="Public/footer"/>
+</body>
+</html>

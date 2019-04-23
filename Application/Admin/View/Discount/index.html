@@ -1,0 +1,145 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>&nbsp;折扣管理
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="alert alert-info alert-dismissible" role="alert">
+                            实体店铺入驻时选择分销折扣方式
+                            <button type="button" class="close" data-dismiss="alert"><span
+                                    aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <nav class="navbar navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <form class="navbar-form form-inline" role="search">
+                                    <div class="form-group pull-right">
+                                        <a href="{:U('info')}" class="btn btn-primary pull-right"><i
+                                                class="fa fa-plus"></i>添加折扣</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>折扣名称</th>
+                                    <th>返佣率</th>
+                                    <th>平台返现比例</th>
+                                    <th>省级返现比例</th>
+                                    <th>地级返现比例</th>
+                                    <th>县级返现比例</th>
+                                    <th>经销商返现比例</th>
+                                    <th>店铺返现比例</th>
+                                    <th>用户返现比例</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="data-list">
+                                <foreach name="list" item="vo" key="k">
+                                    <if condition="get_column('admin',session('admin_id'),'role_id') eq 1">
+                                        <tr role="row" align="center">
+                                            <td>{$vo.discount_id}</td>
+                                            <td>{$vo.name}</td>
+                                            <td>{$vo.rate}%</td>
+                                            <td>{$vo.platform_rate}</td>
+                                            <td>{$vo.province_rate}</td>
+                                            <td>{$vo.city_rate}</td>
+                                            <td>{$vo.county_rate}</td>
+                                            <td>{$vo.distributor_rate}</td>
+                                            <td>{$vo.shop_rate}</td>
+                                            <td>{$vo.user_rate}</td>
+                                            <!--<td><input type="number" value="{$vo.platform_rate}" max="100" min="0"
+                                                       style="max-width: 80px;" class="discount-rate"
+                                                       data-id="{$vo.discount_id}" data-column="platform_rate"/></td>
+                                            <td><input type="number" value="{$vo.province_rate}" max="100" min="0"
+                                                       style="max-width: 80px;" class="discount-rate"
+                                                       data-id="{$vo.discount_id}" data-column="province_rate"/></td>
+                                            <td><input type="number" value="{$vo.city_rate}" max="100" min="0"
+                                                       style="max-width: 80px;" class="discount-rate"
+                                                       data-id="{$vo.discount_id}" data-column="city_rate"/></td>
+                                            <td><input type="number" value="{$vo.county_rate}" max="100" min="0"
+                                                       style="max-width: 80px;" class="discount-rate"
+                                                       data-id="{$vo.discount_id}" data-column="county_rate"/></td>
+                                            <td><input type="number" value="{$vo.distributor_rate}" max="100" min="0"
+                                                       style="max-width: 80px;" class="discount-rate"
+                                                       data-id="{$vo.discount_id}" data-column="distributor_rate"/></td>
+                                            <td><input type="number" value="{$vo.shop_rate}" max="100" min="0"
+                                                       style="max-width: 80px;" class="discount-rate"
+                                                       data-id="{$vo.discount_id}" data-column="distributor_rate"/></td>
+                                            <td><input type="number" value="{$vo.user_rate}" max="100" min="0"
+                                                       style="max-width: 80px;" class="discount-rate"
+                                                       data-id="{$vo.discount_id}" data-column="user_rate"/>
+                                            </td>-->
+                                            <td>
+                                                <a class="btn btn-primary"
+                                                   href="{:U('info',array('discount_id'=>$vo['discount_id']))}"><i
+                                                        class="fa fa-pencil"></i></a>
+                                                <!--<a class="btn btn-danger" href="javascript:void(0)" data-url="{:U('remove')}" data-id="{$vo.role_id}" onclick="delfun(this)">
+                                                    <i class="fa fa-trash-o"></i>
+                                                </a>-->
+                                            </td>
+                                        </tr>
+                                    </if>
+                                </foreach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">{$page}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    function delfun(obj) {
+        if (confirm('确认删除')) {
+            $.ajax({
+                type: 'post',
+                url: $(obj).attr('data-url'),
+                data: {act: 'del', role_id: $(obj).attr('data-id')},
+                dataType: 'json',
+                success: function (data) {
+                    if (data == 1) {
+                        $(obj).parent().parent().remove();
+                    } else {
+                        layer.alert(data, {icon: 2});   //alert('用户名或密码不能为空');// alert(data);
+                    }
+                }
+            })
+        }
+        return false;
+    }
+</script>
+<script>
+    //By Mr-X
+    $('#data-list').on('blur', '.discount-rate', function () {
+        var id = $(this).data('id');
+        var rate = parseInt($(this).val());
+        var column = $(this).data('column');
+        if (rate < 0 || rate > 100) {
+            layer.alert('比例需在0-100之间,最多两位小数');
+            return false;
+        }
+        $.getJSON("{:U('change_column')}", {'discount_id': id, 'rate': rate, 'column': column}, function (data) {
+            if (data.hasOwnProperty('msg')) {
+                layer.alert(data.msg);
+            }
+        })
+    })
+</script>
+</body>
+</html>

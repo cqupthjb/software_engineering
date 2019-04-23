@@ -1,0 +1,204 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>&nbsp;购买积分票
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="text-align: center"><input type="checkbox" name="ids_all" class="check-all"></th>
+                                    <th>编号</th>
+                                    <th>卡券名称</th>
+                                    <th>卡券logo</th>
+                                    <th>卡券价格</th>
+                                    <th>卡券折扣</th>
+                                    <th>卡券库存</th>
+                                    <th>是否包邮</th>
+                                    <th>邮费</th>
+                                    <th>创建时间</th>
+                                    <th>数量</th>
+                                </tr>
+                                </thead>
+                                <tbody id="data-list">
+                                <foreach name="list" item="vo" key="k">
+                                    <tr role="row" align="center">
+                                        <td><input type="checkbox" name="ids[]" value="{$vo.card_id}" data-name="{$vo.name}" <eq name="vo.store_count" value="0">disabled="disabled"</eq> ></td>
+                                        <td>{$vo.card_id}</td>
+                                        <td>{$vo.name}</td>
+                                        <td><img src="{$vo.cover}" style="width: 30px;height: 30px;"></td>
+                                        <td>{$vo.price}</td>
+                                        <td>{$vo.rate}%</td>
+                                        <td>{$vo.store_count}</td>
+                                        <td>{$vo['is_free_shipping'] == 1 ? '✓' : '✗'}</td>
+                                        <td>{$vo['is_free_shipping'] != 1 ? $vo['postage'] : 0}</td>
+                                        <td>{:format_date($vo['create_time'])}</td>
+                                        <td>
+                                            <gt name="vo.store_count" value="0">
+                                                <a href="javascript:void(0);" class="mins no-mins" data-count="{$vo.store_count}" data-carnum="-1">−</a>
+                                                <input type="text" value="1" class="buyNum tbuyNum " data-id="{$vo.card_id}" data-name="{$vo.name}" data-count="{$vo.store_count}" autocomplete="off" style="max-width: 50px;">
+                                                <a href="javascript:void(0)" class="add" data-carnum="1" data-count="{$vo.store_count}">+</a> </li>
+                                            </gt>
+                                        </td>
+                                    </tr>
+                                </foreach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary buy-cards"><!--btn-buy-->下一步</button>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    //购买数量-1
+    $('.mins').click(function(){
+        var buynum = parseInt($(this).next().val());
+        if(buynum>1){
+            $(this).next().val(buynum-1);
+        }
+        if(buynum-1 == 1){
+            $('.mins').addClass('no-mins');
+        }
+        $('.add').removeClass('no-mins');
+        return false;
+    });
+
+    //购买数量+1
+    $('.add').click(function(){
+        var buynum =  parseInt($(this).prev().val());
+        var store_count = $(this).data('count');
+        if(buynum<store_count){
+            $(this).prev().val(buynum+1);
+        }
+        if(buynum+1 == store_count){
+            $('.add').addClass('no-mins');
+        }
+        $('.mins').removeClass('no-mins');
+        return false;
+    });
+
+    $('.tbuyNum').on('blur',function () {
+        var buynum =  parseInt($(this).val());
+        var store_count = $(this).data('count');
+        if (buynum < 1){
+            popLayer('请输入正确数字');
+            $(this).val(1);
+            return ;
+        }
+        if(buynum > store_count){
+            popLayer('该卡券最大库存为：'+store_count);
+            $(this).val(store_count);
+            return;
+        }
+    })
+    //layer msg
+    function popLayer(msg){
+        layer.msg(msg);
+    }
+    //购买卡券
+//    $('.btn-buy').on('click',function () {
+//        var data = {};
+//        $('input[name="num[]"]').each(function (i,v) {
+//            var id = $(v).data('id');
+//            var num = $(v).val();
+//            var name = $(v).data('name');
+//            data[i] = {'card_id':id,'store_count':num,'name':name};
+//        })
+//        if (data == '' || data == {}){
+//            popLayer('请选择购买的卡券');
+//            return ;
+//        }
+//        $.post("{:U('buy_card2')}",data,function (data) {
+//            if (data.hasOwnProperty('msg')){
+//                popLayer(data.msg);
+//            }
+//            if (data.hasOwnProperty('url')){
+//                location.href = data.url;
+//            }
+//        })
+//    })
+
+    //卡券购买页面
+//    function buy_card_page(id){
+//        var url = "{:U('Card/buy_card',array('card_id'=>__CARD_ID__))}";
+//        url = url.replace('__CARD_ID__',id);
+//        pop_iframe(url);
+//    }
+    //购买卡券
+//    $('.buy-card').on('click',function () {
+//        var id = $(this).data('id');
+//        buy_card_page(id);
+//    })
+
+    //购买多个卡券
+    $('.buy-cards').on('click',function () {
+        if ($("input:checkbox:checked").length <1){
+            popLayer('请选择购买的卡');
+            return;
+        }
+        var data = {};
+        $('input[name="ids[]"]:checked').each(function (i,v) {
+            var id = $(v).val();
+            var num = $(v).parents('tr').children('td:last-child').children('input').val();
+            var name = $(v).data('name');
+            data[i] = {'card_id':id,'store_count':num,'name':name};
+        })
+
+        if (data == '' || data == {}){
+            popLayer('请选择购买的卡券');
+            return ;
+        }
+        $.post("{:U('buy_card2')}",data,function (data) {
+            if (data.hasOwnProperty('msg')){
+                popLayer(data.msg);
+            }
+            if (data.hasOwnProperty('url')){
+                pop_iframe(data.url);
+            }
+        })
+
+    })
+
+    //Layer iframe窗
+    function pop_iframe(url){
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '卡券购买页',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['95%', '95%'],
+            content: url
+        });
+    }
+    // 添加修改收货地址回调函数
+    function call_back_fun(v){
+        layer.closeAll(); // 关闭窗口
+        location.href = "{:U('order_list')}";
+    }
+    //全选/反选
+    $('.check-all').on('click',function () {
+        $('input[name="ids[]"]').prop('checked',$(this).prop('checked'));
+    })
+    //完善全选/反选
+    $('input[name="ids[]"]').on('click',function () {
+        var length = $('input[name="ids[]"]').length;
+        var check_len = $('input[name="ids[]"]:checked').length;
+        $('.check-all').prop('checked',length == check_len);
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>&nbsp;积分票管理
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <nav class="navbar navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <form class="navbar-form form-inline" role="search">
+                                    <div class="form-group">
+                                        <a class="btn btn-info" href="{:U('index',array('type'=>1))}">卡券列表</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a class="btn btn-info" href="{:U('index',array('type'=>0))}">回收列表</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div class="form-group pull-right">
+                                        <a href="{:U('info')}" class="btn btn-primary pull-right">
+                                            <i class="fa fa-plus"></i>添加积分票
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>名称</th>
+                                    <th>logo</th>
+                                    <th>售价</th>
+                                    <th>佣金比例</th>
+                                    <th>默认返现</th>
+                                    <th>卡券库存</th>
+                                    <th>上架</th>
+                                    <th>包邮</th>
+                                    <th>邮费</th>
+                                    <!--<th>分佣金额</th>-->
+                                    <th>平台分佣比例</th>
+                                    <th>省级比例</th>
+                                    <th>地级比例</th>
+                                    <th>县级比例</th>
+                                    <th>分销商比例</th>
+                                    <th>排序</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="data-list">
+                                <foreach name="list" item="vo" key="k">
+                                    <if condition="get_column('admin',session('admin_id'),'role_id') eq 1">
+                                        <tr role="row" align="center">
+                                            <td>{$vo.card_id}</td>
+                                            <td>{$vo.name}</td>
+                                            <td><a href="{$vo.cover}"><img src="{$vo.cover}" style="width: 30px;height: 30px;"></a></td>
+                                            <td>{$vo.price}元</td>
+                                            <td>{$vo.rate}%</td>
+                                            <td>{$vo.default_rebate}元</td>
+                                            <td>{$vo.store_count}</td>
+                                            <td>
+                                                {$vo['is_on_sale'] ==0 ? '✗' : '✓'}
+                                                <!--<select name="is_on_sale" class="sale-type" data-id="{$vo.card_id}">
+                                                    <option value="1" selected>✓</option>
+                                                    <option value="0" {$vo['is_on_sale'] ==0 ? 'selected' : ''}>✗</option>
+                                                </select>-->
+                                            </td>
+                                            <td>{$vo['is_free_shipping'] == 1 ? '✓' : '✗'}</td>
+                                            <td>{$vo['is_free_shipping'] != 0 ? 0 : $vo['postage']}</td>
+                                            <!--<td>{$vo.distribut}</td>-->
+                                            <td>{$vo.first_rate}%</td>
+                                            <td>{$vo.second_rate}%</td>
+                                            <td>{$vo.third_rate}%</td>
+                                            <td>{$vo.fourth_rate}%</td>
+                                            <td>{$vo.fifth_rate}%</td>
+                                            <td>{$vo.sort}</td>
+                                            <td>
+                                                <eq name="vo.status" value="1">
+                                                    <a class="btn btn-primary" href="{:U('info',array('card_id'=>$vo['card_id']))}">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger" href="javascript:void(0)" data-url="{:U('remove')}" data-id="{$vo.card_id}" data-val="0" onclick="change_column(this)">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                    <else/>
+                                                    <a class="btn btn-primary" href="javascript:void(0)" data-url="{:U('change_column')}" data-id="{$vo.card_id}" data-val="1" onclick="change_column(this)">
+                                                        <i class="fa fa-undo"></i>
+                                                    </a>
+                                                </eq>
+                                            </td>
+                                        </tr>
+                                    </if>
+                                </foreach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">{$page}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+function change_column(obj){
+    if (confirm('是否执行此操作？')){
+        $.getJSON($(obj).data('url'),{'id':$(obj).data('id'),'value':$(obj).data('val')},function (data) {
+            if (data.hasOwnProperty('msg')){
+                layer.msg(data.msg);
+            }
+            if (data.hasOwnProperty('status')){
+                if (data.status==1){
+                    window.location.reload();
+                }
+            }
+        })
+    }
+}
+</script>
+</body>
+</html>

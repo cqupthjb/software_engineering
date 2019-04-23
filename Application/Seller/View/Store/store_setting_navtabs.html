@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs">
+    <li <if condition="ACTION_NAME eq 'store_setting'">class="active"</if>><a href="javascript:void(0)" data-url="{:U('Store/store_setting')}" onclick="goset(this)" data-toggle="tab">基本信息</a></li>
+    <li <if condition="ACTION_NAME eq 'store_description'">class="active"</if>><a href="javascript:void(0)" data-url="{:U('Store/store_description')}" onclick="goset(this)" data-toggle="tab">店铺简介</a></li>
+    <li <if condition="ACTION_NAME eq 'store_video'">class="active"</if>><a href="javascript:void(0)" data-url="{:U('Store/store_video')}" onclick="goset(this)" data-toggle="tab">店铺视频设置</a></li>
+    <if condition="$_seller.role_id eq 5">
+        <!--
+        <li <if condition="ACTION_NAME eq 'store_slide'">class="active"</if>><a href="javascript:void(0)" data-url="{:U('Store/store_slide')}" onclick="goset(this)" data-toggle="tab">幻灯片设置</a></li>
+        -->
+        <!--
+        <li<if condition="ACTION_NAME eq 'theme'">class="active"</if>><a href="javascript:void(0)" data-url="{:U('Store/theme')}" onclick="goset(this)" data-toggle="tab">店铺主题</a></li>
+        -->
+        <li <if condition="ACTION_NAME eq 'mobile_slide'">class="active"</if>><a href="javascript:void(0)" data-url="{:U('Store/mobile_slide')}" onclick="goset(this)" data-toggle="tab">手机店铺设置</a></li>
+    </if>
+    <!--<li <if condition="ACTION_NAME eq 'distribut'">class="active"</if>><a href="javascript:void(0)" data-url="{:U('Store/distribut')}" onclick="goset(this)" data-toggle="tab">分销设置</a></li>-->
+</ul>

@@ -1,0 +1,210 @@
+<include file="Public/header"/>
+<link rel="stylesheet" href="__STATIC__/js/layui/css/layui.css">
+<style>
+    .liuyandom{
+        border-top:none;
+        border-bottom: 1px solid #CCC;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    .btn-reply-icon {
+        width: 18px;
+        height: 18px;
+    }
+    .assess-reply-btn {
+        display: block;
+        margin: auto;
+        width: 90%;
+        height: 24px;
+        text-align: right;
+        line-height: 47px;
+     }
+    .assess-btns-icon {
+        display: inline-block;
+        margin-top: 16px;
+        margin-right: 6px;
+        vertical-align: top;
+        background: url("__STATIC__/images/assess-btns-icon.png?v=1") right 0 no-repeat;
+        background-size: 54px 16px;
+    }
+    .assess-btns-num {
+        font-size: 16px;
+        line-height: 0;
+        display: inline-block;
+        height: 0;
+        color: #bfbfbf;
+    }
+</style>
+<body>
+ <header>
+      <div class="tab_nav">
+        <div class="header">
+          <div class="h-left"><a class="sb-back" href="{:U('index')}" title="返回"></a></div>
+          <div class="h-mid">我的留言</div>
+          <div class="h-right">
+            <aside class="top_bar">
+              <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+</header>
+<include file="Public/menu"/>
+<div id="tbh5v0">
+<div class="liuyan">
+
+    <div class="liuyandom">
+      <section class="innercontent1">
+        <form action="" method="post" id="formMsg" enctype="multipart/form-data" name="formMsg" onSubmit="return submitMsg()">
+          <div>
+            <div class="form_search"><span>留言类型：</span>
+            <div class="anniu">
+	            <ul>
+	              <li class="on">
+	              	<label for="msg_type0"><input type="radio" name="msg_type" value="0" checked="checked" class="radio" id="msg_type0"> 留言</label>
+	              </li>
+	              <li>
+	              	<label for="msg_type1"><input type="radio" name="msg_type" value="1" class="radio" id="msg_type1" >投诉</label>
+	              </li>
+	              <li>
+	              	<label for="msg_type2"> <input type="radio" name="msg_type" value="2" class="radio" id="msg_type2">询问</label>
+	              </li>
+	              <li>
+	              	<label for="msg_type3"><input type="radio" name="msg_type" value="3" class="radio" id="msg_type3">售后</label>
+	              </li>
+	              <!--<li>
+	              	<label for="msg_type4"> <input type="radio" name="msg_type" value="4" class="radio" id="msg_type4">求购</label>
+	              </li>-->
+	             </ul>
+             </div>
+            </div>
+          </div>
+          <label for="msg_title">
+          <div class="field_else">
+          <span>留言主题：</span>
+              <input type="text" name="msg_title" id="msg_title" placeholder="*主题"/>
+          </div>
+          </label>
+          <div class="field_else">
+              <label for="msg_content">
+              <span>留言内容：</span>
+               <textarea name="msg_content" id="msg_content" style="height:100px;"></textarea>
+              </label>
+          </div>
+          <div class="field_else">
+          <span>验证码：</span>
+          <img class="po-ab to0" id="verify_code_img" width="120" height="40" src="{:U('Home/User/verify',array('type'=>'message'))}"  onclick="verify(this)" />
+          <input style="margin-top:20px" type="text" name="verify_code" id="verify_code" placeholder="验证码"/>
+
+          </div>
+          <div style=" padding-bottom:10px;">
+            <input type="button" value="提交留言" class="btn_big1"/>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <div class="liuyan_list" id="message_list">
+
+    </div>
+</div>
+
+<script>
+
+function verify(){
+   $('#verify_code_img').attr('src','/index.php?m=Mobile&c=User&a=verify&type=message&r='+Math.random());
+}
+	
+$('.anniu ul li').click(function(){
+	$(this).find("input").attr("checked","checked");
+	$('.anniu ul li').removeClass("on");
+	$(this).addClass("on");
+})
+
+$('.anniu ul li').click(function () {
+    $('.anniu ul li input').removeAttr("checked");
+    $('.anniu ul li').removeClass("on");
+    $(this).addClass("on");
+    var children = $(this).find("input[name='msg_type']");
+    $(children).attr("checked", true);
+})
+
+function submitMsg() {
+	var frm = document.forms['formMsg'];
+	var msg_title = frm.elements['msg_title'].value;
+	var msg_content = frm.elements['msg_content'].value;
+	var msg = '';
+	if (msg_title.length == 0) {
+		alert('留言标题不能为空');
+		return false
+	}
+	if (msg_content.length == 0) {
+		alert('留言内容不能为空');
+		return false
+	}
+	if (msg_title.length > 100) {
+		alert('标题不能超过100字符');
+		return false
+	}
+	if ($.trim($('#verify_code').val()).length == 0) {
+		alert('验证码不能为空');
+		return false
+	}
+	
+	
+	return true;
+}
+
+$('#message_list').on('click','.msg-detail',function () {
+    var id = $(this).data('id');
+    var url = "{:U('reply',array('msg_id'=>'__ID__'))}";
+    url = url.replace('__ID__',id);
+    location.href = url;
+})
+
+function popLayer(msg){
+    layer.open({
+        content: msg
+        ,skin: 'msg'
+        ,time: 1 //2秒后自动关闭
+    });
+}
+
+    //改成ajax提交
+    $('.btn_big1').on('click',function () {
+        var res = submitMsg();
+        if (!res){
+            return false;
+        }
+
+        $.post("{:U('message_list')}",$('#formMsg').serialize(),function (data) {
+            if (data.hasOwnProperty('info')){
+                popLayer(data.info);
+            }
+            setTimeout(function () {
+                location.reload();
+            },1000);
+        })
+    })
+</script>
+    <!--layer-->
+    <include file="Public/layer"/>
+    <!--半通用数据加载-->
+    <include file="Public/list"/>
+    <script>
+        //数据加载
+        function ready_loading(){
+            window.get_list_url = "{:U('get_message_list')}";
+            var data = {page:1};
+            var config = {elem:'#message_list',scrollElem:''};
+            get_list(data,config);
+        }
+        $(function () {
+            ready_loading();
+        })
+    </script>
+<include file="Public/footer"/>
+</div>
+<include file="Public/footer_nav"/>
+</body>
+</html>

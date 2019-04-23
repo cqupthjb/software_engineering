@@ -1,0 +1,35 @@
+<!--微信JS-SDK  扫一扫-->
+<!--<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>-->
+<script src="__STATIC__/apicloud/jweixin-1.0.0.js"></script>
+<script>
+    $(document).ready(function () {
+        // 微信配置
+        wx.config({
+            debug: false,
+            appId: "{$signPackage['appId']}",
+            timestamp: '{$signPackage["timestamp"]}',
+            nonceStr: '{$signPackage["nonceStr"]}',
+            signature: '{$signPackage["signature"]}',
+            jsApiList: ['scanQRCode'] // 功能列表，我们要使用JS-SDK的什么功能
+        });
+        //微信扫一扫
+        wx.ready(function () {
+            wx.scanQRCode({
+                needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                success: function (res) {
+                    var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                    api.alert({msg:JSON.stringify(result)});
+                    //alert(JSON.stringify(result));
+                },
+                cancel:function (res) {
+                   window.history.go(-1);
+                },
+                fail :function (res) {
+                    window.history.go(-1);
+                }
+            });
+            window.history.go(-1);
+        })
+    });
+</script>

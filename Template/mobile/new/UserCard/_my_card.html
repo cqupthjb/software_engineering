@@ -1,0 +1,12 @@
+<foreach name="card_list" item="vo">
+    <li class="list_add J_add">
+        <div class="td_l">
+            <p>卡名: {$vo.level_name}</p>
+            <p>卡号: {$vo.card_no}</p>
+        </div>
+        <div class="td_r">
+            <p class="il_money">{$vo.money}</p>
+            <p class="time">{$vo.create_time|date='Y-m-d',###}</p>
+        </div>
+    </li>
+</foreach>

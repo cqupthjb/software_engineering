@@ -1,0 +1,199 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <!-- Main content -->
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i>更换商户</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_store" data-toggle="tab">商户信息</a></li>
+                        <!--<li><a href="#tab_info" data-toggle="tab">注册信息</a></li>                                        -->
+                    </ul>
+                    <!--表单数据-->
+                    <form method="post" id="store_info">
+                    <div class="tab-content">                 	  
+                        <div class="tab-pane active" id="tab_store">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td class="col-md-2">选择店主：</td>
+                                    <td>
+                                        <if condition="empty($user['nickname'])">
+                                            <input type="text" value="{$user.user_id}：{$user.mobile}" disabled class="form-control" style="width:250px;">
+                                            <else/>
+                                            <input type="text" value="{$user.user_id}：{$user.nickname}" disabled class="form-control" style="width:250px;">
+                                        </if>
+                                        <br>
+                                        <select name="user_id" id="" class="form-control" style="width:250px;">
+                                            <option value="{$user.user_id}" data-val="{$user.mobile}">
+                                                <if condition="empty($user['nickname'])">
+                                                    {$user.user_id}：{$user.mobile}
+                                                    <else/>
+                                                    {$user.user_id}：{$user.nickname}
+                                                </if>
+                                            </option>
+                                            <volist name="user_list" id="vo">
+                                                <option value="{$vo.user_id}">
+                                                    <if condition="empty($vo['nickname'])">
+                                                        {$vo.user_id}：{$vo.mobile}
+                                                        <elseif condition="empty($vo['mobile'])"/>
+                                                        {$vo.user_id}：{$vo.nickname}
+                                                        <else/>
+                                                        {$vo.user_id}：{$vo.nickname}：{$vo.mobile}
+                                                    </if>
+                                                </option>
+                                            </volist>
+                                        </select>
+                                        <!--{$store.user_id}-->
+                                    </td>
+                                    <td class="text-warning">用于登录会员中心</td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">商户账号：</td>
+                                    <td>
+										<input type="text" value="{$store.seller_name}" name="seller_name" class="form-control" style="width:250px;"/>
+									</td>
+									<td class="text-warning">请更换商家时，一同更换，用于登录商家中心，可与店主账号不同</td>
+                                </tr>
+								<tr>
+									<td class="col-md-2">登录密码：</td>
+									<td>
+										<input type="password" value="" name="new_password" class="form-control" style="width:250px;"/>
+									</td>
+									<td class="text-warning">密码为6-16位字母数字组合</td>
+								</tr>
+                                <tr>
+                                    <td>店铺名称：</td>
+                                    <td>
+	                                    <input type="text" value="{$store.store_name}" name="store_name" class="form-control" style="width:250px;"/>
+                                        <span id="err_goods_remark" style="color:#F00; display:none;"></span>
+                                    </td>
+									<td></td>
+                                </tr>
+                                <tr>
+                                    <td>入驻时间：</td>
+                                    <td>{$store.store_time|date="Y-m-d H:i:s",###}</td>
+                                    <span id="err_goods_sn" style="color:#F00; display:none;"></span>
+                                </tr>
+                                <!--<tr>-->
+		                            <!--<td>状态：</td>-->
+		                            <!--<td><input type="radio" name="store[store_state]" value="1" onclick="$('#close_reason').hide();" <if condition="$store[store_state] eq 1">checked</if>>开启-->
+		                            	<!--<input type="radio" name="store[store_state]" onclick="$('#close_reason').show();" value="0" <if condition="$store[store_state] eq 0">checked</if>>关闭-->
+		                            <!--</td>-->
+		                        <!--</tr>                             -->
+		                        <!--<tr id="close_reason" <if condition="$store[store_state]  eq 1">style="display:none;"</if>>-->
+		                        	<!--<td>关闭原因：</td>-->
+		                        	<!--<td><textarea name="store[store_close_info]" rows="3" cols="30">{$store.store_close_info}</textarea></td>-->
+		                        <!--</tr> -->
+                             </tbody>                                
+                           </table>
+                        </div>
+                    </div>              
+                    <div class="pull-right">
+                        <input type="hidden" name="store_id" value="{$store.store_id}">
+                        <button class="btn btn-primary" onclick="actsubmit()" title="" type="button">保存</button>
+                    </div>
+			    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+$(document).ready(function(){
+	$('.btn-flat').click(function(){
+		if(!$(this).hasClass('btn-info')){
+			$(this).removeClass('btn-default');
+			$(this).addClass('btn-info');
+			$(this).siblings().addClass('btn-default');
+			$(this).siblings().removeClass('btn-info');
+			$('#'+$(this).attr('data-id')).val($(this).attr('rel'));
+		}
+	})
+})
+
+function popLayer(msg){
+    layer.msg(msg);
+}
+//初次判断
+window._type =false;
+
+$('select[name="user_id"]').on('change',function () {
+    /*var option = $('select[name="user_id"]').find('option:selected');
+    if (typeof $(option).data('val') != 'undefined'){
+        var val = $(option).data('val');
+        $('input[name="seller_name"]').val(val);
+    }else{
+        $('input[name="seller_name"]').val('');
+    }*/
+    $('input[name="seller_name"]').val('');
+})
+
+function actsubmit(){
+	if ($('input[name="store_name"]').val() == ''){
+        popLayer('店铺名称不能为空');
+		return;
+	}
+	if ($('input[name="seller_name"]').val() == ''){
+	    popLayer('商户账号不能为空');
+	    return ;
+	}
+	var passwd = $('input[name="new_password"]').val();
+	if ( passwd == '' || passwd.length < 6 || passwd.length > 16){
+	    popLayer('密码为6-16位字母数字组合');
+	    return ;
+	}
+	if ($('input[name="user_id"]').val() == 0){
+	    popLayer('请选择店主');
+	    return ;
+	}
+
+    //判断是否需要提示  第一次需要提示
+	if (window._type == false){
+        layer.confirm('确定要更换商家信息？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            window._type = true;
+            sub_form();
+        });
+    }else{
+        sub_form();
+    }
+
+
+	function sub_form(){
+        $.post("{:U('store_change')}",$('#store_info').serialize(),function (data) {
+            if (data.hasOwnProperty('msg')){
+                popLayer(data.msg);
+            }
+            if (data.hasOwnProperty('url')){
+                setTimeout(function () {
+                    location.href = data.url;
+                },1000);
+            }
+        })
+    }
+
+}
+
+var tmp_type = '';
+function upload_img(cert_type){
+	tmp_type = cert_type;
+	GetUploadify(1,'store','cert','callback');
+}
+
+function callback(img_str){
+	$('#'+tmp_type).attr('src',img_str);
+	$('input[name='+tmp_type+']').val(img_str);
+}
+</script>
+</body>
+</html>

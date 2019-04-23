@@ -1,0 +1,259 @@
+<!--region 辅助-->
+<script src="__STATIC__/apicloud/api.js"></script>
+<script>
+    //region 登录
+    var get_login = function(info){
+        if (!(info.hasOwnProperty('unionid'))){
+            alert('未获取到用户信息');
+            return false;
+        }
+        var url = "{:U('App/LoginApi/wx_login','','',true)}";
+
+        $.post(url,info,function(data, err) {
+            //alert(JSON.stringify(data))
+            //alert(JSON.stringify(err))
+            if (data.hasOwnProperty('status')){
+                if (data.status == 1){
+                    window.localStorage.setItem('wx_unionid',info.unionid);
+                    window.localStorage.setItem('wx_openid',info.openid);
+                    get_reg_id(info.unionid);//绑定极光推送reg_id
+                }
+            }
+            if (data.hasOwnProperty('url')){
+                //location.href = data.url;
+                //location.reload();
+            }else{
+                if (data.hasOwnProperty('msg')){
+                    alert(data.msg)
+                }
+            }
+        },'JSON');
+        //region 似乎不生效
+        //        api.ajax({
+        //            url: url,
+        //            method: 'post',
+        //            dataType:'json',
+        //            data: {values:info},
+        //        }, function(data, err) {
+        //            //api.alert({msg:JSON.stringify(data)})
+        //            //api.alert({msg:JSON.stringify(err)})
+        //            if (data.hasOwnProperty('status')){
+        //                if (data.status == 1){
+        //                    window.localStorage.setItem('wx_unionid',info.unionid);
+        //                    window.localStorage.setItem('wx_openid',info.openid);
+        //                }
+        //            }
+        //            if (data.hasOwnProperty('url')){
+        //                //location.href = data.url;
+        //                //location.reload();
+        //            }else{
+        //                if (data.hasOwnProperty('msg')){
+        //                    api.alert({msg:data.msg})
+        //                }
+        //            }
+        //        });
+        //endregion
+    }
+    //endregion
+
+    //region 绑定Jpush Reg_id
+    var check_login_type = function (reg_id,unionid) {
+        $.post("{:U('App/LoginApi/check_reg_id')}",{reg_id:reg_id,unionid:unionid},function (data) {
+            //alert(JSON.stringify(data));
+            if (data.hasOwnProperty('status')){
+                if (data.status == 0){
+                    window.localStorage.setItem('wx_unionid','');
+                    window.localStorage.setItem('wx_openid','');
+                    api.alert({msg:'您已在其他设备登录'});
+                    //退出
+                    location.href = "{:U('User/logout')}";
+                    return false;
+                }
+            }
+        },'json');
+        return true;
+    }
+
+    var get_reg_id = function(unionid){
+        var ajpush = api.require('ajpush');
+        var systemType = api.systemType;//ios   //android   //win   //wp
+        if (systemType == 'ios'){
+            bind_reg_id(ajpush,unionid);//ios自动初始化
+        }else{
+            ajpush.init(function(ret) {
+                if (ret && ret.status){
+                    //success
+                    bind_reg_id(ajpush,unionid);
+                }
+            });
+        }
+    }
+    var bind_reg_id = function(ajpush,unionid){
+        ajpush.getRegistrationId(function(ret) {
+            //alert(JSON.stringify(ret))
+            var reg_id = ret.id;
+            if (reg_id != null && reg_id != '' && typeof (reg_id) != 'undefined'){
+                var type = check_login_type(reg_id,unionid);//检查在其它设备登录否
+                if (type == true) return;//是当前设备//不用再次绑定
+                var url = "{:U('App/LoginApi/save_jpush_info','','',true)}";
+                $.post(url,{reg_id:reg_id,unionid:unionid},function (data) {
+                    window.localStorage.setItem('jpush_reg_id',data.reg_id);
+
+                    //alert(JSON.stringify(data));
+                },'JSON').error(function (err) {
+                    //alert(JSON.stringify(err));
+                })
+            }
+        });
+    }
+    //endregion
+
+    //region 自动登录 & Jpush & 状态栏颜色
+    $(function () {
+        var user_id = parseInt("{$_uid}");//alert(user_id);
+        if (user_id == '' || user_id == null || user_id == 0 || isNaN(user_id)){
+            auto_login();//自动登录
+        }else{//登录状态
+
+        }
+        apiready = function(){
+            listener_jpush();//极光推送
+            //change_header();//状态栏
+            customRefresh();//下拉刷新
+
+        }
+    })
+    //endregion
+
+    //region auto_login自动登录
+    var auto_login = function () {
+        var unionid = window.localStorage.getItem('wx_unionid');
+        var openid  = window.localStorage.getItem('wx_openid');
+        if (unionid != '' && unionid !=null && typeof(unionid) != 'undefined' && openid != '' && openid !=null && typeof(openid) != 'undefined'  ){
+            //登录
+            get_login({unionid:unionid,openid:openid,is_auto:true});
+        }
+    }
+    //endregion
+
+    //region Jpush
+    var listener_jpush = function () {
+        //android 初始化
+        var ajpush = api.require('ajpush');
+        var systemType = api.systemType;//ios   //android   //win   //wp
+        if (systemType == 'ios'){
+            //listener(ajpush);//消息监听
+            ajpush.setBadge({
+                badge:0
+            });//清除ios通知数字
+        }else{
+            ajpush.init(function(ret) {
+                if (ret && ret.status){
+                    //success
+                    //listener(ajpush);//消息监听
+                }
+            });
+        }
+
+
+        //通知极光推送SDK当前应用恢复到前台。
+        api.addEventListener({name:'resume'}, function(ret,err) {
+            ajpush.onResume();
+        });
+        //通知极光推送SDK当前应用退入到后台。
+        api.addEventListener({name:'pause'}, function(ret,err) {
+            ajpush.onPause();
+        });
+
+
+    }
+
+    var listener = function(ajpush){
+        ajpush.setListener(function(ret) {
+            //api.alert({msg:JSON.stringify(ret)});
+            var id = ret.id;
+            var title = ret.title;
+            var content = ret.content;
+            var extra = ret.extra;
+            api.alert({title:title,msg:content})
+        });
+    }
+    //endregion
+
+    //region 微信分享
+    var app_wx_share = function (info) {
+        //api.alert({msg:JSON.stringify(info)})
+        api.execScript({
+            name : 'root',  //由于直接在index上使用openFrame，因此只需name root。
+            script : "wx_share("+JSON.stringify(info)+")"
+            //这里的六个参数分别在本地页面出发方法后由php传给js再传给本地的index，分别是：
+            // 分享标题，描述，缩略图地址，分享类型（好友/朋友圈），图片缓存到本地名称。
+        });
+    }
+    //endregion
+
+    //region 下拉刷新
+    var customRefresh = function(){
+        api.setCustomRefreshHeaderInfo({
+            //visible : true,
+            bgColor: '#eee',
+            images: [
+                'widget://image/loading1.png',
+                'widget://image/loading2.png',
+                'widget://image/loading3.png',
+                'widget://image/loading4.png',
+                'widget://image/loading5.png',
+                'widget://image/loading6.png',
+                'widget://image/loading7.png',
+                'widget://image/loading8.png',
+            ],
+            tips: {
+                pull: '下拉刷新',
+                threshold: '松开试试',
+                load: '正在刷新'
+            }
+        }, function() {
+            //下拉刷新被触发，自动进入加载状态，使用 api.refreshHeaderLoadDone() 手动结束加载中状态
+            //下拉刷新被触发，使用 api.refreshHeaderLoadDone() 结束加载中状态
+            api.addEventListener({
+                name: 'shake'
+            }, function(ret, err) {
+                api.refreshHeaderLoadDone()
+            });
+            window.location.reload()
+            api.refreshHeaderLoadDone();
+        });
+    }
+
+    //endregion
+
+    //region 状态栏颜色  //已废用
+    var change_header = function () {
+        var css = 'background-color:#F6F6F6;';
+        var bar = {
+            style: 'dark',
+            color: '#F6F6F6'
+        };
+        api.execScript({
+            name : 'root',  //由于直接在index上使用openFrame，因此只需name root。script:fun_name({param1:value1,param2:value2})
+            script: 'change_header('+ JSON.stringify({css:css,bar:bar}) +')'
+        });
+    }
+    //endregion
+
+    //region 监听返回键 要在api项目监听
+    var historyback = function () {
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            alert('按了返回键');
+        });
+    }
+    //endregion
+
+    window.onerror = function(msg, file, number){
+        console.log(msg);
+    }
+</script>
+<!--endregion-->
+

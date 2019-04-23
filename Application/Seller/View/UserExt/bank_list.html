@@ -1,0 +1,128 @@
+<include file="Public/min-header"/>
+<link href="__PUBLIC__/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
+<script src="__PUBLIC__/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i>银行信息</h3>
+                </div>
+                <div class="navbar navbar-default">
+                    <div class="form-group">
+                        <p class="text-warning" style="text-align: center;">在提现中可以选择已保存的银行信息</p>
+                    </div>
+                </div>
+                <div class="navbar navbar-default">
+                    <a href="javascript:void(0);" class="btn-add-bank" data-url="{:U('add_bank')}">
+                        <button class="btn btn-primary" id="button-filter search-order" type="button">
+                            <i class="fa fa-plus"></i>添加银行信息
+                        </button>
+                    </a>
+                </div>
+                <div class="panel-body">
+                    <div id="ajax_return">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th class="sorting text-left">ID</th>
+                                    <th class="sorting text-left">用户id</th>
+                                    <th class="sorting text-left">银行名称</th>
+                                    <th class="sorting text-left">银行账号</th>
+                                    <th class="sorting text-left">银行账户</th>
+                                    <th class="sorting text-left">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                <volist name="list" id="v">
+                                    <tr>
+                                        <td class="text-left">{$v.bank_id}</td>
+                                        <td class="text-left">{$v.user_id}</td>
+                                        <td class="text-left">{$v.bank_name}</td>
+                                        <td class="text-left">{$v.account_bank}</td>
+                                        <td class="text-left">{$v.account_name}</td>
+                                        <td class="text-left">
+                                            <a href="javascript:void(0);" data-url="{:U('add_bank',array('bank_id'=>$v['bank_id']))}"
+                                               data-toggle="tooltip" title="" class="btn btn-primary btn-add-bank"
+                                               data-original-title="编辑"><i class="fa fa-pencil"></i></a>
+
+                                            <a href="javascript:void(0);" onclick="del('{$v[bank_id]}')"
+                                               id="button-delete6" data-toggle="tooltip" title=""
+                                               class="btn btn-danger" data-original-title="删除"><i
+                                                    class="fa fa-trash-o"></i></a>
+                                        </td>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">{$show}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<script>
+    // 删除操作
+    function del(id) {
+        var url = "{:U('del_bank',array('bank_id'=>'__ID__'))}";
+        url = url.replace('__ID__', id);
+        if (!confirm('确定要删除吗?'))
+            return false;
+        $.ajax({
+            url: url,
+            success: function (v) {
+                if (v.hasOwnProperty('msg')){
+                    popLayer(v.msg);
+                }
+                if (v.hasOwnProperty('status'))
+                    if (v.status == 1)
+                        setTimeout(function(){window.location.reload();},1000);
+            }
+        }, 'json');
+        return false;
+    }
+
+    //layer msg
+    function popLayer(msg){
+        layer.msg(msg);
+    }
+    //Layer iframe窗
+    function pop_iframe(url,title){
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['95%', '95%'],
+            content: url
+        });
+    }
+    // 添加修改收货地址回调函数
+    function call_back_fun(v){
+        layer.closeAll(); // 关闭窗口
+        location.href = location.href;
+    }
+    
+    $('.wrapper').on('click','.btn-add-bank',function () {
+        var url = $(this).data('url');
+        pop_iframe(url,'银行信息');
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>&nbsp;支付页面
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div style="display: table; width:350px;height: 490px;margin-left: auto;margin-right: auto;background: url('/Public/images/wechat_pay1.jpg') no-repeat no-repeat top;background-size:100% 100%;">
+                            <div class="row">
+                                <div style="display: table;width: auto; position: relative; top: 237px; margin-left: auto;margin-right: auto;">
+                                    <img src="{$qr_path}" alt="..." class="img-thumbnail" style="width: 120px;height: 120px;">
+                                </div>
+                                <div style="display: table;width: auto; position: relative; top: 297px; margin-left: auto;margin-right: auto;">
+                                    <div class="alert alert-success qr-msg" role="alert" style="display: none;max-width: 100%;text-align: center;font-size: 18px;color: #fff;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    //Layer Msg消息框
+    function popLayer(msg){
+        layer.msg(msg);
+    }
+    //监听订单状态
+    $(function () {
+        setInterval(get_order_status,2000);
+    })
+
+    //获取订单状态
+    function get_order_status(){
+        var sn = "{$sn}";
+        if (sn==''||sn==null||typeof(sn) == 'undefined'){
+            clearInterval(get_order_status);
+        }
+        $.getJSON("{:U('get_order_status')}",{'sn':sn},function (data) {
+            if (data.hasOwnProperty('msg')){
+                popLayer(data.msg);
+            }
+            if (data.hasOwnProperty('status')){
+                if (data.status==200){
+                    $('.qr-msg').fadeIn('slow');
+                    $('.qr-msg').html(data.order_msg);
+                    $('.qr-msg').addClass('success-close');
+                    clearInterval(get_order_status);
+                    //调用父窗口回调函数
+                    setTimeout(function () {
+                        window.parent.call_back_fun();
+                    },2000);
+                    //layer.closeAll();
+                }
+                if (data.status==201){
+                    $('.qr-msg').fadeIn('slow');
+                    $('.qr-msg').html(data.order_msg);
+                }
+            }
+
+        })
+    }
+
+//    $('.success-close').onclick('click',function () {
+//        window.parent.call_back_fun();
+//    })
+</script>
+</body>
+</html>

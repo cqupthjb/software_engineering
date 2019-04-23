@@ -1,0 +1,15 @@
+<volist name="article_list" id="vo">
+	<li>
+		<a href="{:U('Index/notice_detail',array('article_id'=>$vo['article_id']))}">
+			<div>
+				<span class="notice_title">{:mb_substr($vo['title'],0,12,'utf-8')}</span>
+				<span class="time">{:format_date($vo['add_time'])}</span>
+			</div>
+			<notempty name="vo.thumb">
+				<img src="{$vo.thumb}">
+				<else/>
+				<img src="" alt="" style="visibility:hidden;">
+			</notempty>
+		</a>
+	</li>
+</volist>

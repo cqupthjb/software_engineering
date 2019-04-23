@@ -1,0 +1,281 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <div class="alert alert-info alert-dismissible" role="alert">
+                            <if condition="$role_num gt 0">
+                                提示：省级最大个数为&nbsp;&nbsp;{$role_num}，在系统 <a href="{:U('/Admin/System/index',array('inc_type'=>'distribut'))}">分销设置</a> 中可更改。由于删除和修改会影响层级关系，故不开启。未发展下线的商户可以删除
+                                <else/>
+                                提示：省级个数未限制，在系统 <a href="{:U('/Admin/System/index',array('inc_type'=>'distribut'))}">分销设置</a> 中可更改。由于删除和修改会影响层级关系，故不开启。未发展下线的商户可以删除
+                            </if>
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <nav class="navbar navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <div class="navbar-form form-inline">
+                                    <div class="form-group">
+                                        <p class="text-success margin blod">店铺:</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <!-- <a class="btn btn-info" href="{:U('Store/store_list')}">店铺列表</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                                        <volist name="role_list" id="vo">
+                                            <a class="btn btn-default" href="{:U('Store/store_list',array('role_id'=>$vo['role_id']))}">{$vo.name|default='店铺'}列表</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </volist>
+                                        <!--<a class="btn btn-default" href="{:U('Store/apply_list')}" >开店申请</a>&nbsp;&nbsp;&nbsp;&nbsp;                                            -->
+                                        <!--<a class="btn btn-default" href="{:U('Store/reopen_list')}" >签约申请</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+                                        <a class="btn btn-default" href="{:U('Store/apply_class_list')}">经营类目申请</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div class="form-group pull-right">
+                                        <a class="btn btn-default share-code" href="javascript:void(0);">省级入驻二维码</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a href="{:U('Store/store_add',array('is_own_shop'=>0))}"
+                                           class="btn btn-primary pull-right"><i class="fa fa-plus"></i>
+                                            新增省级</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                        <nav class="navbar navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <form class="navbar-form form-inline" action="{:U('Store/store_list')}" method="post">
+                                    <!--<div class="form-group">
+                                        <label class="control-label" for="input-order-id">所属等级</label>
+                                        <select name="grade_id" class="form-control">
+                                            <option>选择等级</option>
+                                            <volist name="store_grade" id="item" key="k">
+                                                <option value="{$k}"
+                                                <if condition="$pid eq $k">selected</if>
+                                                >{$item}</option>
+                                            </volist>
+                                        </select>
+                                    </div>-->
+                                    <div class="form-group">
+                                        <input type="text" name="seller_name" class="form-control"
+                                               placeholder="请输入店主名称">
+                                    </div>
+                                    <!--<div class="form-group">
+                                        <label class="control-label" for="input-order-id">店铺状态</label>
+                                        <select name="store_state" class="form-control">
+                                            <option>选择状态</option>
+                                            <option value="1">开启</option>
+                                            <option value="2">关闭</option>
+                                            <option value="3">即将到期</option>
+                                            <option value="4">已到期</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="input-order-id">店铺类别</label>
+                                        <select name="sc_id" class="form-control">
+                                            <option>选择类别</option>
+                                            <volist name="store_class" id="item" key="k">
+                                                <option value="{$k}">{$item}</option>
+                                            </volist>
+                                        </select>
+                                    </div>-->
+                                    <div class="form-group">
+                                        <input type="text" name="store_name" class="form-control" placeholder="请输店铺名称">
+                                    </div>
+                                    <input type="hidden" name="role_id" value="{$role_id}">
+                                    <button type="submit" class="btn btn-primary">查询</button>
+                                </form>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="list-table" class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th>店铺编号</th>
+                                        <th>{$role_name|default='店铺'}名称</th>
+                                        <th>店主账号</th>
+                                        <th>卖家账号</th>
+                                        <!--<th>所属等级</th>-->
+                                        <th>姓名</th>
+                                        <th>身份证</th>
+                                        <th>店铺类别</th>
+                                        <th>进驻日期</th>
+                                        <th>状态</th>
+                                        <th>店铺资金</th>
+                                        <!--<th>推荐</th>-->
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <foreach name="list" item="vo" key="k">
+                                        <tr role="row">
+                                            <td>{$vo.store_id}</td>
+                                            <td>{$vo.store_name}</td>
+                                            <td>{$vo.user_name}</td>
+                                            <td>{$vo.seller_name}</td>
+                                            <!--<td>{$store_grade[$vo[grade_id]]}</td>-->
+                                            <td>{:get_column('users',array('user_id'=>$vo['user_id']),'user_name')}</td>
+                                            <td>{:get_column('users',array('user_id'=>$vo['user_id']),'id_card')}</td>
+
+                                            <td>{$role_name|default='店铺'}</td>
+                                            <td>{$vo.store_time|date='Y-m-d',###}</td>
+                                            <td>
+                                                <if condition="$vo[store_state] eq 1">开启
+                                                    <elseif condition="$vo[store_state] eq 2"/>
+                                                    待审核
+                                                    <elseif condition="$vo[store_state] eq 3"/>
+                                                       待支付
+                                                    <else/>
+                                                    关闭
+                                                </if>
+                                            </td>
+                                            <td><a href="{:U('store_money_list',array('store_id'=>$vo['store_id']))}">{$vo.store_money}</a></td>
+                                            <td class="text-center">
+                                                <!--<a class="btn btn-info"
+                                                   href="{:U('Store/store_info_edit',array('store_id'=>$vo['store_id']))}">编辑</a>-->
+                                                <a class="btn btn-info"
+                                                   href="{:U('Store/store_edit',array('store_id'=>$vo['store_id']))}">编辑</a>
+                                                <eq name="vo.store_state" value="2">
+                                                    <a class="btn btn-info btn-examine" href="javascript:void(0);"
+                                                       data-id="{$vo.store_id}" data-value="1" data-wholesaler="{$vo.is_wholesaler}">审核</a>
+                                                </eq>
+                                                <if condition="in_array($vo['role_id'],array(5,0))">
+                                                    <a class="btn btn-info"
+                                                       href="{:U('Store/store_class_info',array('store_id'=>$vo['store_id']))}">经营类目</a>
+                                                </if>
+                                                <!--<a class="btn btn-danger btn-change-pwd" data-id="{$vo.store_id}">更改密码</a>-->
+                                                <a class="btn btn-danger btn-change" data-id="{$vo.store_id}">更换商家</a>
+                                                <a class="btn btn-danger btn-remove" data-url="{:U('Store/store_del')}"
+                                                   data-id="{$vo.store_id}">删除</a>
+                                            </td>
+                                        </tr>
+                                    </foreach>
+                                    </tbody>
+                                    <tfoot>
+
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--<div class="col-sm-6 text-left">
+                                <button class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
+                            </div>-->
+                            <div class="col-sm-6 text-right">{$page}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    //Layer iframe窗
+    function pop_iframe(url) {
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '省级推广二维码',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['60%', '90%'],
+            content: url
+        });
+    }
+    //Layer msg
+    function popLayer(msg) {
+        layer.msg(msg);
+    }
+
+    //二维码
+    $('.share-code').on('click', function () {
+        var url = "{:U('share_code')}";
+        pop_iframe(url);
+    })
+    //审核
+    $('.btn-examine').on('click', function () {
+        var id = $(this).data('id');
+        var value = $(this).data('value');
+        var isWholesaler = $(this).data('wholesaler');
+        if (isWholesaler){
+            wholesalerReview(id,value)
+            return
+        }
+        $.getJSON("{:U('change_column')}", {'id': id, 'value': value}, function (data) {
+            if (data.hasOwnProperty('msg')) {
+                popLayer(data.msg);
+            }
+            if (data.hasOwnProperty('status')) {
+                if (data.status == 1) {
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                }
+            }
+        })
+    })
+
+    function wholesalerReview(id,value){
+        $.getJSON("{:U('/Admin/Store/review_store')}", {'id': id, 'value': value}, function (data) {
+            if (data.hasOwnProperty('msg')) {
+                popLayer(data.msg);
+            }
+            if (data.hasOwnProperty('status')) {
+                if (data.status == 1) {
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 1000);
+                }
+            }
+        })
+    }
+
+    //删除
+    $('.btn-remove').on('click', function () {
+        var url = $(this).data('url');
+        var id = $(this).data('id');
+        layer.confirm('确定要删除？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            $.getJSON(url, {'del_id': id}, function (data) {
+                if (data.hasOwnProperty('msg')) {
+                    popLayer(data.msg);
+                }
+                if (data.hasOwnProperty('status')) {
+                    if (data.status == 1) {
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000)
+                    }
+                }
+            })
+        });
+    })
+
+    //更换商家信息
+    $('.btn-change').on('click',function () {
+        var id = $(this).data('id');
+        var url = "{:U('store_change',array('store_id'=>'__ID__'))}";
+        url = url.replace('__ID__',id);
+        layer.confirm('确定要更换商家信息？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            location.href = url;
+        });
+    })
+
+    /*//更换商户密码
+    $('.btn-change-pwd').on('click',function () {
+        var id = $(this).data('id');
+        var url = "{:U('store_change_pwd',array('store_id'=>'__ID__'))}";
+        url = url.replace('__ID__',id);
+        layer.confirm('确定要修改商家密码？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            pop_iframe(url);
+        });
+    })*/
+</script>
+</body>
+</html>   

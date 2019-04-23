@@ -1,0 +1,218 @@
+<include file="Public/min-header"/>
+<style>
+    ul.group-list {
+        width: 96%;
+        min-width: 1000px;
+        margin: auto 5px;
+        list-style: disc outside none;
+    }
+
+    ul.group-list li {
+        white-space: nowrap;
+        float: left;
+        width: 150px;
+        height: 25px;
+        padding: 3px 5px;
+        list-style-type: none;
+        list-style-position: outside;
+        border: 0px;
+        margin: 0px;
+    }
+
+    th.title {
+        background: #F3F3F3;
+        border-bottom: 1px solid #D7D7D7;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+</style>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default"
+                   data-original-title="返回积分票列表"><i class="fa fa-reply"></i></a>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i> {$row ? '编辑' : '新增'}积分票</h3>
+                </div>
+                <div class="panel-body ">
+                    <form action="{:U('save_info')}" id="submit-form" method="post">
+                        <notempty name="row.card_id">
+                            <input type="hidden" name="card_id" value="{$row.card_id}">
+                        </notempty>
+                        <div class="form-group">
+                            <label for="name">卡券名称</label>
+                            <input type="text" class="form-control" name="name" id="name" placeholder="卡券名称" value="{$row.name|default=''}">
+                        </div>
+                        <div class="form-group ">
+                                <label for="cover">卡券logo</label>
+                                <input type="text" value="{$row.cover}" name="cover" id="cover" class="form-control" style="width:350px;"/>
+                                <input onclick="GetUploadify(1,'cover','card');" type="button" class="btn btn-default" value="上传logo"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">卡券价格</label>
+                            <input type="text" class="form-control" name="price" id="price" placeholder="卡券价格" value="{$row.price|default='0'}">
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="rate">分佣金额比例</label>
+                            <input type="text" class="form-control" name="rate" id="rate" placeholder="卡券折扣" value="{$row.rate|default=0}" style="width: 350px;">%
+                            <span class="help-block">百分比,此比例是计算分佣佣金的比例，如：比例8%，单张价格100，佣金即 100 * 0.08 = 8元，但是要减去下面直接返现金额</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="default_rebate">默认返现金额</label>
+                            <input type="text" class="form-control" name="default_rebate" id="default_rebate" placeholder="默认返现金额" value="{$row.default_rebate|default=0}" style="width: 350px;">%
+                            <span class="help-block">当用户购买卡券时，默认返现的金额，如：默认5元，从佣金中扣取，即分销佣金：100*0.08 =8-5 =3</span>
+                        </div>
+                        <!--<div class="form-group">
+                            <label for="distribut">分佣金额</label>
+                            <input type="text" class="form-control" name="distribut" id="distribut" placeholder="分佣金额" value="{$row.distribut|default=0}" style="width: 350px;">%
+                            <span class="help-block">当前卡券一张分佣金额为多少，为0时表示使用当前卡券总金额</span>
+                        </div>-->
+                        <div class="form-group">
+                            <label for="first_rate">平台分佣比例</label>
+                            <input type="text" class="form-control" name="first_rate" id="first_rate" placeholder="卡券折扣" value="{$row.first_rate|default=0}" style="width: 350px;">%
+                            <span class="help-block">百分比,请认真计算比例,默认先计算其他比例分成，剩余即平台分成</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="second_rate">省级分佣比例</label>
+                            <input type="text" class="form-control" name="second_rate" id="second_rate" placeholder="卡券折扣" value="{$row.second_rate|default=0}" style="width: 350px;">%
+                            <span class="help-block">百分比，代表省级分得佣金的比例,最大支持两位小数</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="third_rate">地级分佣比例</label>
+                            <input type="text" class="form-control" name="third_rate" id="third_rate" placeholder="卡券折扣" value="{$row.third_rate|default=0}" style="width: 350px;">%
+                            <span class="help-block">百分比，代表地级分得佣金的比例，最大支持两位小数</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="fourth_rate">县级分佣比例</label>
+                            <input type="text" class="form-control" name="fourth_rate" id="fourth_rate" placeholder="卡券折扣" value="{$row.fourth_rate|default=0}" style="width: 350px;">%
+                            <span class="help-block">百分比，代表县级分得佣金的比例，最大支持两位小数</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="fifth_rate">分销商分佣比例</label>
+                            <input type="text" class="form-control" name="fifth_rate" id="fifth_rate" placeholder="卡券折扣" value="{$row.fifth_rate|default=0}" style="width: 350px;">%
+                            <span class="help-block">百分比，代表分销商分得佣金的比例，最大支持两位小数</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="store_count">库存</label>
+                            <input type="text" class="form-control" name="store_count" id="store_count" placeholder="库存" value="{$row.store_count|default=0}">
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>是否上架</label>
+                            <label class="radio-inline"><input type="radio"  name="is_on_sale"  placeholder="是否上架" value="1" checked>是</label>
+                            <label class="radio-inline"><input type="radio"  name="is_on_sale"  placeholder="是否上架" value="0" >否</label>
+                            <span class="help-block">未上架即不能购买</span>
+                        </div>
+                        <div class="form-group">
+                            <label>是否包邮</label>
+                            <label class="radio-inline"><input type="radio"  name="is_free_shipping"  placeholder="是否包邮" value="1" checked>是</label>
+                            <label class="radio-inline"><input type="radio"  name="is_free_shipping"  placeholder="是否包邮" value="0" >否</label>
+                            <span class="help-block">不包邮即结算时加上邮费</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="postage">邮费</label>
+                            <input type="text" class="form-control" name="postage" id="postage" placeholder="邮费" value="{$row.postage|default=0}" >
+                            <span class="help-block"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="sort">排序</label>
+                            <input type="number" class="form-control" name="sort" id="sort" placeholder="排序" value="{$row.sort|default=0}" >
+                            <span class="help-block">越小越靠前</span>
+                        </div>
+                        <button type="button" class="btn btn-default" onclick="check_submit()">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script type="text/javascript">
+    $(function () {
+        //邮费设置
+        var type = parseInt('{$row.is_free_shipping}');
+        type = (type != 0) ? true : false;
+        $('input[name="postage"]').attr('disabled',type);
+        //是否上架
+        type = parseInt('{$row.is_on_sale}');
+        $(":radio[name='is_on_sale'][value='" + type + "']").prop('checked','checked');
+        //设置包邮
+        type = parseInt('{$row.is_free_shipping}');
+        $(":radio[name='is_free_shipping'][value='" + type + "']").prop('checked','checked');
+    })
+    function popLayer(msg){
+        layer.alert(msg);
+    }
+    function check_submit(obj) {
+        if ($('input[name="name"]').val() == '') {
+            popLayer('请填写卡券名称');
+            return false;
+        }
+        if ($('input[name="price"]').val() < 0) {
+            popLayer('请填写正确的卡券价格');
+            return false;
+        }
+        if ($('input[name="cover"]').val() == '') {
+            popLayer('请填上传卡券图片');
+            return false;
+        }
+        if ($('input[name="rate"]').val() == 0 || $('input[name="rate"]').val() >=100) {
+            popLayer('请填写正确的分佣金额比例')
+            return false;
+        }
+        if ($('input[name="store_count"]').val() == '') {
+            popLayer('请填写正确的库存')
+            return false;
+        }
+        if ($('input[name="is_free_shipping"]').val() == 1 && $('input[name="postage"]').val() < 0) {
+            popLayer('请填写正确的邮费')
+            return false;
+        }
+        //region 分佣比例计算 和为100
+        var first_rate  =   parseFloat($('input[name="first_rate"]').val()); //平台返利比例
+        var second_rate =   parseFloat($('input[name="second_rate"]').val()); //省级返利比例
+        var third_rate  =   parseFloat($('input[name="third_rate"]').val()); //地级返利比例
+        var fourth_rate =   parseFloat($('input[name="fourth_rate"]').val()); //县级返利比例
+        var fifth_rate  =   parseFloat($('input[name="fifth_rate"]').val()); //分销店返利比例
+
+        var sum = first_rate + second_rate + third_rate + fourth_rate + fifth_rate;
+        if (sum <=0 || sum>100){
+            popLayer('分佣比例之和为100');
+            return false;
+        }
+        //endregion
+
+        //region 计算分佣佣金和默认返现金额
+        var default_rebate = $('input[name="default_rebate"]').val(); //默认返现金额
+        if (default_rebate > 0){
+            var price = parseFloat($('input[name="price"]').val());
+            var rate  = parseFloat($('input[name="rate"]').val());
+            var distribut_price = price * (rate / 100); //计算佣金
+            if (distribut_price - default_rebate <=0){ //判断佣金剩余金额是否大于0
+                popLayer('默认返现金额大于计算出的佣金总额');
+                return false;
+            }
+        }
+        //endregion
+
+        //提交表单
+        $('#submit-form').submit();
+    }
+
+    //region 邮费设置
+    $('input[name="is_free_shipping"]').on('change',function () {
+        var type = $(this).val() == 1 ? true : false;
+        if (type == true) $('input[name="postage"]').val(0);
+        $('input[name="postage"]').prop('disabled',type);
+    })
+    //endregion
+
+
+</script>
+</body>
+</html>

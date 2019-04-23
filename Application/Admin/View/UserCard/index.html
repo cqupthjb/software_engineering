@@ -1,0 +1,129 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>&nbsp;会员活动票管理-可领取的活动票
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <nav class="navbar navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <form class="navbar-form form-inline" role="search">
+                                    <div class="form-group pull-right">
+                                        <a href="javascript:void(0);" class="btn btn-primary pull-right btn-scan">
+                                            <i class="fa fa-plus"></i>领取活动票
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>名称</th>
+                                    <th>图片</th>
+                                    <th>等级</th>
+                                    <th>满足条件（金额）</th>
+                                    <th>活动票数量</th>
+                                    <th>已发放数量</th>
+                                    <th>未发放数量</th>
+                                    <th>开始时间</th>
+                                    <th>结束时间</th>
+                                </tr>
+                                </thead>
+                                <tbody id="data-list">
+                                <foreach name="card_list" item="vo" key="k">
+                                    <if condition="get_column('admin',session('admin_id'),'role_id') eq 1">
+                                        <tr role="row" align="center">
+                                            <td>{$vo.card_id}</td>
+                                            <td>{$vo.name}</td>
+                                            <td><a href="{$vo.cover}"><img src="{$vo.cover}" style="height: 50px;"></a></td>
+                                            <td>{$vo.level_name}</td>
+                                            <td>{$vo.need_price}</td>
+                                            <td>{$vo['store_count'] + $vo['user_count'] }</td>
+                                            <td>{$vo.user_count}</td>
+                                            <td>{$vo.store_count}</td>
+                                            <td>{$vo.start_time|date='Y/m/d',###}</td>
+                                            <td>{$vo.end_time|date='Y/m/d',###}</td>
+                                        </tr>
+                                    </if>
+                                </foreach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">{$page}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--region 用户领取信息 -->
+        <div class="user_info"></div>
+        <!--endregion用户领取信息-->
+    </section>
+</div>
+<script>
+    //Layer 消息提示
+    function popLayer(msg){
+        layer.msg(msg);
+    }
+    //Layer iframe窗
+    function pop_iframe(url){
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '扫描用户二维码',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['50%', '50%'],
+            content: url
+        });
+    }
+    // iframe窗 回调函数1
+    function call_back_fun(v){
+        layer.closeAll(); // 关闭窗口
+        $('.content').html(v);
+        //$('.user_info').html(v);
+        //location.href = "";
+    }
+
+    //点击用户领取活动票按钮
+    $('.content').on('click','.btn-scan',function () {
+        var url = "{:U('scan_user')}";
+        pop_iframe(url);//iframe
+    })
+
+    //点击领票按钮
+    $('.content').on('click','.btn-send',function () {
+        var card_id = $(this).data('id');
+        var user_id = $('input[name="user_id"]').val();
+        if (card_id == '' || user_id == ''){
+            popLayer('未获取到信息,请刷新重试');
+            return false;
+        }
+        $.post("{:U('receive_card')}",{card_id:card_id,user_id:user_id},function (data) {
+            if (data.hasOwnProperty('msg')){
+                popLayer(data.msg);
+            }
+            if (data.hasOwnProperty('status')){
+                if (data.status == 1){
+                    setTimeout(function () {
+                        location.reload();
+                    },1000);
+                }
+            }
+        },'JSON');
+    })
+</script>
+</body>
+</html>

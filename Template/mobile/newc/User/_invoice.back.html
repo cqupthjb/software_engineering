@@ -1,0 +1,38 @@
+
+<!--第二种-->
+<notempty name="invoice_list">
+    <volist name="invoice_list" id="vo">
+        <dl>
+            <dt><span>{$vo.AcceptTime}</span></dt>
+            <dd>
+                <p><i class="icon icon-site"></i> {$vo.AcceptStation}</p>
+            </dd>
+        </dl>
+    </volist>
+    <else/>
+    <dl>
+        <dt><span>{:date('Y-m-d H:i:s',time())}</span></dt>
+        <dd>
+            <p><a href="http://www.kuaidi100.com/" target="_blank">在线查询</a></p>
+        </dd>
+    </dl>
+</notempty>
+
+<!--第二种 快递100-->
+<!--<notempty name="invoice_list">
+    <volist name="invoice_list" id="vo">
+        <dl>
+            <dt><span>{$vo.time}</span></dt>
+            <dd>
+                <p><i class="icon icon-site"></i> {$vo.context}</p>
+            </dd>
+        </dl>
+    </volist>
+    <else/>
+    <dl>
+        <dt><span>{:date('Y-m-d H:i:s',time())}</span></dt>
+        <dd>
+            <p><a href="http://www.kuaidi100.com/" target="_blank">在线查询</a></p>
+        </dd>
+    </dl>
+</notempty>-->

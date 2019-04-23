@@ -1,0 +1,68 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i>
+                        <if condition="$detail['type'] eq 1">
+                            店铺信息详情
+                            <else/>
+                            店铺视频详情
+                        </if>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <if condition="$detail['type'] eq 1">
+                    <div>
+                        {$detail.content|htmlspecialchars_decode}
+                    </div>
+                    </if>
+                    <if condition="$detail['type'] eq 2">
+                        <video src="{$detail['content']}" controls poster="{$detail.poster}"></video>
+                    </if>
+
+                    <if condition="$detail['status'] eq 0">
+                        <div style="border-top: solid 1px #ccc;padding: 10px;margin-top: 10px;display: flex">
+                            <div style="margin: 10px 0;flex:1">
+                                <form action="{:U('/Admin/store/info_review',array('id'=>$detail['id']))}"
+                                      method="post">
+                                    <input type="text" hidden name="approval" value="1">
+                                    <input type="text" hidden name="type" value="{$detail['type']}">
+                                    <button class="btn btn-primary">通过</button>
+                                </form>
+                            </div>
+                            <div style="flex: 1">
+                                <form action="{:U('/Admin/store/info_review',array('id'=>$detail['id']))}"
+                                      method="post">
+                                    <input type="text" hidden name="approval" value="0">
+                                    <input type="text" hidden name="store_id" value="{$detail['store_id']}">
+                                    <input type="text" hidden name="type" value="{$detail['type']}">
+                                    <div style="max-width: 300px;margin: 10px 0">
+                                        <textarea type="text" placeholder="审核意见" class="form-control"
+                                                  name="reason"></textarea>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary">不通过</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </if>
+                </div>
+            </div>
+        </div>        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<script>
+    $(document).ready(function () {
+
+
+    });
+</script>
+</body>
+</html>

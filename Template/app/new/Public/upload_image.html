@@ -1,0 +1,115 @@
+<!--<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>-->
+<script src="__STATIC__/apicloud/jweixin-1.0.0.js"></script>
+<script>
+    wx.config({
+        debug: false,
+        appId: "{$signPackage['appId']}",
+        timestamp: '{$signPackage["timestamp"]}',
+        nonceStr: '{$signPackage["nonceStr"]}',
+        signature: '{$signPackage["signature"]}',
+        jsApiList: [
+            'chooseImage',
+            'uploadImage',
+            'downloadImage',
+            'previewImage',
+        ] // 功能列表，我们要使用JS-SDK的什么功能
+    });
+
+    var count = 1; //默认上传图片张书
+    $('.head_pic').on('click',function(){
+        //定义images用来保存选择的本地图片ID，和上传后的服务器图片ID
+        var images = {
+            localId: [],
+            serverId: []
+        };
+
+        /*if(count>=1)*/
+        wx.chooseImage({
+            count: count, // 默认
+
+            success: function (res) {
+                //alert(JSON.stringify(res));
+                //  alert(res.localIds);
+                images.localId = res.localIds;  //保存到images
+                // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                var i = 0; length = images.localId.length;
+
+                count-=length;
+
+                //创建上传函数
+                function upload() {
+                    //var picobj = $("#picture");
+                    var imgobj = $('.head_pic'); //图片回显列表
+                    wx.uploadImage({
+                        localId: images.localId[i], // 需要上传的图片的本地ID，由chooseImage接口获得
+                        // localId:   images.localId,
+                        // isShowProgressTips: 1, // 默认为1，显示进度提示
+                        success: function (res) {
+                            if (i==1)  imgobj.empty();
+                            i++;
+                            //var imgId = picobj.val();
+                            //var imgStr = "";
+                            $.ajax({
+                                type:"get",
+                                url:"{:U('Index/upload_header')}",
+                                data:{serverid:res.serverId},
+                                dataType: "json",
+                                success: function(data){
+                                    //alert(JSON.stringify(data));
+                                    if (data.hasOwnProperty('status')){
+                                        if (data.status == 1){
+                                            if(data.hasOwnProperty('path')){
+                                                if (data.path != ''){
+                                                    $('.head_pic').prop('src',data.path);
+                                                    popLayer('修改头像成功');
+                                                    count = 1
+                                                }
+                                            }
+                                        }else{
+                                            if (data.hasOwnProperty('msg')){
+                                                popLayer(data.msg);
+                                            }
+                                        }
+                                    }
+                                },
+                                error: function(str){
+                                    if (data.hasOwnProperty('msg')){
+                                        popLayer(data.msg);
+                                    }else{
+                                        popLayer('本地保存失败');
+                                    }
+                                    //alert('保存本地失败'+str);
+                                },
+                            });
+                            images.serverId.push(res.serverId);
+                            if (i < length) {
+                                upload();
+                            }
+                        },
+                        fail: function (res) {
+                            alert(JSON.stringify(res));
+                        }
+                    });
+                }
+                upload(); //调用函数
+
+            }
+        });
+        /*else{
+         $('#upload').css('display','none');
+         $('#upload').removeAttr('id');
+         /!*layer.msg('图片太多了哦',{icon:5});
+         return false;*!/
+         }*/
+    });
+
+    function popLayer(msg,skin,time){
+        //if(typeof (skin) == 'undefined') skin = 'msg';
+        //if(typeof (time) == 'undefined') time = 2;
+        layer.open({
+            content: msg
+            ,skin: 'msg'//skin
+            ,time: 1//time
+        });
+    }
+</script>

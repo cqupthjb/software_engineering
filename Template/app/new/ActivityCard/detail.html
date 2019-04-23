@@ -1,0 +1,68 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content=""/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{$card.name}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}"/>
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}"/>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/goods.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/layer.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/swiper-3.4.2.min.css"/>
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <!-- <script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script> -->
+    <script type="text/javascript" src="__STATIC__/js/swiper-3.4.1.jquery.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.js"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__STATIC__/js/common.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js"></script>
+    <style>
+        .h-mid ul li {
+            width: auto !important;
+            float: none !important;
+        }
+    </style>
+</head>
+<body style="line-height:100%">
+<div class="main">
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+            <div class="h-mid">
+                <ul>
+                    <li><a href="javascript:void(0);" class="tab_head">活动票详情</a></li>
+                </ul>
+            </div>
+            <div class="h-right">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="main" id="user_goods_ka_2">
+        <div class="product_main" style=" margin-top:40px;"> <!-- 详情 -->
+            <div class="product_images product_desc" id="product_desc">
+                {$card.description|htmlspecialchars_decode}
+            </div>
+        </div>
+        <section class="index_floor">
+            <h2 style=" border-bottom:1px solid #ddd "><span></span> 活动票信息</h2>
+            <ul class="xiangq">
+                <li><p>活动票等级：</p><span>{$card.level_name}</span></li>
+                <li><p>活动时间：</p><span>{$card.start_time|date='Y-m-d',###}-{$card.end_time|date='Y-m-d',###}</span></li>
+                <li><p>领取时间：</p><span>{$card.create_time|date='Y-m-d H:i:s',###}</span></li>
+            </ul>
+        </section>
+    </div>
+
+</div>
+
+<if condition="$signPackage neq null">
+    <include file="Public/no_share"/>
+</if>
+<include file="Public/footer"/>
+</body>
+</html>

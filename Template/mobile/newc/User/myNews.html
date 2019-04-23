@@ -1,0 +1,57 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="tpshop"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>我的消息-{$tpshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}"/>
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}"/>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" href="__STATIC__/js/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/login.css"/>
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.js"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js"></script>
+    <style>
+        #news_list {
+            width: 98%;
+            margin: 0 auto;
+        }
+        #news_list li{
+            font-size:14px;padding:5px 10px;
+            border-bottom:1px solid #ccc;
+            color:#497190;
+        }
+    </style>
+</head>
+<body>
+<header id="header" class='header' style="background:#fff;">
+    <div class="h-left"><a href="javascript:history.back(-1)" class="back"></a></div>
+    <div class="h-mid">我的消息</div>
+</header>
+<!--<div style="width:100%;height:10px;background:#f4f4f4;"></div>-->
+<ul id="news_list">
+
+</ul>
+<!--layer-->
+<include file="Public/layer"/>
+<!--半通用数据加载-->
+<include file="Public/list"/>
+<script>
+    //数据加载
+    function ready_loading(){
+        window.get_list_url = "{:U('get_my_news')}";
+        var data = {page:1};
+        var config = {elem:'#news_list',scrollElem:''};
+        get_list(data,config);
+    }
+    $(function () {
+        ready_loading();
+    })
+</script>
+<include file="Public/footer"/>
+</body>
+</html>

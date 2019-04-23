@@ -1,0 +1,140 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="applicable-device" content="mobile">
+    <link rel="stylesheet" href="__STATIC__/css/public.css">
+    <link rel="stylesheet" href="__STATIC__/css/user.css">
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/apicloud/api.js"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/modernizr.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+    <style>
+        .il_title{
+            /*height: 138px;*/
+            height: 81px;
+        }
+        .il_title>li:first-child{
+            width: 100%;
+            height: auto;
+            line-height: inherit;
+        }
+        .il_title>li:first-child>div:first-child{
+            width: 75%;float: left;
+        }
+        .il_title>li:first-child>div:last-child{
+            width: 20%;float: left;
+        }
+        .input-div input{
+            width: 90%;
+            margin: 0 auto;
+            /*height: 26px;*/
+            /*line-height: 26px;*/
+            height: 40px;
+            line-height: 40px;
+            font-size:14px;
+            border:none;
+            border-bottom: 1px solid #c2c2c2;
+        }
+        .money{
+            width: 90%;
+            height: 30px;
+            border: none;
+            border-bottom: 1px solid #c2c2c2;
+        }
+        .use-btn2{
+            padding: 0 10px;text-align: center;color: #fff;/*margin-top: 38px;*/margin-top: 20px;
+            border: 1px solid #FE6D0B;display: inline-block;border-radius: 3px;
+            box-shadow: 0 1px 2px #E7E7E7;background: #f60;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" id="use-form2">
+        <ul class="il_title">
+            <li>
+                <div class="input-div">
+                    <!--<select name="level_id" class="money">-->
+                    <!--<notempty name="level_list">-->
+                    <!--<volist name="level_list" id="vo">-->
+                    <!--<option value="{$vo.level_id}">{$vo.level_name}-面值:{$vo.money}</option>-->
+                    <!--</volist>-->
+                    <!--<else/>-->
+                    <!--<option value="0">面值</option>-->
+                    <!--</notempty>-->
+                    <!--</select>-->
+                    <input type="text" width="" name="card_no" autofocus id="card_no"  placeholder="卡号">
+                    <input type="text" width="" name="card_pwd" value="{$card_pwd}" placeholder="卡密">
+                </div>
+                <div>
+                    <a style="" href="javascript:void(0);" class="use-btn2">激活</a>
+                </div>
+            </li>
+        </ul>
+    </form>
+    <script>
+        $(function () {
+            //input聚焦
+            $('input[name="card_no"]').trigger('focus');
+        })
+        var popLayer = function (msg){
+            //api.alert({msg:msg})
+            layer.open({
+                content: msg
+                ,skin: 'msg'//skin
+                ,time: 1//time
+            });
+        }
+        function popLoading(){
+            //loading层
+            layer.open({type: 2});
+        }
+        function popClose(){
+            //关闭页面所有layer的层
+            layer.closeAll();
+        }
+        //region 激活卡
+        $('.use-btn2').on('click',function () {
+            alert('success');
+            //验证
+            var card_no = $('input[name="card_no"]').val();
+            var card_pwd = $('input[name="card_pwd"]').val();
+            console.log(card_no)
+            if (card_no == ''){
+                popLayer('请填写卡号');
+                return false;
+            }
+            if (card_pwd == '' ){
+                popLayer('请填写卡密');
+                return false;
+            }
+            //激活
+            //popLoading();
+            $.post("{:U('use_card')}",$('#use-form2').serialize(),function (data) {
+//                setTimeout(function () {
+//                    popClose();
+//                },100);
+                if (data.hasOwnProperty('msg')){
+                    popLayer(data.msg);
+                }
+                if (data.hasOwnProperty('status')){
+                    if (data.status == 1){
+                        setTimeout(function () {
+                            window.location.reload();
+                        },500)
+                    }
+                }
+            })
+        })
+        //endregion
+    </script>
+</body>
+</html>

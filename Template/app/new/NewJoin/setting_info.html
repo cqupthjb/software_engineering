@@ -1,0 +1,638 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="applicable-device" content="mobile">
+    <title>{$tpshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <meta name="Keywords" content="钜宏家庭号 钜宏日化" />
+    <meta name="Description" content="钜宏家庭号 钜宏日化"/>
+    <link rel="stylesheet" href="__STATIC__/css/public.css">
+    <link rel="stylesheet" href="__STATIC__/css/user.css">
+    <script type="text/javascript" src="__STATIC__/apicloud/api.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/address/jquery.min.js"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/modernizr.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+</head>
+
+
+<link rel="stylesheet" href="__STATIC__/js/layer/need/layer.css">
+<link rel="stylesheet" href="__STATIC__/js/address/ydui.css?rev=@@hash">
+<script src="__STATIC__/js/address/ydui.flexible.js"></script>
+<style>
+    .Personal .innercontent1{
+        padding-top: 0;
+    }
+    .Personal .innercontent1 .name span {
+        width: 20% !important;
+    }
+    .Personal .innercontent1 .name {
+        width: 90% !important;
+    }
+    .field_pwd input{
+        width: 96% !important;
+        border:none !important;
+        border-bottom: 1px solid #eeeeee !important;
+        height: 50px;
+        margin: auto;
+        line-height: 50px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .btn_big1{
+        margin-top: 23px !important;
+    }
+    h4{
+        margin: auto;
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        padding: 0;
+        /*margin-bottom: -10px;
+        margin-top: 10px;*/
+    }
+    .name input{
+        padding-bottom: 3px;
+    }
+    .name select {
+        -webkit-appearance: none;
+        border-radius: 0;
+        border: 0px solid #e5e5e5;
+        height: 48px;
+        line-height: 48px;
+        background-repeat: no-repeat;
+       /* background-image: url('../images/down.png');*/
+        background-position: center right;
+        background-size: 23px 7px;
+        display: inline-block;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        font-size: 14px;
+        color: #333;
+        padding-right: 30px;
+        width: 78%;
+    }
+    .Personal .innercontent1 .name1 {
+        width: 90%;
+    }
+    .Personal .innercontent1 .name1 span {
+        width: 20%;
+    }
+
+    /*改*/
+    #mobile_code {
+        width: 33% !important;
+    }
+    #zphone {
+        width: 25%;
+    }
+    #store-name {
+        width: 35%;
+    }
+    #id-card{
+        width: 65% !important;
+    }
+    .title {
+        margin-left: 19px;
+    }
+    #role_name{
+        width:94% !important;
+    }
+
+
+    /*新加的地址选择*/
+    .cell-item { display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; position: relative; padding-left: 0.24rem; overflow: hidden; }
+    .cell-left { color: #333; font-size: 0.3rem; white-space: nowrap; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; }
+    .cell-right { -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; width: 100%; min-height: 1rem; color: #525252; text-align: right; font-size: 0.26rem; padding-right: 0.24rem; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-align: center; -webkit-align-items: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: end; -webkit-justify-content: flex-end; -ms-flex-pack: end; justify-content: flex-end; }
+    .cell-input { -webkit-box-flex: 1; -webkit-flex: 1; -ms-flex: 1; flex: 1; height: 1rem; border: none; font-size: 0.3rem; background: transparent; color: #555; display: -webkit-box; display: -webkit-flex; display: -ms-flexbox; display: flex; -webkit-box-pack: start; -webkit-justify-content: flex-start; -ms-flex-pack: start; justify-content: flex-start; text-align: left; }
+    .cell-arrow:after { margin-left: .05rem; margin-right: -0.08rem; display: block; font-family: 'YDUI-INLAY'; font-size: 0.34rem; color: #C9C9C9; content: '\e608'; }
+    .m-celltitle { padding: 0 0.24rem 0.1rem; font-size: 0.3rem; text-align: left; color: #888; position: relative; z-index: 1; }
+
+
+    input#J_Address {
+        display: -webkit-inline-box;
+        line-height: 20px;
+    }
+</style>
+<body>
+<header>
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+            <div class="h-mid">入驻信息绑定</div>
+            <div class="h-right">
+                <!--<aside class="top_bar">
+                    <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a
+                            href="javascript:;"></a></div>
+                </aside>-->
+            </div>
+        </div>
+    </div>
+</header>
+<include file="Public/menu"/>
+<div id="tbh5v0">
+    <div class="Personal">
+        <div id="">
+            <div class="innercontent1">
+                <form method="post" action="" id="edit_mobile"><!-- onSubmit="return checkMobileForm()"-->
+                    <if condition="isset($first_leader) and isset($iskaidian) and isset($end_time)">
+                        <input type="hidden" name="first_leader" value="{$first_leader}">
+                        <input type="hidden" name="iskaidian" value="{$iskaidian}">
+                        <input type="hidden" name="end_time" value="{$end_time}">
+                    </if>
+                    <!--region店铺设置-->
+                    <h4 class="title">入驻设置</h4>
+                    <div class="name" id="role_name">
+                        <!--<label> <span>{$role_name}名称</span>-->
+                        <if condition="($role_name eq '分销商') or ($role_name eq '实体店')">
+                            <span>{$role_name}名</span>
+                            <else/>
+                            <span>{$role_name}名称</span>
+                        </if>
+                            <if condition="$role_id eq 3">
+                                <input type="text" name="store_name" class="cell-input" readonly id="J_Address" placeholder="{$role_name}名称">
+                                <else/>
+                                <input name="store_name" value="" id="store-name" placeholder="{$role_name}名称" type="text"/>
+                            </if>
+                        </label>
+                    </div>
+                    <div class="name">
+                        <label for="seller-name"><span>手机号</span>
+                            <input type="text" id="seller-name" maxlength="11" name="seller_name" placeholder="用于商户中心登录"/>
+                        </label>
+                    </div>
+
+                    <!--endregion店铺设置-->
+                    <!--region折扣方式-->
+                    <if condition="!empty($discount)">
+                        <div class="name">
+                            <label for="discount"> <span>折扣方式</span>
+                                <select name="discount_id" id="discount">
+                                    <volist name="discount" id="vo">
+                                        <option value="{$vo.discount_id}">{$vo.name}-{$vo.rate}%</option>
+                                    </volist>
+                                </select>
+                            </label>
+                        </div>
+                    </if>
+                    <!--endregion折扣方式-->
+
+                    <!--region 个人资料-->
+                    <h4 class="title">个人资料</h4>
+                    <div class="name">
+                        <label for="user-name"> <span>姓　 名</span>
+                            <input name="user_name" value="" id="user-name" placeholder="真实姓名" type="text"/>
+                        </label>
+                    </div>
+                    <div class="name1"><span>性　 别</span>
+                        <ul>
+                            <li class="on">
+                                <label >
+                                    <input type="radio" name="sex" value="1"  class="radio" checked />男
+                                </label>
+                            </li>
+                            <li>
+                                <label >
+                                    <input type="radio" name="sex" value="2"  class="radio"  />女
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="name">
+                        <label for="id-card"> <span>身份证号</span>
+                            <input name="id_card" value="" minlength="15" maxlength="18" id="id-card" placeholder="身份证号" type="text" style="width: 40%;"/>
+                        </label>
+                    </div>
+                    <div class="name">
+                        <label for="wx-account"> <span>微 信 号</span>
+                            <input name="wx_account" value="" id="wx-account" placeholder="微信号" type="text"/>
+                        </label>
+                    </div>
+                    <!--endregion-->
+
+                    <!--region密码设置-->
+                    <h4 class="title">密码设置</h4>
+                    <div class="name">
+                        <label for="new_password"> <span>新密码</span>
+                            <input name="new_password" value="" id="new_password" placeholder="新密码" type="password"/>
+                        </label>
+                    </div>
+                    <div class="name">
+                        <label for="confirm_password"> <span>确认密码</span>
+                            <input name="confirm_password" value="" id="confirm_password" placeholder="确认密码" type="password"/>
+                        </label>
+                    </div>
+                    <!--<div class="field_pwd">
+                        <label for="new_password">
+                            <input type="password" name="new_password" id="new_password" class="c-f-text"
+                                   placeholder="新密码"/>
+                        </label>
+                    </div>
+                    <div class="field_pwd">
+                        <label for="confirm_password">
+                            <input type="password" name="confirm_password" id="confirm_password" class="c-f-text"
+                                   placeholder="确认密码"/>
+                        </label>
+                    </div>-->
+                    <!--endregion密码设置-->
+                    <!--region账户设置-->
+                    <h4 class="title">账户设置</h4>
+                    <div class="name">
+                        <label for="mobile_ep"> <span>手机</span>
+                            <input name="mobile" value="{$user.mobile}" id="mobile_ep" maxlength="11" placeholder="*手机号码" type="text"/>
+                        </label>
+                    </div>
+                    <div class="name">
+                        <label for="mobile_code"> <span>验证码</span>
+                            <input type="text" id="mobile_code" name="mobile_code" placeholder="手机验证码"/>
+                            <a id="zphone" type="button" rel="mobile" value="获取验证码 " href="javascript:void(0)" onClick="sendcode(this)"
+                               class="zphone">获取验证码</a>
+                        </label>
+                    </div>
+                    <!--region高德地图-->
+                    <h4 class="title">店铺地址</h4>
+                    <div class="name">
+                        <label> <span>店铺地址</span>
+                            <input type="text" name="store_address" id="suggestId" class="form-control" value="" placeholder="输入地址"  />
+                        </label>
+                    </div>
+                    <div class="name">
+                        <label> <span>经度</span>
+                            <input type='text' name='store_lng' id='lng' class="form-control" value="" placeholder="点击地图获取" readonly/>
+                        </label>
+                    </div>
+                    <div class="name">
+                        <label> <span>纬度</span>
+                            <input type='text'  name='store_lat' id='lat' class="form-control" value="" placeholder="点击地图获取" readonly/>
+                        </label>
+                    </div>
+
+                    <div class="name" style="min-height: 300px;">
+                        <!--头部输入框-->
+                        <!--地图容器-->
+                        <div class="form-group">
+                            <div id="searchResultPanel" class="col-xs-6" style="border:1px solid #C0C0C0;width:100%;height:auto;min-height: 300px; display:none; z-index: 9;"></div>
+                            <div id="allmap" class="col-xs-12" style="height:300px;"></div>
+                        </div>
+                        <!--地图容器-->
+                        <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+                        <style>
+                            .amap-sug-result{z-index: 9999999}/*地址提示*/
+                        </style>
+                        <script type="text/javascript"
+                                src="http://webapi.amap.com/maps?v=1.4.1&key=ab4156920b3ad223972b41342a7d17b3&plugin=AMap.Autocomplete">
+                        </script>
+                        <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+                        <script type="text/javascript">
+                            var map = new AMap.Map("allmap", {
+                                resizeEnable: true
+                            });
+                            //为地图注册click事件获取鼠标点击出的经纬度坐标
+                            var clickEventListener = map.on('click', function(e) {
+                                //document.getElementById("lnglat").value = e.lnglat.getLng() + ',' + e.lnglat.getLat()
+
+                                $('#lat').val(e.lnglat.getLat());
+                                $('#lng').val(e.lnglat.getLng());
+//                                                    $('input[name="store_address"]').val( $('#suggestId').val()); //地址
+//                                                    $('input[name="store_lat"]').val( $('#lat').val());       //纬度
+//                                                    $('input[name="store_lng"]').val( $('#lng').val());       //经度
+                            });
+                            var auto = new AMap.Autocomplete({
+                                input: "suggestId"
+                            });
+                            AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
+                            function select(e) {
+                                if (e.poi && e.poi.location) {
+                                    map.setZoom(15);
+                                    map.setCenter(e.poi.location);
+                                }
+                            }
+                        </script>
+                    </div>
+                    <!--endregion高德地图-->
+
+
+                    <!--endregion账户设置-->
+                    <div class="field submit-btn">
+                        <!--<input type="submit" value="绑定信息" class="btn_big1"/>-->
+                        <input type="button" value="绑定信息" class="btn_big1"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!--<script>
+        $('.name1 ul li').click(function () {
+            $(this).find("input").attr("checked", "checked");
+            $('.name1 ul li').removeClass("on");
+            $(this).addClass("on");
+        })
+    </script>-->
+    <script>
+        $('.name1 ul li').click(function () {
+            $('.name1 ul li input').removeAttr("checked");
+            $('.name1 ul li').removeClass("on");
+            $(this).addClass("on");
+            var children = $(this).find("input[name='sex']");
+            console.log(children)
+            $(children).attr("checked", true);
+        })
+    </script>
+</div>
+<!--微信JS-SDK-->
+<!--region禁止微信分享-->
+<include file="Public/no_share"/>
+<!--endregion禁止微信分享-->
+<script src="__STATIC__/js/layer/layer.js" ></script>
+<script language="javascript">
+    $(function () {
+        $('input[type=text],input[type=password]').bind({
+            focus: function () {
+                $(".global-nav").css("display", 'none');
+            },
+            blur: function () {
+                $(".global-nav").css("display", 'flex');
+            }
+        });
+    })
+
+    var email_empty = "请输入您的电子邮件地址！";
+    var email_error = "您输入的电子邮件地址格式不正确！";
+    var old_password_empty = "请输入您的原密码！";
+    var new_password_empty = "请输入您的新密码！";
+    var confirm_password_empty = "请输入您的确认密码！";
+    var both_password_error = "您现两次输入的密码不一致！";
+    /* 会员修改密码 */
+    function editPassword() {
+        var frm = document.forms['edit_mobile'];
+        //var old_password = frm.elements['old_password'].value;
+        var new_password = frm.elements['new_password'].value;
+        var confirm_password = frm.elements['confirm_password'].value;
+
+        var msg = '';
+        var reg = null;
+
+//        if (old_password.length == 0) {
+//            msg += old_password_empty + '\n';
+//        }
+
+        if (new_password.length == 0) {
+            msg += new_password_empty + '\n';
+        }
+
+        if (confirm_password.length == 0) {
+            msg += confirm_password_empty + '\n';
+        }
+
+        if (new_password.length > 0 && confirm_password.length > 0) {
+            if (new_password != confirm_password) {
+                msg += both_password_error + '\n';
+            }
+        }
+
+        if (msg.length > 0) {
+            alert(msg);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function checkinfo() {
+        var nickname = $('#nickname').val();
+        var email = $('#email_ep').val();
+        if (nickname == '') {
+            alert("昵称不能为空");
+            return false;
+        }
+
+        if (!checkEmail(email)) {
+            alert("邮箱格式不正确");
+            return false;
+        }
+
+        return true;
+    }
+
+    $('#mobile_code').on('blur',function () {
+        var mobile = $(this).val();
+        if (checkMobile(mobile)){
+            $('#seller-name').val(mobile);
+        }
+    })
+
+    //检测身份证
+    var aCity={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"}
+    function isCardID(sId){
+        var iSum=0 ;
+        var info="" ;
+        if(!/^\d{17}(\d|x)$/i.test(sId)) {
+            popLayer("身份证长度或格式错误");
+            return false;
+        }
+        sId=sId.replace(/x$/i,"a");
+        if(aCity[parseInt(sId.substr(0,2))]==null) {
+            popLayer('请输入真实的身份证');
+            return false;
+        }
+        sBirthday=sId.substr(6,4)+"-"+Number(sId.substr(10,2))+"-"+Number(sId.substr(12,2));
+        var d=new Date(sBirthday.replace(/-/g,"/")) ;
+        if(sBirthday!=(d.getFullYear()+"-"+ (d.getMonth()+1) + "-" + d.getDate())){
+            popLayer('请输入真实的身份证');
+            return false;
+        }
+        for(var i = 17;i>=0;i --) iSum += (Math.pow(2,i) % 11) * parseInt(sId.charAt(17 - i),11) ;
+        if(iSum%11!=1) {
+            popLayer('请输入真实的身份证');
+            return false;
+        }
+        //aCity[parseInt(sId.substr(0,2))]+","+sBirthday+","+(sId.substr(16,1)%2?"男":"女");//此次还可以判断出输入的身份证号的人性别
+        return true;
+    }
+
+    function checkMobileForm() {
+        var mobile = $('#mobile_ep').val();
+        var mobile_code = $('#mobile_code').val();
+        var seller = $('#seller-name').val();
+
+        if ($('input[name="store_name"]').val() == ''){
+            popLayer('请输入{$role_name}名称');
+            return false;
+        }
+
+        if (!checkMobile(seller)) {
+            popLayer("手机账户请填写手机号，用户商户中心登录",2);
+            return false;
+        }
+        if ($('input[name="seller_name"]').val() == ''){
+            popLayer('请输入卖家账户');
+            return false;
+        }
+
+        //region新加的数据
+        if ($('input[name="user_name"]').val() == ''){
+            popLayer('请输入姓名');
+            return false;
+        }
+        var id_card = $('input[name="id_card"]').val();
+        var is_id_card = isCardID(id_card);
+        if (!is_id_card){
+            return false;
+        }
+        //endregion
+
+        if ($('input[name="new_password"]').val() == ''){
+            popLayer('请输入新密码');
+            return false;
+        }
+        if ($('input[name="confirm_password"]').val() == ''){
+            popLayer('请输入确认密码');
+            return false;
+        }
+        if ($('input[name="new_password"]').val() != $('input[name="confirm_password"]').val()){
+            popLayer('两次密码不一致');
+            return false;
+        }
+
+        if (!checkMobile(mobile)) {
+            popLayer("手机格式不正确");
+            return false;
+        }
+
+        if (mobile_code == '') {
+            popLayer("请填写手机验证码");
+            return false;
+        }
+
+//        if (!mobile_flag) {
+//            alert("请先获取手机验证码");
+//            return false;
+//        }
+
+        return true;
+    }
+
+    var mobile_flag = false;
+    //发送验证码
+    function sendcode(o) {
+        var mobile = $('#mobile_ep').val();
+        if (!checkMobile(mobile)) {
+            alert("手机格式不正确");
+        } else {
+            $.ajax({
+                url: '/index.php?m=App&c=User&a=send_validate_code&t=' + Math.random(),
+                type: 'post',
+                dataType: 'json',
+                data: {type: $(o).attr('rel'), send: $.trim($('#mobile_ep').val())},
+                success: function (res) {
+                    layer.open({content: res.msg, time: 2});
+                    if (res.status == 1) {
+                        mobile_flag = true;
+                        countdown(o);
+                    } else {
+                        mobile_flag = false;
+                        //layer.open({content: res.msg, time: 2});
+                    }
+                    return false;
+                }
+            });
+        }
+        return false;
+    }
+
+    var wait = 60;
+    function countdown(obj, msg) {
+        obj = $(obj);
+        if (wait == 0) {
+            obj.removeAttr("disabled");
+            obj.val(msg);
+            wait = 60;
+        } else {
+            if (msg == undefined || msg == null) {
+                msg = obj.val();
+            }
+            obj.attr("disabled", "disabled");
+            obj.val(wait + "秒后重新获取");
+            wait--;
+            setTimeout(function () {
+                countdown(obj, msg)
+            }, 1000)
+        }
+    }
+
+    //消息提示框
+    function popLayer(msg,time){
+        if (typeof(time)=='undefined' || isNaN(time) || parseInt(time>5) || parseInt(time<1)){
+            time = 1
+        }
+        layer.open({
+            content: msg
+            ,skin: 'msg'
+            ,time: time //2秒后自动关闭
+        });
+    }
+
+    //提交
+    $('.btn_big1').on('click',function () {
+        //验证
+        var check=checkMobileForm();
+        if (!check){
+            return false;
+        }
+        $.post("{:U('setting_info')}",$("#edit_mobile").serialize(),function (data) {
+            if (data.hasOwnProperty('info')){
+                popLayer(data.info);
+            }
+            if (data.hasOwnProperty('url')){
+                if (data.url != ''){
+                    setTimeout(function () {
+                        location.href = data.url;
+                        //wx.closeWindow();
+                    },1500);
+                }
+            }
+        },'json');
+    })
+</script>
+
+
+<script type="text/javascript" src="__STATIC__/js/address/ydui.citys.js"></script>
+<script type="text/javascript" src="__STATIC__/js/address/ydui.js"></script>
+<script type="text/javascript">
+    /**
+     * 默认调用
+     */
+    !function () {
+        var $target = $('#J_Address');
+
+        $target.citySelect();
+
+        $target.on('click', function (event) {
+            event.stopPropagation();
+            $target.citySelect('open');
+        });
+
+        var role_id = parseInt("{$role_id}");
+        $target.on('done.ydui.cityselect', function (ret) {
+            $(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+        });
+    }();
+</script>
+
+<include file="Public/footer"/>
+<!--禁止微信分享-->
+<include file="Public/no_share"/>
+</body>
+</html>

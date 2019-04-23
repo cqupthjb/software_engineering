@@ -1,0 +1,514 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="TPSHOP"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>钜宏家庭号-{$title}</title>
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" href="__STATIC__/js/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/ecsmart.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/stores.css">
+    <link rel="stylesheet" href="__STATIC__/css/public.css">
+    <link rel="stylesheet" href="__STATIC__/css/category_store.css">
+    <script type="text/javascript" src="/Public/js/global.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <style>
+        @media screen {
+            * {
+                -webkit-tap-highlight-color: transparent;
+                /*overflow: hidden;*/
+            }
+
+            .goods_nav {
+                width: 30%;
+                float: right;
+                right: 5px;
+                overflow: hidden;
+                position: fixed;
+                margin-top: -20px;
+                z-index: 9999999
+            }
+        }
+
+        /*定位*/
+         .locationContainer {
+             /*height: 1.2rem;
+             line-height: 1.6rem;*/
+             height: 2.2rem;
+             line-height: 2.2rem;
+             font-size: 0.9rem;
+             color: #999;
+             padding: 0 3.1rem;
+             background: url(/Template/mobile/new/Static/images/location.jpg) no-repeat 1.3rem center;
+             background-size: 1.3rem 1.2rem;
+             /* position: relative; */
+             overflow: hidden;
+             text-overflow: ellipsis;
+             display: -webkit-box;
+             -webkit-line-clamp: 1;
+             -webkit-box-orient: vertical;
+             border-top: 1px solid #E8E6E6;
+         }
+
+        .locationContainer span {
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            background: url(/Template/mobile/new/Static/images/location2.jpg) no-repeat center;
+            background-size: 100% 100%;
+            display: block;
+            right: 1.5rem;
+            top: 19%;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+        .locationContainer span.active {
+            -webkit-animation: rotate .5s infinite linear;
+            top: 17.5%;
+           /* -webkit-animation:circle 1s infinite linear;*/
+        }
+        @-webkit-keyframes rotate{
+            0%{ transform:rotate(0deg); }
+            100%{ transform:rotate(360deg); }
+        }
+        .dis {
+            font-size: 0.7rem;
+            color: #969E9E;
+            float: right;
+        }
+
+
+        /*筛选*/
+        .sortContainer {
+            display: -webkit-flex;
+            /*height: 2.3rem;*/
+            height: 2.8rem;
+            position: relative;
+            z-index:1;
+            background-color: #fff;
+            overflow: visible !important;
+        }
+        .sortContainer span {
+            -webkit-flex: 1;
+            text-align: center;
+            /*line-height: 2.3rem;*/
+            line-height: 2.8rem;
+            font-size: 0.9rem;
+            color: #696969;
+        }
+        .sortContainer span.active {
+            /*color: #47b34f;*/
+            color: #ff465a;
+        }
+
+        /*行业*/
+        .hy{  position: relative; }
+        .hy .sortList{
+            background-color: #fff;
+            font-size: 0.9rem;
+            /*position: fixed;*/
+            position:absolute;
+            /*width: 100%;
+            left: 0;top: 100%;*/
+            width: 100%;
+           /* left: 24%;*/
+            display: none;
+            z-index: 100000;
+            /* height: 16rem;*/
+            max-height: 13rem;
+            overflow-y: scroll;}
+        .hy .sortList li{ height: 4rem;line-height: 4rem; }
+        .indexContent .bannerContainer .searchContainer a:nth-child(2) {
+            background: none;
+        }
+
+        .drop:after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 10.5px;
+            height: 6px;
+            -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+            background: url(/Template/mobile/new/Static/images/location3.png) no-repeat center;
+            background-size: 100% 100%;
+        }
+        .drop.show:after {
+            -webkit-transform: translateY(-50%) rotateZ(180deg);
+            transform: translateY(-50%) rotateZ(180deg);
+        }
+        .description{
+            font-size: 13px;
+            padding: 10px 10px 0 10px;
+            text-overflow: ellipsis;
+            line-height: 1.5;
+            max-height: 58.5px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        .description img{
+            display: none;
+        }
+        .description p{
+            display: inline-block;
+        }
+        /*搜索*/
+        /*.search_header .search{
+            padding-top: 8px;
+            padding-bottom: 14px;
+        }*/
+
+    </style>
+</head>
+<body style=" background:#F5F5F5">
+<!--<span class="sanjiao"></span>-->
+<header>
+    <!--<div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+            <div class="h-mid">店铺街</div>
+            <div class="h-right">
+                <aside class="top_bar">
+                    <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a
+                            href="javascript:;"></a></div>
+                </aside>
+            </div>
+        </div>
+    </div>-->
+    <!--region搜索-->
+    <div class="search_header">
+        <a href="javascript:history.back(-1)" class="back search_back"></a>
+        <div class="search">
+            <!--<form name="sourch_form" id="sourch_form2" method="post" action="#" onsubmit="search_store">-->
+                <div class="text_box" name="list_search_text_box" onclick="return 1;">
+                    <input type="text" class="text" name="q" id="keyword" value="" placeholder="搜索关键字">
+                </div>
+                <!--<input type="button" value="" class="submit-search" >-->
+            <!--</form>-->
+        </div>
+        <a href="javascript:void(0);" class="menu filtrate submit-search" name="list_go_filter" style=" color:#666">搜索</a>
+    </div>
+    <!--endregion搜索-->
+</header>
+<include file="Public/menu"/>
+
+<!--<div class="Packages">
+    <div class="all"><a class="sele" target="_self" href="javascript:setCat_id(0)" style="color:#FFF"><span>所有</span></a></div>
+    <div class="page_guide_slider">
+        <div class="page_guide_balloon" style=" display:none">
+            <div class="page_guide_bar">
+                <div class="page_guide_progress">
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div class="page_guide_container" onMouseDown="pageGuideMousedown(this,event)"
+             onMouseMove="pageGuideMousemove(this,event)" onMouseUp="pageGuideMouseup(this,event)"
+             onMouseOut="pageGuideMouseout(this,event)" ontouchstart="pageGuideTouchstart(this,event)"
+             ontouchmove="pageGuideTouchmove(this,event)" ontouchend="pageGuideTouchend(this,event)">
+
+            <div class="page_guide_items" style=" position:relative">
+                <volist name="store_class" id="sc">
+                    <div class="page_guide_item">
+                        <div class="page_guide_item_text">
+                            <a class="" target="_self" href="javascript:setCat_id({$sc['sc_id']})">{$sc['sc_name']}</a>
+                            </div>
+                    </div>
+                    <div id="street_cat{$sc['sc_id']}"></div>
+                </volist>
+            </div>
+        </div>
+
+    </div>
+</div>-->
+<!--排序-->
+<div class="sortContainer sort-list" style="background-color:#fff;">
+    <span class="active" data-order="sort">综合</span>
+    <span class="hy drop" data-order="hy">
+        <label>行业</label>
+        <ul class="sortList">
+            <li data-id="0">行业</li>
+            <volist name="store_class" id="vo">
+                <li data-id="{$vo.sc_id}">{$vo.sc_name}</li>
+            </volist>
+        </ul>
+    </span>
+    <span data-order="store_sales">销量</span>
+    <!--<span data-order="views">人气最旺</span>-->
+    <span data-order="score">好评度</span>
+</div>
+<!--定位信息-->
+<div id="location" style="background-color:#fff;"></div>
+
+<!--数据载体-->
+<div id="store_list">
+
+</div>
+<script type="text/javascript">
+    /*$(function () {
+        getStreetList();
+    });*/
+    var wholesalerStreet = '{$wholesaler}'
+    var page = 1;//页数
+    var cat_id = '';//店铺分类id
+    /**
+     * 加载分类店铺
+     */
+    function setCat_id(id) {
+        $("#store_list").html('');
+        page = 1;
+        window.cat_id = id;
+        //getStreetList();
+        window.get_list_url = "{:U('Index/get_shop_list')}";
+        var data = {page:1,sc_id:window.cat_id};
+        if (wholesalerStreet){
+            data.wholesaler = 1
+        }
+        var config = {elem:'#store_list',scrollElem:''};
+        get_list(data,config);
+    }
+    /**
+     * 加载店铺
+     */
+    function getStreetList() {
+        $('.get_more').show();
+        $.ajax({
+            type: "get",
+            url: "/index.php?m=Mobile&c=Index&a=ajaxStreetList&p=" + page + "&sc_id=" + cat_id,
+            dataType: 'html',
+            success: function (data) {
+                if (data) {
+                    $("#store_list").append(data);
+                    page++;
+                    $('.get_more').hide();
+                } else {
+                    $('.get_more').hide();
+                    $('#getmore').remove();
+                }
+            }
+        });
+    }
+</script>
+<!--<div class="floor_body2">
+    <div id="J_ItemList">
+        <ul class="product single_item info">
+        </ul>
+        <a href="javascript:;" class="get_more" style="text-align:center; display:block;">
+            <img src='__STATIC__/images/category/loader.gif' width="12" height="12"> </a>
+    </div>
+    <div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem;">
+        <a href="javascript:void(0)" onClick="getStreetList()">点击加载更多</a>
+    </div>
+</div>
+<div style="height:100px; line-height:50px; clear:both;"></div>
+-->
+<div class="footer">
+    <!--<div class="links" id="TP_MEMBERZONE">
+        <if condition="$user_id gt 0">
+            <a href="{:U('User/index')}"><span>{$user.nickname}</span></a><a href="{:U('User/logout')}"><span>退出</span></a>
+            <else/>
+            &lt;!&ndash;<a href="{:U('User/login')}"><span>登录</span></a><a href="{:U('User/reg')}"><span>注册</span></a>&ndash;&gt;
+        </if>
+        <a href="#"><span>反馈</span></a><a href="javascript:window.scrollTo(0,0);"><span>回顶部</span></a>
+    </div>-->
+    <!--<ul class="linkss">
+        <li>
+            <a href="#">
+                <i class="footerimg_1"></i>
+                <span>客户端</span></a></li>
+        <li>
+            <a href="javascript:;"><i class="footerimg_2"></i><span class="gl">触屏版</span></a></li>
+        <li><a href="{:U('Home/Index/index')}" class="goDesktop"><i class="footerimg_3"></i><span>电脑版</span></a></li>
+    </ul>
+    <p class="mf_o4">备案号:{$tpshop_config['shop_info_record_no']}<br/>&copy; 2005-2016 TPshop多商户V1.2 版权所有，并保留所有权利。</p>-->
+</div>
+
+<include file="Public/footer"/>
+<include file="Public/footer_nav"/>
+<script>
+    function goTop() {
+        $('html,body').animate({'scrollTop': 0}, 600);
+    }
+</script>
+
+<a href="javascript:goTop();" class="gotop"><img src="__STATIC__/images/topup.png"></a>
+<a href="{:U('Mobile/index/store_map')}" class="gotop" style="bottom: 120px"><img src="__STATIC__/images/gomap.png"></a>
+<script type="text/javascript">
+    //reg_package();
+</script>
+<script src="__STATIC__/js/slider.js" type="text/javascript"></script>
+<!--layer-->
+<include file="Public/layer"/>
+<!--定位-->
+<include file="Public/location"/>
+<!--半通用数据加载-->
+<include file="Public/list"/>
+<!--获取附近店铺-->
+<script>
+    /*验证微信浏览器*/
+    function is_weixn(){
+        var ua = navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /*if (typeof (isMobileBrowser) == 'function'){
+        var is_mobile = isMobileBrowser();
+        if (is_mobile == false){
+            ready_loading();
+        }
+    }else{
+        ready_loading();
+    }*/
+    /*$(function () {
+        ready_loading();
+    })*/
+    $(function () {
+        if (!is_weixn()){
+            ready_loading();
+        }
+    })
+    function ready_loading(){
+        window.get_list_url = "{:U('Index/get_shop_list')}";
+        var data = {page:1};
+        if (wholesalerStreet){
+            data.wholesaler = 1
+        }
+        console.log('fuck')
+        var config = {elem:'#store_list',scrollElem:''};
+        get_list(data,config);
+    }
+</script>
+<!--行业选择-->
+<script>
+    /*$('.store-class').on('click',function () {
+        var display = $('.sortList').css('display');
+        if (display == 'none'){
+            $('.sortList').css('display','block');
+        }else{
+            $('.sortList').css('display','none');
+        }
+        return false;
+    })*/
+    //排序选择
+    $('.sort-list span').on('click',function(){
+        $(this).siblings().find('ul').slideUp();
+        $(this).siblings().removeClass('show');
+        $(this).addClass('active').siblings().removeClass('active');
+        if($(this).hasClass('hy')){
+            return false;
+        }
+        window.get_list_url = "{:U('Index/get_shop_list')}";
+        var config = {elem:'#store_list',scrollElem:''};
+        var order=$(this).data('order')
+        var data = {order:order,page:1};
+        if (wholesalerStreet){
+            data.wholesaler = 1
+        }
+        $('#store_list').empty();
+        get_list(data,config);
+        return false;
+    })
+
+    //排序选择
+    $('.hy').on('click', function () {
+        $('.drop').toggleClass('show');
+        $(this).siblings().find('ul').slideUp();
+        $(this).find('ul').slideToggle(300);
+        $('li').on('click', function (ev) {
+            ev.stopPropagation();
+            $(this).closest('.hy').find('label').html($(this).html());
+            $(this).parent('ul').slideUp();
+            $('.drop').removeClass('show');
+            //分类
+            window.get_list_url = "{:U('Index/get_shop_list')}";
+            var config = {elem:'#store_list',scrollElem:''};
+            window.cat_id  = $(this).data('id');
+            var data = {sc_id: window.cat_id ,page:1};
+            if (wholesalerStreet){
+                data.wholesaler = 1
+            }
+            $('#store_list').empty();
+            get_list(data,config);
+        })
+        return false;
+    })
+
+    $(document).on('click', function () {
+        $('.drop').removeClass('show');
+        $('.sortList').slideUp();
+    })
+
+    //移动设备判断
+    /*function isMobileBrowser(){
+        var sUserAgent = navigator.userAgent.toLowerCase();
+        var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+        var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+        var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+        var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+        var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+        var bIsAndroid = sUserAgent.match(/android/i) == "android";
+        var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+        var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+        if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+            return true;
+        } else {
+            return false;
+        }
+    }*/
+
+    $(function () {
+        var isPageHide = false;
+        window.addEventListener('pageshow', function () {
+            if (isPageHide) {
+                window.location.reload();
+            }
+        });
+        window.addEventListener('pagehide', function () {
+            isPageHide = true;
+        });
+    })
+
+    //region搜索
+    $('.submit-search').on('click',function () {
+        search_store();
+    })
+    function search_store() {
+        var keywords = $('#keyword').val();
+        if ($.trim(keywords) == ''){
+            return false;
+        }
+        window.get_list_url = "{:U('Index/get_shop_list')}";
+        var config = {elem:'#store_list',scrollElem:''};
+        var data = {keywords:keywords ,page:1};
+        if (wholesalerStreet){
+            data.wholesaler = 1
+        }
+        $('#store_list').empty();
+        get_list(data,config);
+    }
+    //endregion
+
+    //region 点击触发进入导航
+    $('#store_list').on('click','.find_address',function () {
+        var lat = $(this).data('lat');
+        var lng = $(this).data('lng');
+        var address = $(this).data('address');
+        var name = $(this).data('name');
+        var url = "http://apis.map.qq.com/uri/v1/marker?marker=coord:"+lat+","+lng+";title:"+name+";addr:"+address+"&referer=myapp";
+        //var lat_lng = BdmapEncryptToMapabc("{$store.store_lat}","{$store.store_lng}");
+        //lat_lng = lat_lng.lat + ',' + lat_lng.lng;
+        //url = url.replace('__LAT_LNG__',lat_lng);
+        location.href = url;
+    })
+    //endregion
+</script>
+</body>
+</html>

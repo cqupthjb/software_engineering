@@ -1,0 +1,180 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <!-- Main content -->
+        <!--<div class="container-fluid">-->
+        <div class="container-fluid">
+            <!--新订单列表 操作信息-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i> 管理资金</h3>
+                </div>
+                <div class="panel-body">
+
+                    <form id="delivery-form" method="post" action="">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <div class="row">
+                                    <td class="text-right col-sm-2">用户ID：</td>
+                                    <td colspan="3">
+                                        {$user_id}
+                                    </td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="row">
+                                    <td class="text-right col-sm-2">用户昵称：</td>
+                                    <td colspan="3">
+                                        {:get_column('users',array('user_id'=>$user_id),'nickname')}
+                                    </td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="row">
+                                    <td class="text-right col-sm-2">用户手机：</td>
+                                    <td colspan="3">
+                                        {:get_column('users',array('user_id'=>$user_id),'mobile')}
+                                    </td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="row">
+                                    <td class="text-right col-sm-2">资金：</td>
+                                    <td colspan="3">
+                                        余额：{:get_column('users',array('user_id'=>$user_id),'user_money')}&nbsp;
+                                        充值金额：{:get_column('users',array('user_id'=>$user_id),'card_money')}&nbsp;
+                                    </td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="row">
+                                    <td class="text-right col-sm-2">操作类型：</td>
+                                    <td colspan="3">
+                                        <select name="type" id="type" class="input-sm">
+                                            <option value="0">请选择操</option>
+                                            <option value="user_money">余额</option>
+                                            <option value="card_money">充值金额</option>
+                                        </select>
+                                    </td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="row">
+                                    <td class="text-right col-sm-2">金额：</td>
+                                    <td colspan="3">
+                                        <select name="money_act_type" id="money_act_type" class="input-sm">
+                                            <option value="1">增加</option>
+                                            <option value="0">减少</option>
+                                        </select>
+                                        <input type="text" name="user_money" class="input-sm" value="{$_REQUEST['user_money']|default='0'}">
+                                        <input type="hidden" name="id" value="{$user_id}">
+                                    </td>
+                                </div>
+                            </tr>
+                            <!--<tr>
+                                <div class="row">
+                                    <td class="text-right col-sm-2">积分：</td>
+                                    <td colspan="3">
+                                        <select name="point_act_type" id="point_act_type" class="input-sm">
+                                            <option value="1">增加</option>
+                                            <option value="0">减少</option>
+                                        </select>
+                                        <input type="text" name="pay_points" value="0" class="input-sm">
+                                    </td>
+                                </div>
+                            </tr>-->
+                            <!--<tr>-->
+                            <!--<div class="row">-->
+                            <!--<td class="text-right col-sm-2">冻结金额：</td>-->
+                            <!--<td colspan="3">-->
+                            <!--<select name="frozen_act_type" id="frozen_act_type" class="input-sm">-->
+                            <!--<option value="1">增加</option>-->
+                            <!--<option value="0">减少</option>-->
+                            <!--</select>-->
+                            <!--<input type="text" name="frozen_money" value="0" class="input-sm">-->
+                            <!--</td>-->
+                            <!--</div>-->
+                            <!--</tr>-->
+
+                            <tr>
+                                <div class="row">
+                                    <td class="text-right col-sm-2">操作备注：</td>
+                                    <td colspan="3">
+                                        <textarea name="desc" placeholder="请输入操作备注" rows="3" class="form-control">{$_REQUEST['desc']}</textarea>
+                                    </td>
+                                </div>
+                            </tr>
+
+                            <tr>
+                                <div class="row">
+                                    <td colspan="4">
+                                        <div class="form-group text-center">
+                                            <button class="btn btn-primary btn-submit" type="button" id="disabled">提交</button>
+                                            <button onclick="history.go(-1)"  class="btn btn-primary" type="button">返回</button>
+                                        </div>
+                                    </td>
+                                </div>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>    <!-- /.content -->
+    </section>
+</div>
+<script>
+    function popLayer(msg){
+        layer.msg(msg);
+    }
+    $('.btn-submit').on('click',function () {
+
+        if ($('#type').val() == 0|| $('#type').val() == ''){
+            popLayer('请选择操作类型！');
+            return false;
+        }
+
+        var user_money = $('input[name="user_money"]').val();
+        if (user_money == 0){
+            popLayer('资金未变动！');
+            return false;
+        }
+        var desc = $('textarea[name="desc"]').val();
+        if (desc == ''){
+            popLayer('请填写操作备注！');
+            return false;
+        }
+
+        layer.confirm('确定要变动此用户资金吗？', {
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            $.post("{:U('account_edit')}",$('#delivery-form').serialize(),function (data) {
+                if (data.hasOwnProperty('msg')){
+                    popLayer(data.msg);
+                }
+                if (data.hasOwnProperty('info')){
+                    popLayer(data.info);
+                }
+                if (data.hasOwnProperty('url')){
+                    if (data.url != ''){
+                        setTimeout(function () {
+                            location.href = data.url;
+                        },1000);
+                    }
+                }
+            },'json');
+            return false;
+        }, function(){
+
+        });
+
+
+    })
+</script>
+
+

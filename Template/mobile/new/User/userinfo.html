@@ -1,0 +1,372 @@
+<include file="Public/header"/>
+<!--<style>
+    .Personal .innercontent1{
+        padding-top: 0;
+    }
+    .Personal .innercontent1 .name span {
+        width: 20% !important;
+    }
+    .Personal .innercontent1 .name {
+        width: 95% !important;
+    }
+
+    .btn_big1{
+        margin-top: 23px !important;
+    }
+    h4{
+        margin: auto;
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        padding: 0;
+        margin-bottom: -10px;
+        margin-top: 10px;
+    }
+    .name input{
+        padding-bottom: 3px;
+    }
+    .name select {
+        -webkit-appearance: none;
+        border-radius: 0;
+        border: 0px solid #e5e5e5;
+        height: 48px;
+        line-height: 48px;
+        background-repeat: no-repeat;
+        /* background-image: url('../images/down.png');*/
+        background-position: center right;
+        background-size: 23px 7px;
+        display: inline-block;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        font-size: 14px;
+        color: #333;
+        padding-right: 30px;
+        width: 78%;
+    }
+</style>-->
+<style>
+    .field_pwd input{
+        width: 96% !important;
+        border:none !important;
+        border-bottom: 1px solid #eeeeee !important;
+        height: 50px;
+        margin: auto;
+        line-height: 50px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    h4{
+        margin: auto;
+        -webkit-margin-before: 0;
+        -webkit-margin-after: 0;
+        padding: 0;
+        margin-bottom: -10px;
+        margin-top: 10px;
+    }
+    .Personal .innercontent1{
+        padding-top: 0;
+    }
+    .Personal .innercontent1 .name span {
+        width: 20% !important;
+    }
+    .Personal .innercontent1 .name {
+        width: 95% !important;
+    }
+    .Personal .innercontent1 .name1 {
+        width: 95%;
+    }
+    .name input{
+        padding-bottom: 3px;
+    }
+    .btn_big1{
+        margin-top: 23px !important;
+    }
+</style>
+<body>
+<header>
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+            <div class="h-mid">信息修改</div>
+            <div class="h-right">
+                <aside class="top_bar">
+                    <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a
+                            href="javascript:;"></a></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</header>
+<include file="Public/menu"/>
+<div id="tbh5v0">
+    <div class="Personal">
+        <div id="tbh5v0">
+            <div class="innercontent1">
+                <form method="post" action="" id="edit_profile" onSubmit="return checkinfo()">
+                    <h4 class="title">个人资料</h4>
+                    <if condition="isset($first_leader) and isset($iskaidian) and isset($end_time)">
+                        <input type="hidden" name="first_leader" value="{$first_leader}">
+                        <input type="hidden" name="iskaidian" value="{$iskaidian}">
+                        <input type="hidden" name="end_time" value="{$end_time}">
+                    </if>
+                    <div class="name"><span>昵　 称</span>
+                        <input type="text" name="nickname" id="nickname" value="{$user.nickname}" placeholder="*昵称"
+                               class="c-f-text">
+                    </div>
+                    <div class="name1"><span>性　 别</span>
+                        <ul>
+                            <li {$user['sex']==0?'class="on"':''}>
+                                <label>
+                                    <input type="radio" name="sex" value="0" class="radio" {$user['sex']==0?'checked':''} />
+                                    保密
+                                </label>
+                            </li>
+                            <li {$user['sex']==1?'class="on"':''}>
+                                <label >
+                                    <input type="radio" name="sex" value="1"  class="radio" {$user['sex']==1?'checked':''}  />
+                                    男
+                                </label>
+                            </li>
+                            <li {$user['sex']==2?'class="on"':''}>
+                                <label >
+                                    <input type="radio" name="sex" value="2"  class="radio" {$user['sex']==2?'checked':''}  />
+                                    女
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--<div class="name">
+                        <label for="email_ep"> <span>邮箱</span>
+                            <input name="email" value="{$user.email}" id="email_ep" placeholder="*电子邮件地址" type="text"/>
+                        </label>
+                    </div>-->
+                    <div class="field submit-btn">
+                        <input type="submit" value="确认修改" class="btn_big1"/>
+                    </div>
+                </form>
+            </div>
+
+            <div class="innercontent1">
+                <form method="post" action="" id="edit_mobile" onSubmit="return checkMobileForm()">
+                    <h4 class="title">手机信息</h4>
+                    <if condition="isset($first_leader) and isset($iskaidian) and isset($end_time)">
+                        <input type="hidden" name="first_leader" value="{$first_leader}">
+                        <input type="hidden" name="iskaidian" value="{$iskaidian}">
+                        <input type="hidden" name="end_time" value="{$end_time}">
+                    </if>
+                    <div class="name">
+                        <label for="mobile_ep"> <span>手机</span>
+                            <input name="mobile" value="{$user.mobile}" id="mobile_ep" placeholder="*手机号码" type="text"/>
+                        </label>
+                    </div>
+                    <div class="name">
+                        <label for="mobile_code"> <span>验证码</span>
+                            <input type="text" id="mobile_code" name="mobile_code" placeholder="手机验证码"/>
+                            <input id="zphone" type="button" rel="mobile" value="获取手机验证码 " onClick="sendcode(this)"
+                                   class="zphone">
+                        </label>
+                    </div>
+                    <div class="field submit-btn">
+                        <input type="submit" value="确认修改" class="btn_big1"/>
+                    </div>
+                </form>
+            </div>
+
+            <div class="innercontent1"><!--innercontent11-->
+                <form name="formPassword" action="{:U('User/password')}" method="post" onSubmit="return editPassword()">
+                    <h4 class="title">密码修改</h4>
+                    <if condition="isset($first_leader) and isset($iskaidian) and isset($end_time)">
+                        <input type="hidden" name="first_leader" value="{$first_leader}">
+                        <input type="hidden" name="iskaidian" value="{$iskaidian}">
+                        <input type="hidden" name="end_time" value="{$end_time}">
+                    </if>
+                    <!--<div class="field_pwd">
+                        <label for="password">
+                            <input type="password" name="old_password" id="password" class="c-f-text"
+                                   placeholder="原密码"/>
+                        </label>
+                    </div>
+                    <div class="field_pwd">
+                        <label for="new_password">
+                            <input type="password" name="new_password" id="new_password" class="c-f-text"
+                                   placeholder="新密码"/>
+                        </label>
+                    </div>
+                    <div class="field_pwd">
+                        <label for="confirm_password">
+                            <input type="password" name="confirm_password" id="confirm_password" class="c-f-text"
+                                   placeholder="确认密码"/>
+                        </label>
+                    </div>-->
+                    <div class="name"><span>原 密 码</span>
+                        <label for="password">
+                            <input type="text" name="old_password" id="password" value="" placeholder="未设置填1" class="c-f-text">
+                        </label>
+                    </div>
+                    <div class="name"><span>新 密 码</span>
+                        <label for="new_password">
+                            <input type="text" name="new_password" id="new_password" value="" placeholder="新密码" class="c-f-text">
+                        </label>
+                    </div>
+                    <div class="name"><span>确认密码</span>
+                        <label for="confirm_password">
+                            <input type="text" name="confirm_password" id="confirm_password" value="" placeholder="确认密码" class="c-f-text">
+                        </label>
+                    </div>
+                    <div class="field submit-btn">
+                        <input type="submit" value="确认修改" class="btn_big1"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.name1 ul li').click(function () {
+            $('.name1 ul li input').removeAttr("checked");
+            $('.name1 ul li').removeClass("on");
+            $(this).addClass("on");
+            var children = $(this).find("input[name='sex']");
+            console.log(children)
+            $(children).attr("checked", true);
+        })
+    </script>
+</div>
+
+<script language="javascript">
+    $(function () {
+        $('input[type=text],input[type=password]').bind({
+            focus: function () {
+                $(".global-nav").css("display", 'none');
+            },
+            blur: function () {
+                $(".global-nav").css("display", 'flex');
+            }
+        });
+    })
+
+    var email_empty = "请输入您的电子邮件地址！";
+    var email_error = "您输入的电子邮件地址格式不正确！";
+    var old_password_empty = "请输入您的原密码！";
+    var new_password_empty = "请输入您的新密码！";
+    var confirm_password_empty = "请输入您的确认密码！";
+    var both_password_error = "您现两次输入的密码不一致！";
+    /* 会员修改密码 */
+    function editPassword() {
+        var frm = document.forms['formPassword'];
+        var old_password = frm.elements['old_password'].value;
+        var new_password = frm.elements['new_password'].value;
+        var confirm_password = frm.elements['confirm_password'].value;
+
+        var msg = '';
+        var reg = null;
+
+        if (old_password.length == 0) {
+            msg += old_password_empty + '\n';
+        }
+
+        if (new_password.length == 0) {
+            msg += new_password_empty + '\n';
+        }
+
+        if (confirm_password.length == 0) {
+            msg += confirm_password_empty + '\n';
+        }
+
+        if (new_password.length > 0 && confirm_password.length > 0) {
+            if (new_password != confirm_password) {
+                msg += both_password_error + '\n';
+            }
+        }
+
+        if (msg.length > 0) {
+            alert(msg);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function checkinfo() {
+        var nickname = $('#nickname').val();
+        var email = $('#email_ep').val();
+        if (nickname == '') {
+            alert("昵称不能为空");
+            return false;
+        }
+
+        /*if (!checkEmail(email)) {
+            alert("邮箱格式不正确");
+            return false;
+        }*/
+        return true;
+    }
+
+
+    function checkMobileForm() {
+        var mobile = $('#mobile_ep').val();
+        var mobile_code = $('#mobile_code').val();
+        if (!checkMobile(mobile)) {
+            alert("手机格式不正确");
+            return false;
+        }
+        if (mobile_code == '') {
+            alert("请填写手机验证码");
+            return false;
+        }
+//        if (!mobile_flag) {
+//            alert("请先获取手机验证码");
+//            return false;
+//        }
+        return true;
+    }
+
+    var mobile_flag = false;
+    //发送验证码
+    function sendcode(o) {
+        var mobile = $('#mobile_ep').val();
+        if (!checkMobile(mobile)) {
+            alert("手机格式不正确");
+        } else {
+            $.ajax({
+                url: '/index.php?m=Mobile&c=User&a=send_validate_code&t=' + Math.random(),
+                type: 'post',
+                dataType: 'json',
+                data: {type: $(o).attr('rel'), send: $.trim($('#mobile_ep').val())},
+                success: function (res) {
+                    if (res.status == 1) {
+                        mobile_flag = true;
+                        countdown(o);
+                    } else {
+                        mobile_flag = false;
+                        layer.open({content: res.msg, time: 2});
+                    }
+                }
+            });
+        }
+    }
+
+    var wait = 60;
+    function countdown(obj, msg) {
+        obj = $(obj);
+        if (wait == 0) {
+            obj.removeAttr("disabled");
+            obj.val(msg);
+            wait = 60;
+        } else {
+            if (msg == undefined || msg == null) {
+                msg = obj.val();
+            }
+            obj.attr("disabled", "disabled");
+            obj.val(wait + "秒后重新获取");
+            wait--;
+            setTimeout(function () {
+                countdown(obj, msg)
+            }, 1000)
+        }
+    }
+</script>
+<include file="Public/footer"/>
+</body>
+</html>

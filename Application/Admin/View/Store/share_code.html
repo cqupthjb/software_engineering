@@ -1,0 +1,33 @@
+<include file="Public/min-header" />
+<div class="wrapper">
+	<include file="Public/breadcrumb"/>
+	<section class="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="alert alert-info alert-dismissible" role="alert">
+						提示：若有需要，请右键保存到本地，或右键复制图片。
+						<if condition="shop_share_time() gt 0">
+							本二维码一次时效为{:shop_share_time()}分钟
+						</if>
+						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div style="display: table; width:381px;height: 381px;margin-left: auto;margin-right: auto;/*background: url('/Public/images/wechat_share.jpg') no-repeat no-repeat top;background-size:100% 100%;*/">
+						<div class="row">
+							<div style="display: table;width: auto; position: relative; /*top: 85px; left:68px;*/ top: 25px; left: 28px; ">
+								<img src="{:U('Admin/Store/share_bg','','',true)}?code={:urlencode($qr_url)}" alt="推广二维码" class="img-responsive" style="/*width:130px;height:130px;*/" title="请将二维码另存到本地进行分享">
+							</div>
+							<div style="display: table;width: auto; position: relative; top: 297px; margin-left: auto;margin-right: auto;">
+								<div class="alert alert-success qr-msg" role="alert" style="display: none;max-width: 100%;text-align: center;font-size: 18px;color: #fff;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+   </section>
+</div>
+</body>
+</html>   

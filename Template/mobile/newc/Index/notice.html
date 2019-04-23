@@ -1,0 +1,240 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="TPSHOP"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>钜宏家庭号-公告</title>
+    <meta name="Keywords" content=""/>
+    <meta name="Description" content=""/>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/ecsmart.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/stores.css">
+    <link rel="stylesheet" href="__STATIC__/css/public.css">
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <style>
+        @media screen {
+            * {
+                -webkit-tap-highlight-color: transparent;
+                overflow: hidden
+            }
+
+            .goods_nav {
+                width: 30%;
+                float: right;
+                right: 5px;
+                overflow: hidden;
+                position: fixed;
+                margin-top: -20px;
+                z-index: 9999999
+            }
+        }
+
+        /*#notice_list li {
+            height: 4rem;
+            line-height: 4rem;
+            border-bottom: 1px solid #ccc;
+            margin-top: 0.1rem;
+        }
+
+        #notice_list {
+            width: 96%;
+            margin: 0 auto;
+        }
+        .notice_title {
+            font-size: 0.9rem;
+            color: #352F2F;
+        }
+        .notice_img{
+            max-height: 3.8rem;
+            float: right;
+        }
+        .notice_date{
+            padding-right:2px;
+            font-size: 0.5rem;
+            color: #1a2226;
+            float: right;
+        }*/
+        .notice-list {
+            padding: 0 1.5rem;
+            background-color: #fff;
+        }
+        .notice-list li {
+            padding: 2rem 0;
+            position: relative;
+            max-height: 4rem;
+            border-bottom: 1px dashed #ECE5E5;
+        }
+        .notice-list li:last-child {
+            border-bottom: none;
+        }
+        .notice-list li a {
+            display: -webkit-flex;
+        }
+        .notice-list li div {
+            -webkit-flex: 1;
+            width: 1%;
+            position: relative;
+        }
+        .notice-list li p {
+            font-size: 1.5rem;
+            color: #3c3c3c;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        .notice-list .time {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-size: 0.6rem;
+            color: #999;
+        }
+        .notice-list li img {
+            width: 8rem;
+            height: 3.9rem;
+            margin-left: 2rem;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body style=" background:#F5F5F5">
+<span class="sanjiao"></span>
+<header>
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+            <div class="h-mid">公告</div>
+            <div class="h-right">
+                <aside class="top_bar">
+                    <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a
+                            href="javascript:;"></a></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</header>
+<include file="Public/menu"/>
+
+<div class="Packages">
+    <div class="all"><a class="sele" target="_self" href="javascript:setCat_id(0)" style="color:#FFF"><span>全部</span></a></div>
+    <div class="page_guide_slider">
+        <div class="page_guide_balloon" style=" display:none">
+            <div class="page_guide_bar">
+                <div class="page_guide_progress">
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div class="page_guide_container" onMouseDown="pageGuideMousedown(this,event)"
+             onMouseMove="pageGuideMousemove(this,event)" onMouseUp="pageGuideMouseup(this,event)"
+             onMouseOut="pageGuideMouseout(this,event)" ontouchstart="pageGuideTouchstart(this,event)"
+             ontouchmove="pageGuideTouchmove(this,event)" ontouchend="pageGuideTouchend(this,event)">
+
+            <div class="page_guide_items" style=" position:relative">
+                <volist name="notice_class" id="sc">
+                    <div class="page_guide_item">
+                        <div class="page_guide_item_text">
+                            <a class="" target="_self" href="javascript:setCat_id({$sc['cat_id']})">{$sc['cat_name']}</a>
+                        </div>
+                    </div>
+                    <div id="street_cat{$sc['cat_id']}"></div>
+                </volist>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--数据载体-->
+<section>
+    <ul class="notice-list">
+
+    </ul>
+</section>
+<script type="text/javascript">
+    $(function () {
+        getNoticetList();
+    });
+
+    var page = 1;//页数
+    var cat_id = '';//店铺分类id
+    /**
+     * 加载分类店铺
+     */
+    function setCat_id(id) {
+        $(".notice-list").empty();
+        page = 1;
+        cat_id = id;
+        getNoticetList();
+    }
+    /**
+     * 加载店铺
+     */
+    function getNoticetList() {
+        $('.get_more').show();
+        $.ajax({
+            type: "get",
+            url: "/index.php?m=Mobile&c=Index&a=ajaxNoticeList&p=" + page + "&cat_id=" + cat_id,
+            dataType: 'html',
+            success: function (data) {
+                if (data) {
+                    $(".notice-list").append(data);
+                    page++;
+                    $('.get_more').hide();
+                } else {
+                    $('.get_more').hide();
+                    $('#getmore').remove();
+                }
+            }
+        });
+    }
+</script>
+<div class="floor_body2">
+    <div id="J_ItemList">
+        <ul class="product single_item info">
+        </ul>
+        <a href="javascript:;" class="get_more" style="text-align:center; display:block;">
+            <img src='__STATIC__/images/category/loader.gif' width="12" height="12"> </a>
+    </div>
+    <div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem;">
+        <a href="javascript:void(0)" onClick="getNoticetList()">点击加载更多</a>
+    </div>
+</div>
+<div style="height:100px; line-height:50px; clear:both;"></div>
+<div class="footer">
+    <!--<div class="links" id="TP_MEMBERZONE">
+        <if condition="$user_id gt 0">
+            <a href="{:U('User/index')}"><span>{$user.nickname}</span></a><a href="{:U('User/logout')}"><span>退出</span></a>
+            <else/>
+           &lt;!&ndash; <a href="{:U('User/login')}"><span>登录</span></a><a href="{:U('User/reg')}"><span>注册</span></a>&ndash;&gt;
+        </if>
+        <a href="#"><span>反馈</span></a><a href="javascript:window.scrollTo(0,0);"><span>回顶部</span></a>
+    </div>-->
+    <!--<ul class="linkss">
+        <li>
+            <a href="#">
+                <i class="footerimg_1"></i>
+                <span>客户端</span></a></li>
+        <li>
+            <a href="javascript:;"><i class="footerimg_2"></i><span class="gl">触屏版</span></a></li>
+        <li><a href="{:U('Home/Index/index')}" class="goDesktop"><i class="footerimg_3"></i><span>电脑版</span></a></li>
+    </ul>
+    <p class="mf_o4">备案号:{$tpshop_config['shop_info_record_no']}<br/>&copy; 2005-2016 TPshop多商户V1.2 版权所有，并保留所有权利。</p>-->
+</div>
+
+<include file="Public/footer_nav"/>
+<script>
+    function goTop() {
+        $('html,body').animate({'scrollTop': 0}, 600);
+    }
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="__STATIC__/images/topup.png"></a>
+<!--<script type="text/javascript">
+    reg_package();
+</script>-->
+<script src="__STATIC__/js/slider.js" type="text/javascript"></script>
+</body>
+</html>

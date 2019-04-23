@@ -1,0 +1,144 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <i class="fa fa-list"></i> 评论回复
+                        <a data-original-title="返回" class="btn btn-default pull-right" style="margin-top:-8px;" title="" data-toggle="tooltip" href="{:U('/Seller/Comment/Index/is_back/1')}"><i class="fa fa-reply"></i></a>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                    <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <!-- DIRECT CHAT PRIMARY -->
+                            <div class="box direct-chat direct-chat-primary">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">用户反馈</h3>
+                                    <!-- 
+                                    <div class="box-tools pull-right">
+                                        <span class="badge bg-light-blue" title="3 New Messages" data-toggle="tooltip">3</span>
+                                        <button data-widget="collapse" class="btn btn-box-tool"><i class="fa fa-minus"></i></button>
+                                        <button data-widget="chat-pane-toggle" title="" data-toggle="tooltip" class="btn btn-box-tool" data-original-title="Contacts"><i class="fa fa-comments"></i></button>
+                                        <button data-widget="remove" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+                                    </div>
+                                     -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <!-- Conversations are loaded here -->
+                                    <div class="">
+                                        <!-- Message. Default to the left -->
+                                        <div class="direct-chat-msg">
+                                            <div class="direct-chat-info clearfix">
+                                                <span class="direct-chat-name pull-left"><!--用户名 --></span>
+                                                <span class="direct-chat-timestamp pull-right">{$msg.msg_time|date="Y-m-d H:i",###}</span>
+                                            </div><!-- /.direct-chat-info -->
+                                            <img alt="{$msg.username}" src="__PUBLIC__/dist/img/user2-160x160.jpg" class="direct-chat-img"><!-- /.direct-chat-img -->
+                                            <div class="direct-chat-text">
+                                                [
+                                                    <switch name="msg.msg_type" >
+                                                        <case value="0" >留言</case>
+                                                        <case value="1" >投诉</case>
+                                                        <case value="2">询问</case>
+                                                        <case value="3">售后</case>
+                                                        <default />其他
+                                                    </switch>
+                                                ]
+                                                {$msg.msg_content}
+                                            </div><!-- /.direct-chat-text -->
+                                        </div><!-- /.direct-chat-msg -->
+
+                                       <foreach name="reply" item="v" >
+                                        <div class="direct-chat-msg right">
+                                            <div class="direct-chat-info clearfix">
+                                                <span class="direct-chat-name pull-right"><!--管理员 --></span>
+                                                <span class="direct-chat-timestamp pull-left">{$v.msg_time|date="Y-m-d H:i",###}</span>
+                                            </div><!-- /.direct-chat-info -->
+                                            <img alt="管理员" src="__PUBLIC__/dist/img/user2-160x160.jpg" class="direct-chat-img"><!-- /.direct-chat-img -->
+                                            <div class="direct-chat-text">
+                                                [
+                                                <switch name="v.msg_type" >
+                                                    <case value="0" >留言</case>
+                                                    <case value="1" >投诉</case>
+                                                    <case value="2">询问</case>
+                                                    <case value="3">售后</case>
+                                                    <default />其他
+                                                </switch>
+                                                ]
+                                                {$v.msg_content}
+                                            </div>
+                                        </div>
+                                        </foreach>                                                                                
+                                    </div> 
+                                    <!-- /.direct-chat-pane -->
+                                </div><!-- /.box-body -->
+                                <!-- /.box-footer-->
+                            </div><!--/.direct-chat -->
+                        </div>       
+                        <div class="col-md-2"></div>
+                     <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                <form method="post">
+                                            <textarea class="form-control" rows="3" placeholder="请输入回复内容" name="content"></textarea>                                
+			             					<div class="form-group"><button type="button" class="btn btn-primary pull-right margin reply-btn">回复</button></div>
+                                </form>            
+                                </div>
+                                <div class="col-md-2"></div>   
+                                                                                             
+                                </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<script>
+    // 删除操作
+    function del(id,t)
+    {
+        if(!confirm('确定要删除吗?'))
+            return false;
+
+        location.href = $(t).data('href');
+    }
+
+    function popLayer(msg) {
+        layer.msg(msg);
+    }
+
+    //提交表单
+    $('.reply-btn').on('click',function () {
+        var content = $('textarea[name="content"]').val();
+        if (content == ''){
+            popLayer('请说点什么吧！');
+            return false;
+        }
+        var id = "{$msg.msg_id}";
+        $.post("{:U('detail')}",{'content':content,'id':id},function (data) {
+            if (data.hasOwnProperty('info')){
+                popLayer(data.info)
+            }
+            if (data.hasOwnProperty('status')){
+                if (data.status == 1){
+                    setTimeout(function () {
+                        window.location.reload();
+                    },1000)
+                }
+            }
+        },'json')
+    })
+</script>
+</body>
+</html>

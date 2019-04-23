@@ -1,0 +1,110 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>&nbsp;活动票管理
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <nav class="navbar navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <form class="navbar-form form-inline" role="search">
+                                    <div class="form-group">
+                                        <a class="btn btn-info" href="{:U('card_index',array('status'=>1))}">卡券列表</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <a class="btn btn-info" href="{:U('card_index',array('status'=>0))}">回收列表</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div class="form-group pull-right">
+                                        <a href="{:U('add_card')}" class="btn btn-primary pull-right">
+                                            <i class="fa fa-plus"></i>添加活动票
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>名称</th>
+                                    <th>图片</th>
+                                    <th>等级</th>
+                                    <th>满足条件（金额）</th>
+                                    <th>活动票数量</th>
+                                    <th>已发放数量</th>
+                                    <th>未发放数量</th>
+                                    <th>开始时间</th>
+                                    <th>结束时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="data-list">
+                                <foreach name="card_list" item="vo" key="k">
+                                    <if condition="get_column('admin',session('admin_id'),'role_id') eq 1">
+                                        <tr role="row" align="center">
+                                            <td>{$vo.card_id}</td>
+                                            <td>{$vo.name}</td>
+                                            <td><a href="{$vo.cover}"><img src="{$vo.cover}" style="height: 50px;"></a></td>
+                                            <td>{$vo.level_name}</td>
+                                            <td>{$vo.need_price}</td>
+                                            <td>{$vo['store_count'] + $vo['user_count'] }</td>
+                                            <td>{$vo.user_count}</td>
+                                            <td>{$vo.store_count}</td>
+                                            <td>{$vo.start_time|date='Y/m/d',###}</td>
+                                            <td>{$vo.end_time|date='Y/m/d',###}</td>
+                                            <td>
+                                                <eq name="vo.status" value="1">
+                                                    <a class="btn btn-primary" href="{:U('add_card',array('card_id'=>$vo['card_id']))}">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger" href="javascript:void(0)" data-url="{:U('remove_card')}" data-id="{$vo.card_id}" data-val="0" onclick="change_column(this)">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                    <else/>
+                                                    <a class="btn btn-primary" href="javascript:void(0)" data-url="{:U('change_column')}" data-id="{$vo.card_id}" data-val="1" onclick="change_column(this)">
+                                                        <i class="fa fa-undo"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger" href="javascript:void(0)" data-url="{:U('remove_card')}" data-id="{$vo.card_id}" data-val="0" onclick="change_column(this)">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                </eq>
+                                            </td>
+                                        </tr>
+                                    </if>
+                                </foreach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">{$page}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+function change_column(obj){
+    if (confirm('是否执行此操作？')){
+        $.getJSON($(obj).data('url'),{'id':$(obj).data('id'),'value':$(obj).data('val')},function (data) {
+            if (data.hasOwnProperty('msg')){
+                layer.msg(data.msg);
+            }
+            if (data.hasOwnProperty('status')){
+                if (data.status==1){
+                    window.location.reload();
+                }
+            }
+        })
+    }
+}
+</script>
+</body>
+</html>

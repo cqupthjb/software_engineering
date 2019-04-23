@@ -1,0 +1,89 @@
+<!--微信JS-SDK  获取定位信息-->
+<script src="__STATIC__/apicloud/jweixin-1.0.0.js"></script>
+<script>
+
+    $(document).ready(function () {
+        // 微信配置
+        wx.config({
+            debug: false,
+            appId: "{$signPackage['appId']}",
+            timestamp: '{$signPackage["timestamp"]}',
+            nonceStr: '{$signPackage["nonceStr"]}',
+            signature: '{$signPackage["signature"]}',
+            jsApiList: ['getLocation'] // 功能列表，我们要使用JS-SDK的什么功能
+        });
+        get_location(); //获取当前地理详情
+    });
+
+
+    /*$('#location').on('touchend',function () {
+        $(this).children('span').addClass('active');
+        get_location();//获取当前地理详情
+    })*/
+    $('#location').on('touchend','.locationContainer',function () {
+        $(this).children('span').addClass('active');
+        get_location();//获取当前地理详情
+
+    })
+
+    //获取地理信息 纬经度
+    function get_location(){
+        wx.ready(function(){
+            wx.getLocation({
+                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                success: function (res) {
+                    var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                    var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                    var speed = res.speed; // 速度，以米/每秒计
+                    var accuracy = res.accuracy; // 位置精度
+
+                    get_map_area(latitude,longitude);
+                },cancel : function(res) {
+                    //alert('用户拒绝授权获取地理位置');
+                    window.get_list_url = "{:U('Index/get_shop_list')}";
+                    var data = {page:1};
+                    var config = {elem:'#store_list',scrollElem:''};
+                    get_list(data,config);
+                },fail : function (res) {
+                    window.get_list_url = "{:U('Index/get_shop_list')}";
+                    var data = {page:1};
+                    var config = {elem:'#store_list',scrollElem:''};
+                    get_list(data,config);
+                }
+            });
+        })
+
+    }
+    //获取地理信息 根据纬经度获取具体地址
+    function get_map_area(lat,lng){
+        if (lat == '' || lng == '') return false;
+        $.getJSON("{:U('Home/Api/get_map_area')}", {lat:lat,lng:lng },function(data){
+            if(data.hasOwnProperty('address')){
+                //alert(data.address);
+                $('#location').html('<div class="locationContainer">'+data.address+'<span class="active"></span></div>');//修改当前地理位置
+                setTimeout(function () {
+                    $('.locationContainer .active').removeClass('active');
+                },500);
+                window.get_list_url = "{:U('Index/get_shop_list')}";
+                var order=$('.sortContainer .active').data('order');
+                var data = {page:1};
+                if (order=='hy'){
+                    if (window.cat_id > 0){
+                        data.sc_id = window.cat_id;
+                    }
+                }else{
+                    data.order=order;
+                }
+                var config = {elem:'#store_list',scrollElem:''};
+                $('#store_list').empty();//切换排序顺序前需清空
+                get_list(data,config);
+            }
+            if(data.hasOwnProperty(data.status)){
+                if(data.status == 0){
+                    popLayer(data.msg);
+                }
+            }
+        });
+
+    }
+</script>

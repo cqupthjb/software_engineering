@@ -1,0 +1,80 @@
+<include file="Public/header"/>
+<body>      
+<div id="tbh5v0">
+<div class="user_com">
+<include file="Public/uer_topnav"/>
+
+<if condition="$ShareLink neq null">
+    <div class="endorse_hend">
+        <p>推广二维码</p>
+    </div>
+    <div class="Wallet" style="text-align:center;">
+        <!--/**<img alt="扫码推广" src="/index.php?m=Home&c=Index&a=qr_code&data=" style="width:150px;height:150px;"/>**/	-->
+        <img alt="扫码推广" src="{$ShareLink}" style="width:200px;height:200px;"/>
+        <if condition="check_need_consumption($_uid)">
+            <a href="javascript:void(0)" class="share-code">分享给朋友</a>
+        </if>
+        <script>
+            var ShareLink = "{$share_link}";
+            if (ShareLink == ''){
+                ShareLink = "http://{$_SERVER[HTTP_HOST]}/index.php?m=App&c=Index&a=index"; //默认分享链接
+            }
+            var ShareImgUrl = "http://{$_SERVER[HTTP_HOST]}{$tpshop_config['shop_info_store_logo']}"; // 分享图标
+            var ShareTitle = "{$tpshop_config['shop_info_store_title']}";
+            var ShareDesc = "{$tpshop_config['shop_info_store_desc']}";
+            var wxpc = 'fs://qr_code.png';
+//            apiready = function () {
+//                var wx = api.require('wx');
+//                $('.share-code').on('click',function () {
+//                    wx.shareWebpage({
+//                        apiKey: '',
+//                        scene: 'session',//会话//'timeline',//朋友圈
+//                        title: ShareTitle,
+//                        description: ShareDesc,
+//                        thumb: ShareImgUrl,
+//                        contentUrl: ShareLink
+//                    }, function(ret, err) {
+//                        if (ret.status) {
+//                            alert('分享成功');
+//                        } else {
+//                            alert(err.code);
+//                        }
+//                    });
+//                })
+//
+//            }
+            apiready = function(){
+
+            }
+
+            $('.share-code').on('click',function () {
+                var info = {};
+                info.title = ShareTitle;
+                info.description = ShareDesc;
+                info.thumb = ShareImgUrl;
+                info.contentUrl = ShareLink;
+                info.wx_scene = 'session';
+                info.wxpc = wxpc;
+                //alert(JSON.stringify(info));
+                //api.alert({msg:JSON.stringify(info)});
+                app_wx_share(info);
+            });
+
+
+
+        </script>
+    </div>
+<else />
+    <div class="endorse_hend">
+        <p>你还不是分销商</p>
+    </div>
+    <div class="Wallet" style="text-align:center;">
+	      <img alt="扫码推广" src="__STATIC__/images/sorry.jpg" style="width:190px;"/>	      
+    </div>
+  </if>	
+</div>
+<include file="Public/footer"/>
+</div>
+<include file="Public/footer_nav"/>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<script>
+    /*微信支付*/
+    var wx_pay_order = function (url,model,order_sn,callback_url,timeout) {
+        var wx = api.require('wx');
+        wx.isInstalled(function (ret, err) {
+            if (ret.installed) {
+                wx_pay(url,model,order_sn,callback_url,timeout);
+            } else {
+                api.alert({msg:'当前设备未安装微信客户端'});
+            }
+        });
+    }
+    var wx_pay = function (url,model,order_sn,callback_url,timeout) {
+        if (timeout == null || timeout == '' || typeof (timeout) == 'undefined')
+            timeout = 0;
+        var wxPay = api.require('wxPay');
+        $.post(url,{model:model,order_sn:order_sn},function (data) {
+            if (data.hasOwnProperty('result')){
+                var result = data.result;
+                if (result.hasOwnProperty('sign')){
+                    wxPay.payOrder({
+                        orderId: result.prepayid,
+                        mchId: result.partnerid,
+                        nonceStr: result.noncestr,
+                        timeStamp: result.timestamp,
+                        package: result.package,
+                        sign: result.sign
+                    }, function(ret, err) {
+                        if (ret.status) {
+                            //支付成功
+                            api.alert({msg:'支付成功'});
+                            setTimeout(function () {
+                                location.href = callback_url;
+                            },timeout);
+                        } else {
+                            if (typeof (err) != 'object')
+                                return ;
+                            if (err.hasOwnProperty('code')){
+                                switch (err.code){
+                                    case -1:api.alert({msg:'系统配置错误,请联系管理员'});break;
+                                    //case -2:api.alert({msg:'取消支付'});break;
+                                }
+                                return;
+                            }
+                        }
+                    });
+                }else{
+                    api.alert({msg:'获取微信订单信息错误'});
+                }
+            }else{
+                if (data.hasOwnProperty('msg')){
+                    api.alert({msg:data.msg});
+                }else{
+                    api.alert({msg:'支付失败.'});
+                }
+                setTimeout(function () {
+                    location.reload();
+                },200);
+            }
+        },'json').error(function (err) {
+            //alert(JSON.stringify(err));
+            api.alert({msg:'支付失败'});
+        });
+    }
+
+    /*支付宝支付*/
+    var alipay_pay_order = function (url,model,order_sn,callback_url,timeout) {
+        if (timeout == null || timeout == '' || typeof (timeout) == 'undefined')
+            timeout = 0;
+        var aliPayPlus = api.require('aliPayPlus');
+        $.post(url,{model:model,order_sn:order_sn},function (data) {
+            if (data.hasOwnProperty('orderInfo')){
+                aliPayPlus.payOrder({
+                    orderInfo: data.orderInfo
+                }, function(ret, err) {
+                    if (ret.code == 9000){
+                        api.alert({msg:'支付成功'});
+                        setTimeout(function () {
+                            location.href = callback_url;
+                        },timeout);
+                    }else{
+                        if (typeof (ret) != 'object')
+                            return ;
+                        if (ret.hasOwnProperty('code')){
+                            var msg = '';
+                            switch (ret.code){
+                                case 9000:msg = '支付成功';break;
+                                case 8000:msg = '正在处理中，支付结果未知，请联系商城管理员查询订单支付状态';break;
+                                case 4000:msg = '订单支付失败';break;
+                                case 5000:msg = '重复请求';break;
+                                case 6002:msg = '网络连接出错';break;
+                                case 6004:msg = '支付结果未知，请联系商城管理员查询订单支付状态';break;
+                                case 6001:msg = '';break;
+                                case 0001:msg = '系统配置错误';break;
+                                case 0002:msg = '系统配置错误.';break;
+                                case 0003:msg = '系统配置错误!';break;
+                            }
+                            if (msg != ''){
+                                api.alert({msg:msg});
+                            }
+                            return;
+                        }
+                    }
+                });
+            }else{
+                api.alert({msg:'系统配置错误,支付失败'});
+            }
+        },'json');
+    }
+</script>

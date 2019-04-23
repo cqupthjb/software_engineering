@@ -1,0 +1,12 @@
+<foreach name="list" item="vo">
+    <dl class="msg-detail" data-id="{$vo.msg_id}">
+        <dt><span class="title">{$msg_type[$vo[msg_type]]}</span>{$vo.msg_title}</dt>
+        <dd></dd>
+        <dd><span>{$vo.msg_content}</span><font></font></dd>
+        <a class="assess-reply-btn" href="javascript:void(0)">
+            <i class="assess-btns-icon btn-reply-icon"></i>
+            <span class="assess-btns-num">{:get_count('feedback',array('parent_id'=>$vo['msg_id']))}</span>
+        </a>
+        <span class="liuyan_time">{$vo.msg_time|date='Y-m-d H:i:s',###}</span>
+    </dl>
+</foreach>

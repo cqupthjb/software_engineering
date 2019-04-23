@@ -1,0 +1,1897 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>tpshop-首页</title>
+<link rel="stylesheet" href="/Template/huawei/static/css/index.css" type="text/css">
+<script src="/Public/js/jquery-1.8.2.min.js"></script>
+
+<!-- 首页轮播图片 轮播js 广告-->
+<script src="/Template/huawei/static/js/slider.js"></script>
+<script type="text/javascript">
+// 首页轮播图片 轮播js 广告
+$(function() {
+	var bannerSlider = new Slider($('#banner_tabs'), {
+		time: 5000,
+		delay: 400,
+		event: 'hover',
+		auto: true,
+		mode: 'fade',
+		controller: $('#bannerCtrl'),
+		activeControllerCls: 'active'
+	});
+	$('#banner_tabs .flex-prev').click(function() {
+		bannerSlider.prev()
+	});
+	$('#banner_tabs .flex-next').click(function() {
+		bannerSlider.next()
+	});
+})
+</script>
+<!-- 首页轮播图片 轮播js 广告 end-->
+</head>
+<body>
+<!--------头部开始-------------->
+
+<div class="site-topbar">
+    <div class="layout">
+        <div class="t1-l">
+            <ul class="t1-l-ul">
+                <li class="t1font"><a href="http://www.tp-shop.cn" target="_blank">在线客服</a></li>
+                <li class="t1img">&nbsp;</li>
+                <li class="t1font"><a href="http://www.tp-shop.cn" target="_blank">TPshop官网</a></li>
+                <li class="t1img">&nbsp;</li>
+            </ul>
+        </div>
+        <div class="t1-r">
+            <ul class="t1-r-ul">
+                <li class="t1font">
+                <a class="logon" href="">TPshop欢迎您:</a>
+                <a href="">奥巴马</a>
+                </li>
+                <li class="t1img">&nbsp;</li>
+                <li class="t1font"><a href="">我的订单</a></li>
+                <li class="t1img">&nbsp;</li>
+                <li class="t1font"><a href="">购物车</a></li>
+                <li class="t1img">&nbsp;</li>
+                <li class="t1font"><a href="">网站地图</a></li>
+                <li class="t1img">&nbsp;</li>
+                <li class="t1font">
+                    <div class="s-dropdown about_imgs">
+                        <div class="xl"><a href="">在线客服<span></span></a></div>
+                        <div class="about">
+                            <p><a href="">tpshop</a></p>
+                            <p><a href="">tpshop</a></p>
+                            <p><a href="">tpshop</a></p>
+                            <p><a href="">tpshop</a></p>
+                        </div>   
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--顶部banner开始-->    
+<div class="top-banner">
+    <div class="top-banner-max">
+    <!---广告 select * from tp_ad where position_id = 1 limit 1-->
+    <a href="http://99spoubao.com" target="_blank"> <img src="/Public/upload/banner/2015/10-26/562e2e8c88e61.jpg" /></a>    
+    <a class="button-top-banner-close" href="javascript:;" title="关闭" id="top-banner-min-close" onClick="javascript:$('#top-banner-block').hide();">－</a>   </div>
+</div>
+<!--顶部banner结束-->    
+
+<header>
+    
+    <div class="layout">
+    
+    <!--logo开始-->
+        <div class="logo"><a href="" title="TPshop"><img src="/Template/huawei/static/images/newLogo.png" alt="TPshop"></a></div>
+    <!--logo结束-->
+    
+    <!-- 搜索开始-->
+        <div class="searchBar">
+            <div class="searchBar-form">
+                <form>					
+                    <input type="text" class="text" >
+                    <input type="submit" class="button" value="搜索">
+                </form>
+            </div>
+            <div class="searchBar-hot">
+                <b>热门搜索：</b>
+                <a href="" target="_blank">荣耀7</a>
+                <a href="" target="_blank">4A</a>
+                <a href="" target="_blank">4C</a>
+                <a href="" target="_blank">指纹识别</a>
+                <a href="" target="_blank">P8max</a>
+                <a href="" target="_blank">麦芒4</a>
+            </div>
+        </div>
+        <!-- 搜索结束-->
+        
+        <div class="ri-mall">
+            <div class="my-mall">
+            <!---我的商城-开始 -->
+                <div class="mall">
+                    <div class="le"><a href="" >我的商城</a><i></i><span></span><u></u></div>
+                    <div class="ri" style="display:">
+                        <div class="shopping">
+                            <p>你好，请&nbsp;&nbsp;<a href="" >登录</a><a href="">登录</a> | <a href="">注册</a></p>
+                        </div>
+                        <div class="shopping-stuff">
+                            <ul>
+                                <li><a href="">我的订单</a></li>
+                                <li><a href="">待支付</a><span>0</span></li>
+                                <li><a href="">待评论</a><span>0</span></li>
+                                <li><a href="">优惠券</a><span>0</span></li>
+                                <li><a href="">站内信</a><span>0</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!---我的商城-结束 -->
+            </div>
+            <div class="my-mall">
+                <!---购物车-开始 -->
+                <div class="micart">
+                    <div class="le les" ><a href="/index.php/Home/Cart/cart" >我的购物车<span class="shopping-num"><em>0</em><b></b></span></a><i id="i"></i><span class="sps"></span><u></u></div>
+                    <div class="ri ris" style="display:">
+                        <div class="micart-about">
+                            <span class="micart-xg">您的购物车是空的，赶紧选购吧！</span>
+                        </div>
+                        <div class="commod">
+                        <ul>
+                            <li class="goods">
+                                <div>
+                                    <div class="p-img">
+                                        <a href="">
+                                            <img src="/Template/huawei/static/images/78_78_1.jpg" alt="">
+                                        </a>
+                                     </div>
+                                     <div class="p-name">
+                                        <a href="">
+                                            <span class="p-slogan">金属质感，纤薄机身，舒适握感，配置麒麟935真64位芯片，疾速智能，光学防抖技术，成像出色，魅我自拍，以指截屏，得心应手</span>
+                                            <span class="p-promotions hide"></span>
+                                        </a>
+                                     </div>
+                                     <div class="p-status">
+                                        <div class="p-price">
+                                            <b>¥&nbsp;3288.00</b>
+                                            <em>x</em>
+                                            <span>1</span>
+                                        </div>
+                                        <div class="p-tags"></div>
+                                     </div>
+                                     <a href="" class="icon-minicart-del" title="删除">删除</a>
+                                </div>
+                            </li>
+                            <li class="goods">
+                                <div>
+                                    <div class="p-img">
+                                        <a href="">
+                                            <img src="/Template/huawei/static/images/78_78_1.jpg" alt="">
+                                        </a>
+                                     </div>
+                                     <div class="p-name">
+                                        <a href="">
+                                            <span class="p-slogan">金属质感，纤薄机身，舒适握感，配置麒麟935真64位芯片，疾速智能，光学防抖技术，成像出色，魅我自拍，以指截屏，得心应手</span>
+                                            <span class="p-promotions hide"></span>
+                                        </a>
+                                     </div>
+                                     <div class="p-status">
+                                        <div class="p-price">
+                                            <b>¥&nbsp;3288.00</b>
+                                            <em>x</em>
+                                            <span>1</span>
+                                        </div>
+                                        <div class="p-tags"></div>
+                                     </div>
+                                     <a href="" class="icon-minicart-del" title="删除">删除</a>
+                                </div>
+                            </li>							
+                        </ul>
+                        </div>
+                        <div class="settle">
+                            <p>共<em>0</em>件商品，金额合计<b>¥&nbsp;0</b></p>
+                            <a class="js-button" href="/index.php/Home/Cart/cart2">去结算</a>
+                        </div>
+                    </div>
+                </div>
+                <!---购物车-结束 -->
+                
+            </div>
+        </div>
+        <div class="qr-code">
+            <img src="/Template/huawei/static/images/qrcode_vmall_app01.png" alt="二维码" />
+            <p>扫一扫</p>
+        </div>
+    </div>
+</header>
+   <!-- 导航-开始-->
+   	<div class="navigation">
+    	<div class="layout">
+        	<!--全部商品-开始-->
+        	<div class="allgoods">
+            	<div class="goods_num"><h2>全部商品</h2><i class="trinagle"></i></div>
+            	<div class="list">
+                   <ul class="list_ul"> 
+                       <li class="list-li">
+                        	<div class="list_a">
+                            	<h3><a href="/index.php/Home/Index/goodsList/id/1"><span>手机 、 数码 、 通信</span></a></h3>
+                                <p> <!--$v[id][name] 数组中括号 里面的 id name 不能有 引号 sql 参数 必须双引号-->
+				                    <a href="/index.php/Home/Index/goodsList/id/2">手机配件</a><a href="/index.php/Home/Index/goodsList/id/3">运营商</a><a href="/index.php/Home/Index/goodsList/id/43">手机通讯</a>                                </p>
+                            </div>
+                        	<div class="list_b">
+                            	<div class="list_bigfl">
+				    <a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/2">手机配件<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/3">运营商<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/43">手机通讯<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/44">摄影摄像<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/45">数码配件<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/46">娱乐影视<i>＞</i></a>                            	</div>
+                            	<div class="subitems">
+                                
+                                <dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/2">手机配件</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/58">电池 电源 充电器</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/59">数据线,耳机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/60">贴膜,保护套</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/3">运营商</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/5">选号码</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/50">办套餐</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/51">合约机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/52">中国移动</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/43">手机通讯</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/48">手机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/49">对讲机</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/44">摄影摄像</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/53">数码相机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/54">单反相机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/55">摄像机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/56">镜头</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/57">数码相框</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/45">数码配件</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/61">充值卡</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/62">读卡器</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/63">支架</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/64">滤镜</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/46">娱乐影视</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/65">耳机/耳麦</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/66">音响麦克风</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/47">电子教育</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/67">学生平板</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/68">点读机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/69">电纸书</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/70">电子词典</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/71">复读机</a>                                            
+                                        </dd>
+                                	</dl>  
+                                </div>
+                            </div>
+                            <i class="list_img"></i>
+                        </li><li class="list-li">
+                        	<div class="list_a">
+                            	<h3><a href="/index.php/Home/Index/goodsList/id/6"><span>家用电器</span></a></h3>
+                                <p> <!--$v[id][name] 数组中括号 里面的 id name 不能有 引号 sql 参数 必须双引号-->
+				                    <a href="/index.php/Home/Index/goodsList/id/7">生活电器</a><a href="/index.php/Home/Index/goodsList/id/8">大家电</a><a href="/index.php/Home/Index/goodsList/id/11">厨房电器</a>                                </p>
+                            </div>
+                        	<div class="list_b">
+                            	<div class="list_bigfl">
+				    <a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/7">生活电器<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/8">大家电<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/11">厨房电器<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/12">个护健康<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/13">五金交电<i>＞</i></a>                            	</div>
+                            	<div class="subitems">
+                                
+                                <dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/7">生活电器</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/19">电风扇</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/20">电话机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/21">录音机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/22">饮水机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/23">烫衣机</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/8">大家电</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/14">电视</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/15">冰箱</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/16">空调</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/17">洗衣机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/18">热水器</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/11">厨房电器</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/34">电饭锅</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/35">微波炉</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/36">豆浆机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/37">料理/榨汁机</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/12">个护健康</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/38">剃须刀</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/39">吹风机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/40">按摩器</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/41">足浴盆</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/42">血压计</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/13">五金交电</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/24">电动工具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/25">仪表仪器</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/26">浴霸/排气扇</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/27">灯具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/28">水龙头</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/29">厨卫五金</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/30">门铃门锁</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/31">开关插座</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/32">监控安防</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/33">电线线缆</a>                                            
+                                        </dd>
+                                	</dl>  
+                                </div>
+                            </div>
+                            <i class="list_img"></i>
+                        </li><li class="list-li">
+                        	<div class="list_a">
+                            	<h3><a href="/index.php/Home/Index/goodsList/id/72"><span>电脑、办公</span></a></h3>
+                                <p> <!--$v[id][name] 数组中括号 里面的 id name 不能有 引号 sql 参数 必须双引号-->
+				                    <a href="/index.php/Home/Index/goodsList/id/81">电脑整机</a><a href="/index.php/Home/Index/goodsList/id/82">电脑配件</a><a href="/index.php/Home/Index/goodsList/id/83">外设产品</a>                                </p>
+                            </div>
+                        	<div class="list_b">
+                            	<div class="list_bigfl">
+				    <a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/81">电脑整机<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/82">电脑配件<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/83">外设产品<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/84">游戏设备<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/85">网络产品<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/86">办公设备<i>＞</i></a>                            	</div>
+                            	<div class="subitems">
+                                
+                                <dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/81">电脑整机</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/88">笔记本</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/89">超极本</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/90">平板电脑</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/91">台式机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/92">一体机</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/82">电脑配件</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/93">CPU</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/94">主板</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/95">显卡</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/96">硬盘</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/97">固态硬盘</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/98">内存</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/99">机箱</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/100">电源</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/101">显示器</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/102">刻录机/光驱</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/103">声卡/扩展卡</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/104">散热器</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/105">装机配件</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/106">组装电脑</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/83">外设产品</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/107">鼠标</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/108">键盘</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/109">网络仪表仪器</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/110">U盘</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/111">移动硬盘</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/112">鼠标垫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/113">摄像头</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/114">线缆</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/115">手写板</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/116">电脑工具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/117">UPS</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/118">插座</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/84">游戏设备</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/119">游戏机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/120">游戏耳机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/121">手柄方向盘</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/122">游戏软件</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/123">游戏周边</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/85">网络产品</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/124">路由器</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/125">网卡</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/126">交换机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/127">网络存储</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/128">3G/4G/5G上网</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/129">网络盒子</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/130">网络配件</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/86">办公设备</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/131">摄影机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/132">投影配件</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/133">多功能一体机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/134">打印机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/135">传真设备</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/136">验钞/点钞机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/137">扫描设备</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/138">复合机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/139">碎纸机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/140">考勤机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/141">收款/POS机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/142">会员视频音频</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/143">保险柜</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/144">装订/封装机</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/145">安防监控</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/146">办公家具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/147">白板</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/87">文具耗材</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/148">硒鼓/墨粉</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/149">墨盒</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/150">色带</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/151">纸类</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/152">办公文具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/153">学生文具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/154">文具管理</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/155">本册便签</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/156">计算器</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/157">笔类</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/158">画具画材</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/159">财会用品</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/160">刻录碟片</a>                                            
+                                        </dd>
+                                	</dl>  
+                                </div>
+                            </div>
+                            <i class="list_img"></i>
+                        </li><li class="list-li">
+                        	<div class="list_a">
+                            	<h3><a href="/index.php/Home/Index/goodsList/id/73"><span>家居、家具、家装、厨具</span></a></h3>
+                                <p> <!--$v[id][name] 数组中括号 里面的 id name 不能有 引号 sql 参数 必须双引号-->
+				                    <a href="/index.php/Home/Index/goodsList/id/161">厨具</a><a href="/index.php/Home/Index/goodsList/id/162">家装建材</a><a href="/index.php/Home/Index/goodsList/id/163">家纺</a>                                </p>
+                            </div>
+                        	<div class="list_b">
+                            	<div class="list_bigfl">
+				    <a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/161">厨具<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/162">家装建材<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/163">家纺<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/164">家具<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/165">灯具<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/166">生活日用<i>＞</i></a>                            	</div>
+                            	<div class="subitems">
+                                
+                                <dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/161">厨具</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/169">烹饪锅具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/170">剪刀菜饭</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/171">厨房配件</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/172">水具酒具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/173">餐具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/174">茶具/咖啡具</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/162">家装建材</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/175">灯饰照明</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/176">厨房卫浴</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/177">五金工具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/178">电工电料</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/179">墙地材料</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/180">装饰材料</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/181">装修服务</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/182">沐浴花洒</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/183">开关插座</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/184">油漆涂料</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/185">龙头</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/163">家纺</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/186">床品套件</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/187">被子</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/188">被芯</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/189">床单被罩</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/190">床垫床褥</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/191">电地毯</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/192">毯子</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/193">毛巾浴巾</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/194">抱枕靠垫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/195">布艺软饰</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/196">窗帘窗纱</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/197">蚊帐</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/198">凉席</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/164">家具</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/199">卧室家具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/200">客厅家具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/201">客厅家具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/202">餐厅家具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/203">书房家具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/204">储物家具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/205">阳台/户外</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/206">商业办公</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/207">床</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/208">床垫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/209">沙发</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/210">电脑椅</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/211">衣柜</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/212">茶几</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/213">电视柜</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/214">餐桌</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/215">电脑桌</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/216">鞋架/衣帽架</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/165">灯具</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/217">台灯</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/218">吸顶灯</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/219">筒灯射灯</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/220">LED灯</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/221">节能灯</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/222">落地灯</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/223">五金电器</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/224">应急灯/手电</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/225">装饰灯</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/226">吊灯</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/227">氛围照明</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/166">生活日用</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/228">收纳用品</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/229">雨伞雨具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/230">浴室用品</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/231">缝纫/针织用品</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/232">洗晒/熨烫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/233">净化除味</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/234">清洁工具</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/167">家装软饰</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/235">桌布/罩件</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/236">地毯地垫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/237">沙发垫套/椅垫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/238">帘艺隔断</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/239">相框/照片墙</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/240">装饰字画</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/241">墙贴/装饰贴</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/242">节庆饰品</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/243">手工/十字绣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/244">钟饰</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/245">装饰摆件</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/246">花瓶花艺</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/247">创意家居</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/248">保暖防护</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/249">香薰蜡烛</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/168">宠物生活</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/250">水族用品</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/251">宠物主粮</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/252">宠物零食</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/253">猫砂/尿布</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/254">洗护美容</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/255">家居日用</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/256">医疗保健</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/257">出行装备</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/258">宠物玩具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/259">宠物牵引</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/260">宠物驱虫</a>                                            
+                                        </dd>
+                                	</dl>  
+                                </div>
+                            </div>
+                            <i class="list_img"></i>
+                        </li><li class="list-li">
+                        	<div class="list_a">
+                            	<h3><a href="/index.php/Home/Index/goodsList/id/74"><span>男装、女装、童装、内衣</span></a></h3>
+                                <p> <!--$v[id][name] 数组中括号 里面的 id name 不能有 引号 sql 参数 必须双引号-->
+				                    <a href="/index.php/Home/Index/goodsList/id/261">女装</a><a href="/index.php/Home/Index/goodsList/id/262">男装</a><a href="/index.php/Home/Index/goodsList/id/263">内衣</a>                                </p>
+                            </div>
+                        	<div class="list_b">
+                            	<div class="list_bigfl">
+				    <a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/261">女装<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/262">男装<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/263">内衣<i>＞</i></a>                            	</div>
+                            	<div class="subitems">
+                                
+                                <dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/261">女装</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/264">羽绒服</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/265">毛呢大衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/266">棉服</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/267">连衣裙</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/268">卫衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/269">短外套</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/270">风衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/271">衬衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/272">T恤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/273">小西装</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/274">打底衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/275">打底裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/276">针织衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/277">羊毛衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/278">羊绒衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/279">半身裙</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/280">大码女装</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/281">中老年女装</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/282">皮草</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/283">真皮皮衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/284">仿皮皮衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/285">雪纺衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/286">牛仔裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/287">休闲裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/288">正装裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/289">加绒裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/290">短裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/291">婚纱</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/292">旗袍/唐装</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/293">礼服</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/294">马甲</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/295">吊带/背心</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/296">设计师/潮牌</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/262">男装</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/297">羽绒服</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/298">棉服</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/299">针织衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/300">夹克</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/301">羊毛衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/302">加绒裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/303">真皮皮衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/304">卫衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/305">T恤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/306">马甲/背心</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/307">西服套装</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/308">牛仔裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/309">休闲裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/310">衬衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/311">毛呢大衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/312">风衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/313">仿皮皮衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/314">西服</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/315">西裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/316">卫裤/运动裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/317">POLO衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/318">短裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/319">中老年男装</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/320">大码男装</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/321">羊绒衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/322">设计师/潮牌</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/323">工装</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/324">唐装/中山装</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/263">内衣</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/325">保暖内衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/326">秋衣秋裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/327">睡衣/家居服</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/328">打底裤袜</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/329">休闲棉袜</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/330">商务男袜</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/331">情侣睡衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/332">文胸套装</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/333">大码内衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/334">文胸</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/335">男式内裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/336">女式内裤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/337">连裤袜/丝袜</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/338">打底衫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/339">少女文胸</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/340">抹胸</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/341">吊带/背心</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/342">内衣配件</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/343">泳衣</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/344">塑身美体</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/345">美腿袜</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/346">情趣内衣</a>                                            
+                                        </dd>
+                                	</dl>  
+                                </div>
+                            </div>
+                            <i class="list_img"></i>
+                        </li><li class="list-li">
+                        	<div class="list_a">
+                            	<h3><a href="/index.php/Home/Index/goodsList/id/75"><span>个人化妆</span></a></h3>
+                                <p> <!--$v[id][name] 数组中括号 里面的 id name 不能有 引号 sql 参数 必须双引号-->
+				                    <a href="/index.php/Home/Index/goodsList/id/347">面部护肤</a><a href="/index.php/Home/Index/goodsList/id/348">洗发护发</a><a href="/index.php/Home/Index/goodsList/id/349">身体护肤</a>                                </p>
+                            </div>
+                        	<div class="list_b">
+                            	<div class="list_bigfl">
+				    <a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/347">面部护肤<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/348">洗发护发<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/349">身体护肤<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/350">口腔护理<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/351">女性护理<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/352">香水彩妆<i>＞</i></a>                            	</div>
+                            	<div class="subitems">
+                                
+                                <dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/347">面部护肤</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/354">清洁</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/355">护肤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/356">面膜</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/357">剃须</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/358">套装</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/348">洗发护发</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/359">洗发</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/360">护发</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/361">染发</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/362">造型</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/363">假发</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/364">套装</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/349">身体护肤</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/365">沐浴</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/366">润肤</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/367">颈部</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/368">手足</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/369">纤体塑形</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/370">美胸</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/371">套装</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/350">口腔护理</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/372">牙膏/牙粉</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/373">牙刷/牙线</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/374">漱口水</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/375">套装</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/351">女性护理</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/384">卫生巾</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/385">卫生护垫</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/386">私密护理</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/387">脱毛膏</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/352">香水彩妆</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/376">香水</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/377">底妆</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/378">腮红</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/379">眼部</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/380">唇部</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/381">美甲</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/382">美容工具</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/383">套装</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/353">清洁用品</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl>  
+                                </div>
+                            </div>
+                            <i class="list_img"></i>
+                        </li><li class="list-li">
+                        	<div class="list_a">
+                            	<h3><a href="/index.php/Home/Index/goodsList/id/76"><span>鞋、箱包、珠宝、手表</span></a></h3>
+                                <p> <!--$v[id][name] 数组中括号 里面的 id name 不能有 引号 sql 参数 必须双引号-->
+				                    <a href="/index.php/Home/Index/goodsList/id/388">时尚女鞋</a><a href="/index.php/Home/Index/goodsList/id/389">流行男鞋</a><a href="/index.php/Home/Index/goodsList/id/390">潮流女包</a>                                </p>
+                            </div>
+                        	<div class="list_b">
+                            	<div class="list_bigfl">
+				    <a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/388">时尚女鞋<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/389">流行男鞋<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/390">潮流女包<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/391">精品男包<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/392">功能箱包<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/393">珠宝<i>＞</i></a>                            	</div>
+                            	<div class="subitems">
+                                
+                                <dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/388">时尚女鞋</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/395">女靴</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/396">雪地靴</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/397">单鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/398">高跟鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/399">帆布鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/400">妈妈鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/401">防水台</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/402">松糕鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/403">布鞋/绣花鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/404">凉鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/405">拖鞋/人字拖</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/406">马丁靴</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/407">休闲鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/408">踝靴</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/409">内增高</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/410">坡跟鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/411">鱼嘴鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/412">雨鞋/雨靴</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/413">鞋配件</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/389">流行男鞋</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/414">休闲鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/415">商务休闲鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/416">正装鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/417">帆布鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/418">工装鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/419">增高鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/420">拖鞋/人字拖</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/421">凉鞋/沙滩鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/422">雨鞋/雨靴</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/423">定制鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/424">男靴</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/425">传统布鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/426">功能鞋</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/427">鞋配件</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/390">潮流女包</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/428">单肩包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/429">手提包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/430">斜挎包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/431">双肩包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/432">钱包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/433">手拿包/晚宴包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/434">卡包/零钱包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/435">钥匙包</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/391">精品男包</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/436">商务公文包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/437">单肩/斜挎包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/438">男士手包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/439">双肩包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/440">钱包/卡包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/441">钥匙包</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/392">功能箱包</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/442">拉杆箱/拉杆包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/443">旅行包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/444">电脑包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/445">休闲运动包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/446">相机包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/447">腰包/胸包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/448">登山包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/449">旅行配件</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/450">书包</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/451">妈咪包</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/393">珠宝</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/452">时尚饰品</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/453">钻石</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/454">翡翠玉石</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/455">纯金K金饰品</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/456">金银投资</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/457">银饰</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/458">水晶玛瑙</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/459">彩宝</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/460">铂金</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/461">天然木饰</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/462">珍珠</a>                                            
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/394">钟表</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                           <a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/463">男表</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/464">女表</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/465">儿童表</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/466">智能手表</a><a class="hover-r ma-le-10 ma-bo-10 pa-le-10 bo-le-hui fl wh-sp" href="/index.php/Home/Index/goodsList/id/467">座钟挂钟</a>                                            
+                                        </dd>
+                                	</dl>  
+                                </div>
+                            </div>
+                            <i class="list_img"></i>
+                        </li><li class="list-li">
+                        	<div class="list_a">
+                            	<h3><a href="/index.php/Home/Index/goodsList/id/77"><span>运动户外</span></a></h3>
+                                <p> <!--$v[id][name] 数组中括号 里面的 id name 不能有 引号 sql 参数 必须双引号-->
+				                    <a href="/index.php/Home/Index/goodsList/id/468">运动鞋包</a><a href="/index.php/Home/Index/goodsList/id/469">运动服饰</a><a href="/index.php/Home/Index/goodsList/id/470">健身训练</a>                                </p>
+                            </div>
+                        	<div class="list_b">
+                            	<div class="list_bigfl">
+				    <a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/468">运动鞋包<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/469">运动服饰<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/470">健身训练<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/471">骑行运动<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/472">体育用品<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/473">户外鞋服<i>＞</i></a>                            	</div>
+                            	<div class="subitems">
+                                
+                                <dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/468">运动鞋包</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/469">运动服饰</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/470">健身训练</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/471">骑行运动</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/472">体育用品</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/473">户外鞋服</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/474">户外装备</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/475">垂钓用品</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/476">游泳用品</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl>  
+                                </div>
+                            </div>
+                            <i class="list_img"></i>
+                        </li><li class="list-li">
+                        	<div class="list_a">
+                            	<h3><a href="/index.php/Home/Index/goodsList/id/78"><span>汽车用品</span></a></h3>
+                                <p> <!--$v[id][name] 数组中括号 里面的 id name 不能有 引号 sql 参数 必须双引号-->
+				                    <a href="/index.php/Home/Index/goodsList/id/477">汽车车型</a><a href="/index.php/Home/Index/goodsList/id/478">汽车价格</a><a href="/index.php/Home/Index/goodsList/id/479">汽车品牌</a>                                </p>
+                            </div>
+                        	<div class="list_b">
+                            	<div class="list_bigfl">
+				    <a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/477">汽车车型<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/478">汽车价格<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/479">汽车品牌<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/480">维修保养<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/481">车载电器<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/482">美容清洗<i>＞</i></a>                            	</div>
+                            	<div class="subitems">
+                                
+                                <dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/477">汽车车型</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/478">汽车价格</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/479">汽车品牌</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/480">维修保养</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/481">车载电器</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/482">美容清洗</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/483">汽车装饰</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/484">安全自驾</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/485">线下服务</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl>  
+                                </div>
+                            </div>
+                            <i class="list_img"></i>
+                        </li><li class="list-li">
+                        	<div class="list_a">
+                            	<h3><a href="/index.php/Home/Index/goodsList/id/79"><span>母婴用品、儿童玩具</span></a></h3>
+                                <p> <!--$v[id][name] 数组中括号 里面的 id name 不能有 引号 sql 参数 必须双引号-->
+				                    <a href="/index.php/Home/Index/goodsList/id/486">奶粉</a><a href="/index.php/Home/Index/goodsList/id/487">营养辅食</a><a href="/index.php/Home/Index/goodsList/id/488">尿裤湿巾</a>                                </p>
+                            </div>
+                        	<div class="list_b">
+                            	<div class="list_bigfl">
+				    <a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/486">奶粉<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/487">营养辅食<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/488">尿裤湿巾<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/489">洗护用品<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/490">喂养用品<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/491">童车童床<i>＞</i></a>                            	</div>
+                            	<div class="subitems">
+                                
+                                <dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/486">奶粉</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/487">营养辅食</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/488">尿裤湿巾</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/489">洗护用品</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/490">喂养用品</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/491">童车童床</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/492">安全座椅</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/493">寝居服饰</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/494">妈妈专区</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/495">童装童鞋</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/496">玩具乐器</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl>  
+                                </div>
+                            </div>
+                            <i class="list_img"></i>
+                        </li><li class="list-li">
+                        	<div class="list_a">
+                            	<h3><a href="/index.php/Home/Index/goodsList/id/80"><span>图书、音像、电子书</span></a></h3>
+                                <p> <!--$v[id][name] 数组中括号 里面的 id name 不能有 引号 sql 参数 必须双引号-->
+				                    <a href="/index.php/Home/Index/goodsList/id/497">音像</a><a href="/index.php/Home/Index/goodsList/id/498">少儿</a><a href="/index.php/Home/Index/goodsList/id/499">教育</a>                                </p>
+                            </div>
+                        	<div class="list_b">
+                            	<div class="list_bigfl">
+				    <a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/497">音像<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/498">少儿<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/499">教育<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/500">文艺<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/501">经管励志<i>＞</i></a><a class="list_big_o ma-le-30" href="/index.php/Home/Index/goodsList/id/502">人文社科<i>＞</i></a>                            	</div>
+                            	<div class="subitems">
+                                
+                                <dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/497">音像</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/498">少儿</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/499">教育</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/500">文艺</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/501">经管励志</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/502">人文社科</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/503">生活</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/504">科技</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/505">刊/原版</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/506">电子书</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl><dl class="ma-to-20 cl-bo">
+                                		<dt class="bigheader wh-sp"><a href="/index.php/Home/Index/goodsList/id/507">数字音乐</a><i>＞</i></dt>
+                                        <dd class="ma-le-100">
+                                                                                       
+                                        </dd>
+                                	</dl>  
+                                </div>
+                            </div>
+                            <i class="list_img"></i>
+                        </li>	
+                	</ul>
+                </div>
+            </div>
+            <!--全部商品-结束-->
+            
+            <div class="ongoods">
+            	<ul class="navlist">
+            		<li class="homepage"><a href="/"><span>首页</span></a></li>
+                     
+            	</ul>
+            </div>
+        </div>
+    </div>
+   <!-- 导航-结束-->
+
+<!--------头部结束-------------->
+<!--------banner-开始-------------->
+	<div class="nav-banner">
+        <div id="banner_tabs" class="flexslider">
+            <ul class="slides">
+    <!---广告 select * from tp_ad where position_id = 2 limit 1-->
+              
+            </ul>
+            <!--<ul class="flex-direction-nav">
+                <li><a class="flex-prev" href="javascript:;">Previous</a></li>
+                <li><a class="flex-next" href="javascript:;">Next</a></li>
+            </ul>-->
+            <ol id="bannerCtrl" class="flex-control-nav flex-control-paging">
+		        
+            </ol>
+    	</div>	
+	</div>
+<!--------banner-结束-------------->
+
+<!--------热卖-首发-新闻-公告-开始-------------->
+    <div class="layout">
+    	<div class="bs-le">
+        	<div class="first">
+            	<ul>                 
+                <li class="sellers">
+                    	<div class="best">
+                        	<div class="best-about">
+                            	<div class="best_img">
+                                	<a href=""><img src="/Public/upload/Img/Goods/goods_thum_37_155_250.jpg" /></a>
+                                </div>
+                                <div class="best_name">
+                                	<a href=""><span>荣耀 畅玩7</span></a>
+                                </div>
+                                <div class="best_Introduction">
+                                	<div class="intr-t">64位8核处理器 精美ID</div>
+                                	<div class="intr-b">实用配件套餐更优惠</div>
+                                </div>
+                                <div class="price">
+                                	<span>¥</span><em>919.20</em>
+                                </div>
+                                <div class="imm-button">
+                                	<a href=""><span>立即抢购</span></a>
+                                </div>
+                                <div class="tag">
+                                <img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </li><li class="sellers">
+                    	<div class="best">
+                        	<div class="best-about">
+                            	<div class="best_img">
+                                	<a href=""><img src="/Public/upload/Img/Goods/goods_thum_36_155_250.jpg" /></a>
+                                </div>
+                                <div class="best_name">
+                                	<a href=""><span>荣耀 畅玩6</span></a>
+                                </div>
+                                <div class="best_Introduction">
+                                	<div class="intr-t">64位8核处理器 精美ID</div>
+                                	<div class="intr-b">实用配件套餐更优惠</div>
+                                </div>
+                                <div class="price">
+                                	<span>¥</span><em>8997.10</em>
+                                </div>
+                                <div class="imm-button">
+                                	<a href=""><span>立即抢购</span></a>
+                                </div>
+                                <div class="tag">
+                                                                	<img src="/Template/huawei/static/images/1382593860805.png" alt="热卖" />    
+                                </div>
+                            </div>
+                        </div>
+                    </li><li class="sellers">
+                    	<div class="best">
+                        	<div class="best-about">
+                            	<div class="best_img">
+                                	<a href=""><img src="/Public/upload/Img/Goods/goods_thum_35_155_250.jpg" /></a>
+                                </div>
+                                <div class="best_name">
+                                	<a href=""><span>荣耀 畅玩5</span></a>
+                                </div>
+                                <div class="best_Introduction">
+                                	<div class="intr-t">64位8核处理器 精美ID</div>
+                                	<div class="intr-b">实用配件套餐更优惠</div>
+                                </div>
+                                <div class="price">
+                                	<span>¥</span><em>818.00</em>
+                                </div>
+                                <div class="imm-button">
+                                	<a href=""><span>立即抢购</span></a>
+                                </div>
+                                <div class="tag">
+                                <img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </li><li class="sellers">
+                    	<div class="best">
+                        	<div class="best-about">
+                            	<div class="best_img">
+                                	<a href=""><img src="/Public/upload/Img/Goods/goods_thum_34_155_250.jpg" /></a>
+                                </div>
+                                <div class="best_name">
+                                	<a href=""><span>荣耀 畅玩4</span></a>
+                                </div>
+                                <div class="best_Introduction">
+                                	<div class="intr-t">64位8核处理器 精美ID</div>
+                                	<div class="intr-b">实用配件套餐更优惠</div>
+                                </div>
+                                <div class="price">
+                                	<span>¥</span><em>128.00</em>
+                                </div>
+                                <div class="imm-button">
+                                	<a href=""><span>立即抢购</span></a>
+                                </div>
+                                <div class="tag">
+                                                                	<img src="/Template/huawei/static/images/1382593860805.png" alt="热卖" />    
+                                </div>
+                            </div>
+                        </div>
+                    </li> 
+            	</ul>
+            </div>
+        </div>
+    	<div class="bs-ri">
+        	<div class="ris-adve">
+            	<div class="button-le"></div>
+            	<img src="/Template/huawei/static/images/20150917164956740.jpg"/>
+                <div class="button-ri"></div>
+            </div>
+        	<div class="ris-notice">
+            	<div class="notice_t">
+                	<ul>
+                		<li id="not_col"><a href="">公告</a></li>
+                		<li id="not_new"><a href="">新闻</a></li>
+                	</ul>
+                </div>
+            	<div class="notice_b">
+                	<ul class="nob1">
+                                
+                	</ul>
+                    <ul class="nob2">
+                            <li><a href="">款式的健康</a></li><li><a href="">的风格都是</a></li>    
+                     </ul>
+                </div> 
+             </div>
+        	 <div class="ris-as">
+            	<p><a href=""><img src="/Template/huawei/static/images/2015090109560271.jpg" width="278" height="132" alt=""></a></p>
+            </div>
+        	</div>	
+        </div>
+            
+    </div>
+
+<!--------热卖-首发-新闻-公告-结束-------------->
+
+	
+<!--------中部banner-开始-------------->
+	<div class="layout">
+    	<div class="cen-banne">
+               
+        </div>
+    </div>
+<!--------中部banner-结束-------------->
+
+<!--------一楼-开始-------------->
+	<div class="layout layer">
+    	<div class="ground-flool">
+        	<div class="flool-t">
+            	<h2><a href="">手机</a></h2>
+                <em>华为精品手机</em>
+                <ul>
+                	<li><a href="">荣耀</a></li>
+                	<li><a href="">畅玩</a></li>
+                	<li><a href="">华为 Mate/P系列</a></li>
+                	<li><a href="">G/Y系列</a></li>
+                	<li><a href="">运营商合约</a></li>
+                </ul>
+            </div>
+        	<div class="flool-b layer">
+            	<ul class="flool-cle">
+            		<li class="sellers sell_ons">
+                    	<div class="best">
+                        <div class="best-about">
+                            	<div class="best_img best_img2">
+                                	<a href=""><img src="/Public/upload/Img/Goods/goods_thum_1_155_250.jpg" /></a>
+                                </div>
+                                <div class="best_name">
+                                	<a href=""><span>荣耀 畅玩46</span></a>
+                                </div>
+                                <div class="best_Introduction">
+                                	<div class="intr-t">LG 3g 876 支持 双模 2008年04月 灰色 GSM,850,900,1800,1900</div>
+                                	<div class="intr-b">原价2999元, 已直降400, 现价2599元</div>
+                                </div>
+                                <div class="price">
+                                	<span>¥</span><em>1388.00</em>
+                                </div>
+                                <div class="imm-button">
+                                	<a href=""><span>立即抢购</span></a>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                            <div class="best">
+                                <div class="best-about about-col">
+                                    <div class="best_img best_img2 best_img3">
+	                                    <a href=""><img src="/Public/upload/Img/Goods/goods_thum_1_155_250.jpg" /></a>
+                                    </div>
+                                        <div class="intr-t intr-t3">荣耀 畅玩46</div>
+                                    <div class="price prices">
+                                        <span>¥</span><em>1388.00</em>
+                                    </div>
+                                    <div class="tag">
+                                        <!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li class="sellers sellers2 sell_ons">
+                            <div class="best">
+                                <div class="best-about about-col">
+                                    <div class="best_img best_img2 best_img3">
+	                                    <a href=""><img src="" /></a>
+                                    </div>
+                                        <div class="intr-t intr-t3">诺基亚N85原装充电器</div>
+                                    <div class="price prices">
+                                        <span>¥</span><em>58.00</em>
+                                    </div>
+                                    <div class="tag">
+                                        <!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li class="sellers sellers2 sell_ons">
+                            <div class="best">
+                                <div class="best-about about-col">
+                                    <div class="best_img best_img2 best_img3">
+	                                    <a href=""><img src="" /></a>
+                                    </div>
+                                        <div class="intr-t intr-t3">诺基亚原装5800耳机</div>
+                                    <div class="price prices">
+                                        <span>¥</span><em>68.00</em>
+                                    </div>
+                                    <div class="tag">
+                                        <!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li class="sellers sellers2 sell_ons">
+                            <div class="best">
+                                <div class="best-about about-col">
+                                    <div class="best_img best_img2 best_img3">
+	                                    <a href=""><img src="/Public/upload/Img/Goods/goods_thum_5_155_250.jpg" /></a>
+                                    </div>
+                                        <div class="intr-t intr-t3">索爱原装M2卡读卡器</div>
+                                    <div class="price prices">
+                                        <span>¥</span><em>20.00</em>
+                                    </div>
+                                    <div class="tag">
+                                        <!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li class="sellers sellers2 sell_ons">
+                            <div class="best">
+                                <div class="best-about about-col">
+                                    <div class="best_img best_img2 best_img3">
+	                                    <a href=""><img src="" /></a>
+                                    </div>
+                                        <div class="intr-t intr-t3">诺基亚N85原装立体声耳机HS-82</div>
+                                    <div class="price prices">
+                                        <span>¥</span><em>100.00</em>
+                                    </div>
+                                    <div class="tag">
+                                        <!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li class="sellers sellers2 sell_ons">
+                            <div class="best">
+                                <div class="best-about about-col">
+                                    <div class="best_img best_img2 best_img3">
+	                                    <a href=""><img src="" /></a>
+                                    </div>
+                                        <div class="intr-t intr-t3">飞利浦9@9v</div>
+                                    <div class="price prices">
+                                        <span>¥</span><em>399.00</em>
+                                    </div>
+                                    <div class="tag">
+                                        <!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li class="sellers sellers2 sell_ons">
+                            <div class="best">
+                                <div class="best-about about-col">
+                                    <div class="best_img best_img2 best_img3">
+	                                    <a href=""><img src="" /></a>
+                                    </div>
+                                        <div class="intr-t intr-t3">诺基亚E66</div>
+                                    <div class="price prices">
+                                        <span>¥</span><em>2298.00</em>
+                                    </div>
+                                    <div class="tag">
+                                        <!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li class="sellers sellers2 sell_ons">
+                            <div class="best">
+                                <div class="best-about about-col">
+                                    <div class="best_img best_img2 best_img3">
+	                                    <a href=""><img src="" /></a>
+                                    </div>
+                                        <div class="intr-t intr-t3">索爱C702c</div>
+                                    <div class="price prices">
+                                        <span>¥</span><em>1328.00</em>
+                                    </div>
+                                    <div class="tag">
+                                        <!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li class="sellers sellers2 sell_ons">
+                            <div class="best">
+                                <div class="best-about about-col">
+                                    <div class="best_img best_img2 best_img3">
+	                                    <a href=""><img src="" /></a>
+                                    </div>
+                                        <div class="intr-t intr-t3">索爱C702c</div>
+                                    <div class="price prices">
+                                        <span>¥</span><em>1300.00</em>
+                                    </div>
+                                    <div class="tag">
+                                        <!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li class="sellers sellers2 sell_ons">
+                            <div class="best">
+                                <div class="best-about about-col">
+                                    <div class="best_img best_img2 best_img3">
+	                                    <a href=""><img src="" /></a>
+                                    </div>
+                                        <div class="intr-t intr-t3">摩托罗拉A810</div>
+                                    <div class="price prices">
+                                        <span>¥</span><em>983.00</em>
+                                    </div>
+                                    <div class="tag">
+                                        <!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li>             
+                 </ul>
+            </div>
+        </div>
+    </div>
+<!--------一楼-结束-------------->
+
+<!--------二楼-开始-------------->
+	<div class="layout layer">
+    	<div class="ground-flool">
+        	<div class="flool-t">
+            	<h2><a href="">平板&穿戴</a></h2>
+                <em>华为精品平板</em>
+                <ul>
+                	<li><a href="">荣耀</a></li>
+                	<li><a href="">畅玩</a></li>
+                	<li><a href="">华为 Mate/P系列</a></li>
+                	<li><a href="">G/Y系列</a></li>
+                	<li><a href="">运营商合约</a></li>
+                </ul>
+            </div>
+        	<div class="flool-b layer">
+            	<ul class="flool-cle">
+            		<li class="sellers sell_ons">
+                    	<div class="best">
+                        	<div class="best-about best_test">
+                            	<div class="best_img best_img2">
+                                	<a href=""><img src="/Template/huawei/static/images/1440057003795.png" /></a>
+                                </div>
+                                <div class="best_name">
+                                	<a href=""><span>荣耀 畅玩4</span></a>
+                                </div>
+                                <div class="best_Introduction">
+                                	<div class="intr-t">尊享爵士人生</div>
+                                	<div class="intr-b">原价2999元, 已直降400, 现价2599元</div>
+                                </div>
+                                <div class="price">
+                                	<span>¥</span><em>2599</em>
+                                </div>
+                                <div class="imm-button">
+                                	<a href=""><span>立即抢购</span></a>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about_yldeg">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-cs">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                 </ul>
+            </div>
+        </div>
+    </div>
+<!--------二楼-结束-------------->
+
+<!--------三楼-开始-------------->
+	<div class="layout layer">
+    	<div class="ground-flool">
+        	<div class="flool-t">
+            	<h2><a href="">智能家居</a></h2>
+                <em>上网必备</em>
+                <ul>
+                	<li><a href="">荣耀</a></li>
+                	<li><a href="">畅玩</a></li>
+                	<li><a href="">华为 Mate/P系列</a></li>
+                	<li><a href="">G/Y系列</a></li>
+                	<li><a href="">运营商合约</a></li>
+                </ul>
+            </div>
+        	<div class="flool-b layer">
+            	<ul class="flool-cle">
+            		<li class="sellers sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced">
+                            	<div class="best_img best_img2">
+                                	<a href=""><img src="/Template/huawei/static/images/1429088426950.png" /></a>
+                                </div>
+                                <div class="best_name">
+                                	<a href=""><span>荣耀 畅玩4</span></a>
+                                </div>
+                                <div class="best_Introduction">
+                                	<div class="intr-t">尊享爵士人生</div>
+                                	<div class="intr-b">原价2999元, 已直降400, 现价2599元</div>
+                                </div>
+                                <div class="price">
+                                	<span>¥</span><em>2599</em>
+                                </div>
+                                <div class="imm-button">
+                                	<a href=""><span>立即抢购</span></a>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-col">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                 </ul>
+            </div>
+        </div>
+    </div>
+<!--------三楼-结束-------------->
+
+<!--------四楼-开始-------------->
+	<div class="layout layer">
+    	<div class="ground-flool">
+        	<div class="flool-t">
+            	<h2><a href="">必备配件</a></h2>
+                <em>配件与服务</em>
+                <ul>
+                	<li><a href="">荣耀</a></li>
+                	<li><a href="">畅玩</a></li>
+                	<li><a href="">华为 Mate/P系列</a></li>
+                	<li><a href="">G/Y系列</a></li>
+                	<li><a href="">运营商合约</a></li>
+                </ul>
+            </div>
+        	<div class="flool-b layer">
+            	<ul class="flool-cle">
+            		<li class="sellers sell_ons">
+                    	<div class="best">
+                        	<div class="best-about">
+                            	<div class="best_img best_img2">
+                                	<a href=""><img src="/Template/huawei/static/images/1433835808223.png" /></a>
+                                </div>
+                                <div class="best_name">
+                                	<a href=""><span>荣耀 畅玩4</span></a>
+                                </div>
+                                <div class="best_Introduction">
+                                	<div class="intr-t">尊享爵士人生</div>
+                                	<div class="intr-b">原价2999元, 已直降400, 现价2599元</div>
+                                </div>
+                                <div class="price">
+                                	<span>¥</span><em>2599</em>
+                                </div>
+                                <div class="imm-button">
+                                	<a href=""><span>立即抢购</span></a>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-col">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<!--<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />-->
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382542488099.png" alt="热卖" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="sellers sellers2 sell_ons">
+                    	<div class="best">
+                        	<div class="best-about about-ced best-tans">
+                            	<div class="best_img best_img2 best_img3">
+                                	<a href=""><img src="/Template/huawei/static/images/1444701542335.png" /></a>
+                                </div>
+                                	<div class="intr-t intr-t3">荣耀7i套餐版<span class="intr-b">荣耀首款翻转镜头手机</span></div>
+                                <div class="price prices">
+                                	<span>¥</span><em>999</em>
+                                </div>
+                                <div class="tag">
+                                	<img src="/Template/huawei/static/images/1382593860805.png" alt="首发" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                 </ul>
+            </div>
+        </div>
+    </div>
+<!--------四楼-结束-------------->
+
+<!--------底部banner-开始-------------->
+	<div class="layout layer">
+    	<div class="cen-banne">
+            <img src="/Template/huawei/static/images/20150929113524919.jpg" width="1200" height="160"/>
+        </div>
+    </div>
+<!--------底部banner-结束-------------->
+
+<!--------右边小飘窗-开始-------------->
+    <div class="hungBar">
+    	<a href="#top" class="rtop"></a>
+    	<a href="" class="rqq"></a>
+    	<a href="" class="rkefu"></a>
+    </div>
+<!--------右边小飘窗-结束-------------->
+
+<!--------footer-开始-------------->
+<div class="footer">
+    <div class="layout quality layer">
+        <ul class="footer_quality">
+            <li><i></i>品质保证</li>
+            <li  class="f2"><i></i>7天退换 15天换货</li>
+            <li  class="f3"><i></i>100元起免运费</li>
+            <li  class="f4"><i></i>448家维修网点 全国联保</li>
+        </ul>
+    </div>
+    <div class="helpful layout">
+    <dl  >
+                <dt>帮助中心</dt>
+                <dd>
+                    <ol>
+                    	<li><a href="">是看各环节</a></li>                        
+                    </ol>
+                </dd>
+            </dl><dl class="jszc" >
+                <dt>技术支持</dt>
+                <dd>
+                    <ol>
+                    	                        
+                    </ol>
+                </dd>
+            </dl><dl class="jszc" >
+                <dt>关于商城</dt>
+                <dd>
+                    <ol>
+                    	<li><a href="">测试文章</a></li>                        
+                    </ol>
+                </dd>
+            </dl><dl class="jszc" >
+                <dt>关注我们</dt>
+                <dd>
+                    <ol>
+                    	                        
+                    </ol>
+                </dd>
+            </dl><dl class="jszc" >
+                <dt>售后服务</dt>
+                <dd>
+                    <ol>
+                    	                        
+                    </ol>
+                </dd>
+            </dl>     </div>
+     <div class="keep-on-record">
+        <p>Copyright © 2011-2015 深圳搜豹网络技术有限公司 版权所有 保留一切权利 粤00-00000000号 | 粤ICP备00000000号-0</p>
+        <p>网络文化经营许可证粤网文[2015]0000-000号</p>
+     </div>
+ </div>
+<!--------footer-结束-------------->
+<script>	
+
+
+
+$(document).ready(function(){
+			
+		  /* 新闻和公告的 js 切换*/
+		  $(".nob2").css("display", "none");			
+		  $("#not_col").hover(function(){
+			$(".nob1").css("display", "block");
+			$(".nob2").css("display", "none");
+			$(this).css('background-color','#FFF');
+			$("#not_new").css('background-color','#fcf7f7');
+		  });
+		   /* 新闻和公告的 js 切换*/
+		  $("#not_new").hover(function(){
+			$(".nob2").css("display", "block")
+			$(".nob1").css("display", "none");
+			$(this).css('background-color','#FFF');
+			$("#not_col").css('background-color','#fcf7f7');
+		  })
+});		
+</script>	 
+</body>
+</html>

@@ -1,0 +1,117 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>&nbsp;活动票等级管理
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <nav class="navbar navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <form class="navbar-form form-inline" role="search">
+                                    <label class="control-label" >活动类型(选择切换)</label>
+                                    <div class="form-group">
+                                        <select name="activity_type" id="activity-type" data-type="activity"  class="input-sm" style="width:100px;">
+                                            <option value="0" {$activity_type == 0 ? 'selected="selected"' : ''}>累计消费</option>
+                                            <option value="1" {$activity_type == 1 ? 'selected="selected"' : ''}>指定商品</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group pull-right">
+                                        <a href="{:U('add_level')}" class="btn btn-primary pull-right">
+                                            <i class="fa fa-plus"></i>添加活动票等级
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>名称</th>
+                                    <eq name="activity_type" value="0">
+                                        <th>满足条件（金额）</th>
+                                        <else/>
+                                        <th>指定商品ID</th>
+                                    </eq>
+                                    <th>描述</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="data-list">
+                                <foreach name="list" item="vo" key="k">
+                                    <if condition="get_column('admin',session('admin_id'),'role_id') eq 1">
+                                        <tr role="row" align="center">
+                                            <td>{$vo.level_id}</td>
+                                            <td>{$vo.level_name}</td>
+                                            <eq name="activity_type" value="0">
+                                                <td>{$vo.need_price}</td>
+                                                <else/>
+                                                <td>{$vo.goods_id}</td>
+                                            </eq>
+                                            <td>{$vo.description}</td>
+                                            <td>
+                                                <a href="{:U('add_level',array('level_id'=>$vo['level_id']))}" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="查看"><i class="fa fa-eye"></i></a>
+                                                <a href="javascript:void(0);" data-id="{$vo.level_id}" data-toggle="tooltip" title="" class="btn btn-danger btn-remove" data-original-title="删除"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    </if>
+                                </foreach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">{$page}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    function popLayer(msg){
+        layer.msg(msg);
+    }
+    //删除
+    $('.btn-remove').on('click',function () {
+        var id = $(this).data('id');
+        var url = "{:U('remove_level',array('level_id'=>'__ID__'))}";
+        url = url.replace('__ID__',id);
+        $.getJSON(url,function (data) {
+            if (data.hasOwnProperty('msg')){
+                popLayer(data.msg);
+            }
+            if (data.hasOwnProperty('status')){
+                if (data.status == 1){
+                    setTimeout(function () {
+                        location.reload();
+                    },1000);
+                }
+            }
+        })
+    })
+
+    //更改配置
+    $('#activity-type').on('change',function () {
+        var inc_type = $('#activity-type').data('type');
+        var activity_type = $('#activity-type').val();
+        handle(inc_type,activity_type);
+    })
+    var handle = function (inc_type,config) {
+        $.post("{:U('handle')}",{inc_type:inc_type,activity_type:config},function (data) {
+            if (data.hasOwnProperty('msg')){
+                popLayer(data.msg);
+            }
+        })
+    }
+</script>
+</body>
+</html>

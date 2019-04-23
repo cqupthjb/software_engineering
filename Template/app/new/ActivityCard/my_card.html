@@ -1,0 +1,87 @@
+<include file="Public/header"/>
+<body>
+<header>
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="{:U('user/index')}" title="返回"></a></div>
+            <div class="h-mid">我的活动票</div>
+            <div class="h-right">
+                <aside class="top_bar">
+                    <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a
+                            href="javascript:;"></a></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</header>
+<include file="Public/menu"/>
+<div id="tbh5v0">
+    <div class="main" id="user_goods_ka_1">
+        <empty name="card_list">
+            <div id="list_0_0" class="font12">您没有参加任何活动哦！</div>
+            <else/>
+            <form name="theForm" method="post" action="">
+                <div class="shouchang">
+                    <ul>
+                        <foreach name="card_list" item="vo">
+                            <li>
+                                <div class="imgurl">
+                                    <a href="#">
+                                        <img src="{$vo.cover}" width="100" height="100"></a>
+                                </div>
+                                <a href="{:U('detail',array('log_id'=>$vo['log_id']))}">
+                                    <div class="order_info">
+                                        <dl>
+                                            <dt>{$vo.name|getSubstr=0,14}</dt>
+                                            <dd><strong>{$vo.create_time|date='Y-m-d H:i:s',###}</strong></dd>
+                                        </dl>
+                                    </div>
+                                </a>
+                            </li>
+                        </foreach>
+                    </ul>
+                </div>
+            </form>
+            <notempty name="card_list">
+                <div id="getmore"
+                     style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">
+                    <a href="javascript:void(0)" onClick="ajax_sourch_submit()">点击加载更多</a>
+                </div>
+            </notempty>
+        </empty>
+    </div>
+    <!--
+    <div class="main" id="user_goods_ka_2" style="display:none">
+         <div id="list_0_0" class="font12">您还没有收藏店铺哦！</div>
+    </div>-->
+</div>
+<script>
+    var page = 1;
+    /*** ajax 提交表单 查询订单列表结果*/
+    function ajax_sourch_submit() {
+        page += 1;
+        $.ajax({
+            type: "GET",
+            url: "{:U('ActivityCard/my_card',null,'')}/is_ajax/1/p/" + page,//+tab,
+//			data : $('#filter_form').serialize(),// 你的formid 搜索表单 序列化提交
+            success: function (data) {
+                if ($.trim(data) == '')
+                    $('#getmore').hide();
+                else
+                    $(".shouchang > ul").append(data);
+            }
+        });
+    }
+    function popLayer(msg) {
+        layer.open({
+            content: msg
+            , skin: 'msg'
+            , time: 2 //2秒后自动关闭
+        });
+    }
+
+</script>
+<include file="Public/footer"/>
+<include file="Public/footer_nav"/>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <!-- Main content -->
+        <div class="container-fluid">
+            <div class="pull-right">
+
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i> 视频详情</h3>
+                </div>
+                <div class="panel-body">
+                    <!--表单数据-->
+                    <form action="{:U('/Seller/store/upload_video')}" method="post" id="videoForm" name="myform" enctype="multipart/form-data">
+                        <div class="input-group">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 0 20px;">标题</td>
+                                        <td>
+                                            <input type="text" name="title" placeholder="标题" class="form-control" style="margin: 10px 0" id="title">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0 20px;">排序</td>
+                                        <td>
+                                            <input type="number" name="sort" placeholder="排序" class="form-control" style="margin: 10px 0" id="sort">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0 20px;">封面图片</td>
+                                        <td>
+                                            <input type="file" name="poster" placeholder="封面图片" accept="image/*" class="form-control" style="margin: 10px 0" id="poster">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0 20px;">视频</td>
+                                        <td>
+                                            <div style="display: flex;margin: 10px 0">
+                                                <div id="progress" style="margin: 0 10px;line-height: 32px"></div>
+                                                <div id="selected_video" style="line-height: 32px; margin: 0 10px"></div>
+                                                <div>
+                                                    <button id="selectfiles" class="btn btn-primary">选择视频文件</button>
+                                                </div>
+                                            </div>
+                                            <input type="text" name="video" hidden id="video_url">
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <!--<input type="file" name="video" class="form-control" placeholder="选择视频文件" style="margin: 10px 0" accept="video/mp4" id="file">-->
+                        </div>
+                        <div class="input-group">
+
+                        </div>
+                    </form>
+
+                    <button class="btn btn-primary" type="submit" id="uploadfile">上传审核</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="__PUBLIC__/js/ossupload/plupload.full.min.js"></script>
+<script>
+    var accessid = '',
+        accesskey = '',
+        host = '',
+        policyBase64 = '',
+        signature = '',
+        callbackbody = '',
+        filename = '',
+        key = '',
+        expire = 0,
+        g_object_name = '',
+        g_object_name_type = 'random_name'
+</script>
+<script>
+    function send_request()
+    {
+        var xmlhttp = null;
+        if (window.XMLHttpRequest)
+        {
+            xmlhttp=new XMLHttpRequest();
+        }
+        else if (window.ActiveXObject)
+        {
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        if (xmlhttp!=null)
+        {
+            // serverUrl是 用户获取 '签名和Policy' 等信息的应用服务器的URL，请将下面的IP和Port配置为您自己的真实信息。
+            // serverUrl = 'http://88.88.88.88:8888/aliyun-oss-appserver-php/php/get.php'
+            serverUrl = '/index.php?m=Seller&c=Store&a=getUploadSign'
+
+            xmlhttp.open( "GET", serverUrl, false );
+            xmlhttp.send( null );
+            return xmlhttp.responseText
+        }
+        else
+        {
+            alert("Your browser does not support XMLHTTP.");
+        }
+    };
+
+    function get_signature()
+    {
+        // 可以判断当前expire是否超过了当前时间， 如果超过了当前时间， 就重新取一下，3s 作为缓冲。
+        now = timestamp = Date.parse(new Date()) / 1000;
+        if (expire < now + 3)
+        {
+            body = send_request()
+            var obj = eval ("(" + body + ")");
+            host = obj['host']
+            policyBase64 = obj['policy']
+            accessid = obj['accessid']
+            signature = obj['signature']
+            expire = parseInt(obj['expire'])
+            callbackbody = obj['callback']
+            key = obj['dir']
+            return true;
+        }
+        return false;
+    };
+
+    function get_suffix(filename) {
+        pos = filename.lastIndexOf('.')
+        suffix = ''
+        if (pos != -1) {
+            suffix = filename.substring(pos)
+        }
+        return suffix;
+    }
+
+    function calculate_object_name(filename)
+    {
+        if (g_object_name_type == 'local_name')
+        {
+            g_object_name += "${filename}"
+        }
+        else if (g_object_name_type == 'random_name')
+        {
+            suffix = get_suffix(filename)
+            g_object_name = key + random_string(10) + suffix
+        }
+        return ''
+    }
+
+    function set_upload_param(up, filename, ret)
+    {
+        if (ret == false)
+        {
+            ret = get_signature()
+        }
+        g_object_name = key;
+        if (filename != '') {
+            suffix = get_suffix(filename)
+            calculate_object_name(filename)
+        }
+        new_multipart_params = {
+            'key' : g_object_name,
+            'policy': policyBase64,
+            'OSSAccessKeyId': accessid,
+            'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
+            'callback' : callbackbody,
+            'signature': signature,
+        };
+
+        up.setOption({
+            'url': host,
+            'multipart_params': new_multipart_params
+        });
+        if (check_form(false)){
+            up.start();
+        }
+    }
+    function random_string(len) {
+        len = len || 32;
+        var chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+        var maxPos = chars.length;
+        var pwd = '';
+        for (i = 0; i < len; i++) {
+            pwd += chars.charAt(Math.floor(Math.random() * maxPos));
+        }
+        return pwd;
+    }
+    function get_uploaded_object_name(filename)
+    {
+        if (g_object_name_type == 'local_name')
+        {
+            tmp_name = g_object_name
+            tmp_name = tmp_name.replace("${filename}", filename);
+            return tmp_name
+        }
+        else if(g_object_name_type == 'random_name')
+        {
+            return g_object_name
+        }
+    }
+</script>
+<script>
+    var uploader = new plupload.Uploader({
+        runtimes : 'html5,flash,silverlight,html4',
+        browse_button : 'selectfiles',
+        multi_selection: false,
+        //multi_selection: false,
+        // container: document.getElementById('container'),
+        flash_swf_url : '__PUBLIC__/js/ossupload/Moxie.swf',
+        silverlight_xap_url : '__PUBLIC__/js/ossupload/Moxie.xap',
+        url : 'http://oss.aliyuncs.com',
+
+        filters: {
+            mime_types : [ //只允许上传图片和zip文件
+                { title : "video files", extensions : "mp4" },
+            ],
+            max_file_size : '100mb', //最大只能上传10mb的文件
+            prevent_duplicates : true //不允许选取重复文件
+        },
+        init: {
+            PostInit: function() {
+                // document.getElementById('ossfile').innerHTML = '';
+                document.getElementById('uploadfile').onclick = function() {
+                    set_upload_param(uploader, '', false);
+                    return false;
+                };
+            },
+
+            FilesAdded: function(up, files) {
+                $("#selected_video").text(files[0].name+"  ")
+                // plupload.each(files, function(file) {
+                //     document.getElementById('ossfile').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
+                //         +'<div class="progress"><div class="progress-bar" style="width: 0%"></div></div>'
+                //         +'</div>';
+                // });
+            },
+
+            BeforeUpload: function(up, file) {
+                set_upload_param(up, file.name, true);
+            },
+
+            UploadProgress: function(up, file) {
+                document.getElementById("progress").innerText = file.percent+'%';
+                // var d = document.getElementById(file.id);
+                // d.getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+                // var prog = d.getElementsByTagName('div')[0];
+                // var progBar = prog.getElementsByTagName('div')[0]
+                // progBar.style.width= 2*file.percent+'px';
+                // progBar.setAttribute('aria-valuenow', file.percent);
+            },
+            FileUploaded: function(up, file, info) {
+                if(info.status == 200){
+                    var filename = "http://jhvideo.oss-cn-hangzhou.aliyuncs.com/"+get_uploaded_object_name(file.name)
+                    $('#video_url').val(filename)
+                    check_form(true)
+                } else {
+                    alert("上传视频失败，请稍后再试")
+                }
+            },
+
+            Error: function(up, err) {
+                if (err.code == -600) {
+                    alert('选择的文件太大了')
+                }
+                else if (err.code == -601) {
+                    alert('只支持MP4格式视频')
+                    document.getElementById('console').appendChild(document.createTextNode("\n选择的文件后缀不对,可以根据应用情况，在upload.js进行设置可允许的上传文件类型"));
+                }
+                else if (err.code == -602) {
+                    alert('文件重复')
+                }
+                else
+                {
+                    alert("未知错误,请稍后再试")
+                    // document.getElementById('console').appendChild(document.createTextNode("\nError xml:" + err.response));
+                }
+            }
+        }
+    });
+    uploader.init();
+</script>
+<script>
+    // 判断输入框是否为空
+    function check_form(submit){
+        var name = $("#title").val();
+        if($.trim(name) == '')
+        {
+            alert('请填写名称')
+            return false;
+        }
+        if(!$("#poster").val()){
+            alert("请选择封面")
+            return false;
+        }
+        if (submit){
+            $("#videoForm").submit()
+        } else {
+            return true;
+        }
+    }
+</script>
+</body>
+</html>

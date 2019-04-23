@@ -1,0 +1,30 @@
+<include file="Public/min-header" />
+<div class="wrapper">
+	<include file="Public/breadcrumb"/>
+	<section class="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="alert alert-info alert-dismissible" role="alert">
+						提示：若有需要，请右键保存到本地，或右键复制图片。此为商家微信收款二维码
+						<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+					</div>
+				</div>
+				<div class="col-xs-12">
+					<div style="display: table; width:381px;height: 381px;margin-left: auto;margin-right: auto;background: url('/Public/images/wechat_share.jpg') no-repeat no-repeat top;background-size:100% 100%;">
+						<div class="row">
+							<div style="display: table;width: auto; position: relative; top: 85px; left:68px; ">
+								<img src="{$qr_url}" alt="收款二维码" class="img-responsive" style="width:130px;height:130px;" title="请将二维码另存到本地">
+							</div>
+							<div style="display: table;width: auto; position: relative; top: 297px; margin-left: auto;margin-right: auto;">
+								<div class="alert alert-success qr-msg" role="alert" style="display: none;max-width: 100%;text-align: center;font-size: 18px;color: #fff;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+   </section>
+</div>
+</body>
+</html>   

@@ -1,0 +1,139 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>&nbsp;积分票列表
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <nav class="navbar navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <form class="navbar-form form-inline" role="search">
+                                    <div class="form-group">
+                                        <a class="btn btn-info buy-cards" href="javascript:void(0);" >购买</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="text-align: center"><input type="checkbox" name="ids_all" class="check-all"></th>
+                                    <th>编号</th>
+                                    <th>卡券名称</th>
+                                    <th>卡券logo</th>
+                                    <th>卡券价格</th>
+                                    <th>卡券折扣</th>
+                                    <th>卡券库存</th>
+                                    <th>是否包邮</th>
+                                    <th>邮费</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="data-list">
+                                <foreach name="list" item="vo" key="k">
+                                    <if condition="get_column('admin',session('admin_id'),'role_id') eq 1">
+                                        <tr role="row" align="center">
+                                            <td><input type="checkbox" name="ids[]" value="{$vo.card_id}" <eq name="vo.store_count" value="0">disabled="disabled"</eq> ></td>
+                                            <td>{$vo.card_id}</td>
+                                            <td>{$vo.name}</td>
+                                            <td><img src="{$vo.cover}" style="width: 30px;height: 30px;"></td>
+                                            <td>{$vo.price}</td>
+                                            <td>{$vo.rate}%</td>
+                                            <td>{$vo.store_count}</td>
+                                            <td>{$vo['is_free_shipping'] == 1 ? '✓' : '✗'}</td>
+                                            <td>{$vo['is_free_shipping'] != 1 ? $vo['postage'] : 0}</td>
+                                            <td>{:format_date($vo['create_time'])}</td>
+                                            <td>
+                                                <gt name="vo.store_count" value="0">
+                                                    <a href="javascript:void(0);" data-id="{$vo.card_id}" class="buy-card">购买</a>
+                                                    <else/>
+                                                    缺货
+                                                </gt>
+                                            </td>
+                                        </tr>
+                                    </if>
+                                </foreach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">{$page}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    //卡券购买页面
+    function buy_card_page(id){
+        var url = "{:U('Card/buy_card',array('card_id'=>__CARD_ID__))}";
+        url = url.replace('__CARD_ID__',id);
+        pop_iframe(url);
+    }
+    //购买卡券
+    $('.buy-card').on('click',function () {
+        var id = $(this).data('id');
+        buy_card_page(id);
+    })
+
+    //购买多个卡券
+    $('.buy-cards').on('click',function () {
+        if ($("input:checkbox:checked").length <1){
+            popLayer('请选择购买的卡');
+            return;
+        }
+        var ids = '';
+        $('input[name="ids[]"]:checked').each(function(){
+            ids +=$(this).val() + ',';
+        });
+        buy_card_page(ids);
+    })
+
+    //layer msg
+    function popLayer(msg){
+        layer.msg(msg);
+    }
+
+    //Layer iframe窗
+    function pop_iframe(url){
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '卡券购买页',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['95%', '95%'],
+            content: url
+        });
+    }
+    // 添加修改收货地址回调函数
+    function call_back_fun(v){
+        layer.closeAll(); // 关闭窗口
+        location.href = location.href;
+    }
+    //全选/反选
+    $('.check-all').on('click',function () {
+        $('input[name="ids[]"]').prop('checked',$(this).prop('checked'));
+    })
+    //完善全选/反选
+    $('input[name="ids[]"]').on('click',function () {
+        var length = $('input[name="ids[]"]').length;
+        var check_len = $('input[name="ids[]"]:checked').length;
+        $('.check-all').prop('checked',length == check_len);
+    })
+
+</script>
+</body>
+</html>

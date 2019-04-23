@@ -1,0 +1,136 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta name="Generator" content="TPshop v1.1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>首页-{$tpshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/TouchSlide.1.1.js"></script>
+<script type="text/javascript" src="__STATIC__/js/jquery.json.js"></script>
+<script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
+<script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+<script src="__PUBLIC__/js/global.js"></script>
+<script src="__PUBLIC__/js/mobile_common.js"></script>
+</head>
+<body >
+<div id="page" class="showpage">
+<div>
+<header id="header" style="display: none;">
+<a href="{:U('Goods/categoryList')}" class="top_bt"></a><a href="{:U('Cart/cart')}" class='user_btn'></a>
+<span href="javascript:void(0)" class="logo">{$tpshop_config['shop_info_store_name']}</span> 
+</header>
+
+<div class="entry-list clearfix">
+	<nav>
+		<ul>
+            <notempty name="nav_list">
+                <volist name="nav_list" id="v">
+                    <li>
+                        <a href="{$v['is_new']==1 ? str_replace('Mobile','App',$v['url']) : str_replace('Mobile','App',U($v['url']))}">
+                            <img alt="{$v.name}" src="{$v.icon}"/>
+                            <span>{$v.name}</span>
+                        </a>
+                    </li>
+                </volist>
+            </notempty>
+		</ul>
+	</nav>
+</div>
+
+<include file="Public/footer"/>
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="__STATIC__/images/topup.png"></a> 
+</div>
+ 
+ 
+ <div id="search_hide" class="search_hide">
+ <h2> <span class="close"><img src="__STATIC__/images/close.png"></span>关键搜索</h2>
+ <div id="mallSearch" class="search_mid">
+        <div id="search_tips" style="display:none;"></div>
+          <ul class="search-type">
+          	<li  class="cur"  num="0">宝贝</li>
+          	<!--<li  num="1">店铺</li>-->
+          </ul>	
+          <div class="searchdotm"> 
+          <form class="set_ip" name="sourch_form" id="sourch_form" method="post" action="{:U('Goods/search')}" autocomplete="on">
+              <div class="mallSearch-input">
+                <div id="s-combobox-135">
+                    <input  class="s-combobox-input" autocomplete="on" name="q" id="q"  placeholder="请输入关键词"  type="text" value="<?php echo I('q'); ?>" />              			
+                </div>                                                
+                <input type="button" value="" class="button"  onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();" />
+              </div>
+          </form>
+         </div> 
+        </div>
+ 		<!--
+		<div class="search_body">
+		<div class="search_box">
+		<form action="search.php" method="post" id="searchForm" name="searchForm">
+		<div>
+		<select id='search_type' name="search_type" style="width:15%;">
+			<option value='search'>宝贝</option>
+			<option value='stores'>店铺</option>
+		</select>
+		     <input class="text" type="search" name="keywords" id="keywordBox" autofocus>
+		     <button type="submit" value="搜 索" ></button>
+		</div>
+		</form>
+	    </div>
+		</div>
+           -->
+    	<section class="mix_recently_search"><h3>历史搜索</h3>
+	     <ul>
+            <volist name ="cookies" id="co" offset="1" length='5'>
+               <li><a href="{:U('Goods/search',array('q'=>$co))}" >{$co}</a></li>
+             </volist>       
+	      </ul>
+        </section>
+       
+    </div>
+                                             
+</div>
+<include file="Public/footer_nav"/>
+ 
+<script type="text/javascript">
+
+$(function() {
+    $('#search_text').click(function(){
+        $(".showpage").children('div').hide();
+        $("#search_hide").css('position','fixed').css('top','0px').css('width','100%').css('z-index','999').show();
+    })
+    $('#get_search_box').click(function(){
+        $(".showpage").children('div').hide();
+        $("#search_hide").css('position','fixed').css('top','0px').css('width','100%').css('z-index','999').show();
+    })
+    $("#search_hide .close").click(function(){
+        $(".showpage").children('div').show();
+        $("#search_hide").hide();
+    })
+});
+</script>
+<script>
+$('.search-type li').click(function() {
+    $(this).addClass('cur').siblings().removeClass('cur');
+    $('#searchtype').val($(this).attr('num'));
+});
+$('#searchtype').val($(this).attr('0'));
+</script>
+<!-- 返利加载 -->
+<!--<script type="text/javascript">
+  var html_s = '<div style="position:absolute;bottom:0px;left:0;width:100%;height:30px;color:#fff;line-height:30px;background:rgba(127,127,127,0.8);"><span>返利10%</span></div>';
+  $('.products_kuang').append(html_s);
+</script>
+--><script src="__PUBLIC__/js/jqueryUrlGet.js"></script><!--获取get参数插件-->
+<script> set_first_leader(); //设置推荐人 </script>
+</body>
+</html>

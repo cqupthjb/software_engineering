@@ -1,0 +1,223 @@
+<include file="Public/min-header"/>
+<!--region 时间筛选-->
+<link href="__PUBLIC__/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<!--endregion 时间筛选-->
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>&nbsp;会员卡激活日志
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <nav class="navbar navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <form action="{:U('log_index')}" class="navbar-form form-inline" role="search" id="search-form">
+                                    <!--<div class="form-group">-->
+                                        <!--<label class="control-label" >{$status == 1 ? '激活' : '创建'}日期</label>-->
+                                        <!--<div class="input-group">-->
+                                            <!--&lt;!&ndash;<input type="text" name="timegap" value="{$timegap}" placeholder="{$status == 1 ? '激活' : '创建'}日期"  id="add_time" class="input-sm">&ndash;&gt;-->
+                                            <!--<input type="text" name="begin" value="{$begin}" placeholder="{$status == 1 ? '激活' : '创建'}日期"  id="begin" class="input-sm">-->
+                                            <!--<input type="text" name="end" value="{$end}" placeholder="{$status == 1 ? '激活' : '创建'}日期"  id="end" class="input-sm">-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <div class="form-group">
+                                        <select name="level_id" class="input-sm" style="width:100px;">
+                                            <option value="0">面值</option>
+                                            <notempty name="level_list">
+                                                <volist name="level_list" id="vo">
+                                                    <option value="{$vo.level_id}" {$vo['level_id'] == $level_id ? 'selected="selected"' : ''}>{$vo.level_name}</option>
+                                                </volist>
+                                            </notempty>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" >列表数量</label>
+                                        <div class="input-group">
+                                            <input type="text" name="row" value="{$row|default=10}" placeholder="筛选列表数量"  id="row" class="input-sm" style="width: 100px;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="hidden" name="p" value="1">
+                                        <!--<input type="hidden" name="status" value="{$status|default=0}">-->
+                                        <a href="javascript:void(0)" onclick="$('#search-form').submit();" id="button-filter search-order" class="btn btn-primary"><i class="fa fa-search"></i> 筛选</a>
+                                    </div>
+                                    <div class="form-group pull-right">
+                                        <a href="javascript:void(0);" data-href="{:U('export_log')}" class="btn btn-default pull-right export-btn">
+                                            <i class="fa fa-file-excel-o"></i>导出Excel
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th style="text-align: center">
+                                        <!--<label for="check-all">全选/反选</label>-->
+                                        <input type="checkbox" name="check_all" class="check-all" id="check-all">
+                                    </th>
+                                    <th>卡号</th>
+                                    <th>名称</th>
+                                    <th>面值</th>
+                                    <th>卡号</th>
+                                    <th>密码</th>
+                                    <th>用户ID</th>
+                                    <th>激活时间</th>
+                                </tr>
+                                </thead>
+                                <tbody id="data-list">
+                                <foreach name="card_list" item="vo" key="k">
+                                    <if condition="get_column('admin',session('admin_id'),'role_id') eq 1">
+                                        <tr role="row" align="center">
+                                            <td><input type="checkbox" name="ids[]" value="{$vo.card_id}" class="card_ids"></td>
+                                            <td>{$vo.card_id}</td>
+                                            <td>{$vo.level_name}</td>
+                                            <td>{$vo.money}</td>
+                                            <td>{$vo.card_no}</td>
+                                            <td>{$vo.card_pwd}</td>
+                                            <td>{$vo.user_id}</td>
+                                            <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+
+                                        </tr>
+                                    </if>
+                                </foreach>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">{$page}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    $(document).ready(function(){
+        var begin = "{$begin ? $begin : date('Y-m-d',(time() - 30 * 60 * 60 * 24))}";
+        var end = "{$end ? $end : date('Y-m-d',strtotime('+1 days'))}";
+        $('#begin').daterangepicker({
+            format:"YYYY-MM-DD",
+            singleDatePicker: true,
+            showDropdowns: true,
+            minDate:'2017-9-01',
+            maxDate:'2030-01-01',
+            startDate:begin,
+            //endDate:end,
+            locale : {
+                applyLabel : '确定',
+                cancelLabel : '取消',
+                fromLabel : '起始时间',
+                toLabel : '结束时间',
+                customRangeLabel : '自定义',
+                daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+                monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月','七月', '八月', '九月', '十月', '十一月', '十二月' ],
+                firstDay : 1
+            }
+        });
+
+        $('#end').daterangepicker({
+            format:"YYYY-MM-DD",
+            singleDatePicker: true,
+            showDropdowns: true,
+            minDate:'2017-9-01',
+            maxDate:'2030-01-01',
+            //startDate:begin,
+            endDate:end,
+            locale : {
+                applyLabel : '确定',
+                cancelLabel : '取消',
+                fromLabel : '起始时间',
+                toLabel : '结束时间',
+                customRangeLabel : '自定义',
+                daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+                monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月','七月', '八月', '九月', '十月', '十一月', '十二月' ],
+                firstDay : 1
+            }
+        });
+    });
+
+    function change_column(obj){
+        if (confirm('是否执行此操作？')){
+            $.getJSON($(obj).data('url'),{'id':$(obj).data('id'),'value':$(obj).data('val')},function (data) {
+                if (data.hasOwnProperty('msg')){
+                    layer.msg(data.msg);
+                }
+                if (data.hasOwnProperty('status')){
+                    if (data.status==1){
+                        setTimeout(function(){
+                            window.location.reload();
+                        },500);
+                    }
+                }
+            })
+        }
+    }
+
+    //面值切换提交表单
+    $('select[name="level_id"]').on('change',function () {
+        $('#search-form').submit();
+    })
+
+    //region 全选 | 反全选 | 选择
+    //全选/反选
+    $('.check-all').on('click',function () {
+        $('input[name="ids[]"]').prop('checked',$(this).prop('checked'));
+    })
+    //完善全选/反选
+    $('input[name="ids[]"]').on('click',function () {
+        var length = $('input[name="ids[]"]').length;
+        var check_len = $('input[name="ids[]"]:checked').length;
+        $('.check-all').prop('checked',length == check_len);
+    })
+    //endregion
+
+
+
+    //region 批量导出
+    $('.export-btn').on('click',function () {
+        //var url = $(this).data('href');
+        var url = "{:U('export_log',array('level_id'=>'__LEVEL__'))}";
+        var status = "{$status}";
+        var level = "{$level_id}";
+        var ids = '';
+        var length = $('input[name="ids[]"]').length;
+        var check_len = $('input[name="ids[]"]:checked').length;
+        if (length == check_len){
+            ids = $('input[name="ids[]"]:checked').first().val();
+            ids = $('input[name="ids[]"]:checked').last().val() + '-' +ids;
+        }else{
+            $('input[name="ids[]"]:checked').each(function () {
+                ids = $(this).val() + ',' + ids;
+            })
+        }
+
+        url = url.replace('__STATUS__',status);
+        url = url.replace('__LEVEL__',level);
+        if (ids !='' && ids !=','){
+            url += '/ids/'+ids;
+        }
+        //url = url.replace('__IDS__',ids);
+        window.open(url);
+        //var info = {status:status,ids:ids};
+//        $.post(url,info,function (data) {
+//            alert('导出成功');
+//        },'json');
+
+
+    })
+    //endregion
+</script>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<style>
+    .layui-flow-more{
+        margin: 0 !important;
+        padding: 10px 0;
+        font-size: 12px !important;
+        width: 100%;
+        /*float: left;*/
+        text-align: center;
+    }
+    .layui-flow-more a cite{
+        background:none!important;;/*#fff;*/
+        color: #47b34f;
+    }
+
+</style>
+<script src="__STATIC__/js/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    function get_list(data,config){
+        if (wholesalerStreet){
+            data.wholesaler = 1
+        }
+        layui.use('flow', function() {
+            var flow = layui.flow;
+            flow.load({
+                elem: config.elem //流加载容器
+                , scrollElem: ''//config.scrollElem //滚动条所在元素，一般不用填，此处只是演示需要。
+                , done: function (page, next) { //执行下一页的回调
+                    var lis = [];
+                    //popLoading();    //开启动画
+                    data.page = page;
+                    $.getJSON(window.get_list_url, data, function(res){
+                        //closeLoading();  //关闭动画
+                        lis.push(res.content);
+                        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                        next(lis.join(''), page < res.page_count);
+                        if(typeof resize=='function'){
+                            //resize();
+                        }
+                    });
+                }
+            });
+        });
+    }
+</script>

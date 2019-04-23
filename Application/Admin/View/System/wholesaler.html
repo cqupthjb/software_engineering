@@ -1,0 +1,140 @@
+<include file="Public/min-header"/>
+
+<link href="__PUBLIC__/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <!-- Main content -->
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+            </div>
+            <div class="panel panel-default">           
+                <div class="panel-body ">   
+                   	<ul class="nav nav-tabs">
+                        <foreach name="group_list" item="vo" key="k">
+                     		<li <if condition="$k eq 'wholesaler'">class="active"</if>><a href="javascript:void(0)" data-url="{:U('System/index',array('inc_type'=>$k))}" data-toggle="tab" onclick="goset(this)">{$vo}</a></li>
+                     	</foreach>                        
+                    </ul>
+                    <!--表单数据-->
+                    <form method="post" id="handlepost" action="{:U('System/handle')}">                    
+                        <!--通用信息-->
+                    <div class="tab-content" style="padding:20px 0px;">                 	  
+                        <div class="tab-pane active" id="tab_smtp">                           
+                            <table class="table table-bordered">
+                                <theader>
+                                    <tr>入驻费用设置</tr>
+                                </theader>
+                                <tbody>
+                                <tr>
+                                    <td class="col-sm-2">入驻金额：</td>
+                                    <td class="col-sm-6">
+                                        <input type="text" class="form-control"  name="wholesaler_register_fee" value="{$config['wholesaler_register_fee']|default=0}"/>
+                                    </td>
+                                    <td class="col-sm-7">元</td>
+                                </tr>
+                                <tr>
+                                    <td>平台收取比例：</td>
+                                    <td >
+                                        <input type="text" class="form-control" name="wholesaler_register_fee_platform_rate" id="wholesaler_register_fee_platform_rate" value="{$config.wholesaler_register_fee_platform_rate}"onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" >
+                                    </td>
+                                    <td class="col-sm-7">%</td>
+                                </tr>
+                                <tr>
+                                    <td>直接推荐人收取比例：</td>
+                                    <td >
+                                        <input type="text" class="form-control" name="wholesaler_register_fee_direct_rate" id="wholesaler_register_fee_direct_rate" value="{$config.wholesaler_register_fee_direct_rate}"onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" >
+                                    </td>
+                                    <td class="col-sm-7">%</td>
+                                </tr>
+                                <!--<tr>-->
+                                    <!--<td>间接推荐人收取比例：</td>-->
+                                    <!--<td >-->
+                                        <!--<input type="text" class="form-control" name="wholesaler_register_fee_indirect_rate" id="wholesaler_register_fee_indirect_rate" value="{$config.wholesaler_register_fee_indirect_rate}"onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" >-->
+                                    <!--</td>-->
+                                    <!--<td class="col-sm-7">%</td>-->
+                                <!--</tr>-->
+                                </tbody>
+
+                                <tfoot>
+                                	<tr>
+                                	<td><input type="hidden" name="inc_type" value="{$inc_type}"></td>
+                                	<td class="text-right"></td></tr>
+                                </tfoot>
+                            </table>
+                            <!--<table class="table table-bordered">-->
+                                <!--<theader>-->
+                                    <!--<tr>销售提成设置</tr>-->
+                                <!--</theader>-->
+                                <!--<tbody>-->
+                                <!--<tr>-->
+                                    <!--<td>平台提成比例：</td>-->
+                                    <!--<td >-->
+                                        <!--<input type="text" class="form-control" name="wholesaler_sell_platform_rate" id="wholesaler_sell_platform_rate" value="{$config.wholesaler_sell_platform_rate}"onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" >-->
+                                    <!--</td>-->
+                                    <!--<td class="col-sm-7">%</td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>直接推荐人提成比例：</td>-->
+                                    <!--<td >-->
+                                        <!--<input type="text" class="form-control" name="wholesaler_sell_direct_rate" id="wholesaler_sell_direct_rate" value="{$config.wholesaler_sell_direct_rate}"onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" >-->
+                                    <!--</td>-->
+                                    <!--<td class="col-sm-7">%</td>-->
+                                <!--</tr>-->
+                                <!--&lt;!&ndash;<tr>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td>间接推荐人提成比例：</td>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td >&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<input type="text" class="form-control" name="wholesaler_sell_indirect_rate" id="wholesaler_sell_indirect_rate" value="{$config.wholesaler_sell_indirect_rate}"onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" >&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</td>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<td class="col-sm-7">%</td>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</tr>&ndash;&gt;-->
+                                <!--</tbody>-->
+                            <!--</table>-->
+                            <div><input class="btn btn-primary" type="button" onclick="adsubmit()" value="保存"></div>
+                        </div>                           
+                    </div>              
+			    	</form><!--表单数据-->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+
+$('#distribut_pattern').change(function(){
+	 if($(this).val() == 1)
+	    $('#distribut_order_rate').show();
+	 else	
+	    $('#distribut_order_rate').hide();	 
+});
+
+function adsubmit(){
+	var distribut_first_rate  = $.trim($('#distribut_first_rate').val());
+	var distribut_second_rate = $.trim($('#distribut_second_rate').val());
+	var distribut_third_rate  = $.trim($('#distribut_third_rate').val());		
+	
+	var rate = parseInt(distribut_first_rate) + parseInt(distribut_second_rate) + parseInt(distribut_third_rate);
+	if(rate > 100)
+	{
+		layer.msg('三个分销商比例总和不得超过100%', {icon: 2,time: 2000});//alert('少年，邮箱不能为空！');		
+		// alert('三个分销商比例总和不得超过100%');
+		return false;
+	}
+	
+	$('#handlepost').submit();
+}
+
+$(document).ready(function(){
+	get_province();
+});
+
+function goset(obj){
+	window.location.href = $(obj).attr('data-url');
+}
+</script>
+</body>
+</html>

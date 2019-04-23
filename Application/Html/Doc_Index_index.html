@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>TPshop开发手册</title>
+<link rel="stylesheet" href="/Template/doc/static/css/kfsc.css" type="text/css">
+<script src="/Public/js/jquery-1.8.2.min.js"></script>
+</head>
+<body style=" overflow-y:hidden">
+	<header class="kfsc-header">
+    	<i></i>
+    	<h1>TPshop开发手册</h1>
+    </header>
+    <div class="kfsc-box">
+        <div class="kfsc-left fl">
+        	<div class="sc-le-ss">
+                    <form action="/index.php/Doc/Index/index" name="sourch_form" id="sourch_form" method="post">
+                        <input type="text" placeholder="输入搜索关键字" name="sourch" value="" onBlur="sourch_article(this);"  onkeydown='if(event.keyCode==13){sourch_article(this);}'/>
+            </form>    
+            </div>
+            <div class="sc-le-ul ov-hi thinktree thinktree-default ov-au">
+                <ul class="thinktree-showline thinktree-root">
+                    <li data-id="3" data-name="preface" class="active">
+            			<div>
+                        	<i class="tree-icon-switch"></i>
+                            <i class="tree-icon-item"></i>
+                            <a href="/index.php/Doc/Index/xuyan" target="article">序言</a>
+                        </div>
+                    </li>
+                    <li data-id="4" data-name="start" class="" >
+                        <div>
+                            <i class="tree-icon-switch" onClick="switch_tree(this);"></i>
+                            <i class="tree-icon-item"></i><a href="javascript:void(0);">基础</a>
+                        </div>
+                        <ul>
+		                        <li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/27" target="article">TPshop下载安装 </a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/28" target="article">环境要求</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/30" target="article">模块介绍</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/31" target="article">目录介绍</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/32" target="article">TPshop表结构</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/29" target="article">功能介绍</a>
+                                                                                           </div>
+                                        </li>                       	</ul>        
+                    </li><li data-id="4" data-name="start" class="" >
+                        <div>
+                            <i class="tree-icon-switch" onClick="switch_tree(this);"></i>
+                            <i class="tree-icon-item"></i><a href="javascript:void(0);">开发教程</a>
+                        </div>
+                        <ul>
+		                        <li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/33" target="article">TPshop标签</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/34" target="article">全局公共方法</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/35" target="article">插件</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/36" target="article">模板</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/45" target="article">后台公共方法</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/46" target="article">前台公告函数库</a>
+                                                                                           </div>
+                                        </li>                       	</ul>        
+                    </li><li data-id="4" data-name="start" class="" >
+                        <div>
+                            <i class="tree-icon-switch" onClick="switch_tree(this);"></i>
+                            <i class="tree-icon-item"></i><a href="javascript:void(0);">APP开发</a>
+                        </div>
+                        <ul>
+		                        <li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/37" target="article">App安装</a>
+                                                                                           </div>
+                                        </li>                       	</ul>        
+                    </li><li data-id="4" data-name="start" class="" >
+                        <div>
+                            <i class="tree-icon-switch" onClick="switch_tree(this);"></i>
+                            <i class="tree-icon-item"></i><a href="javascript:void(0);">手机API接口</a>
+                        </div>
+                        <ul>
+		                        <li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/38" target="article">api开发接口文档</a>
+                                                                                           </div>
+                                        </li>                       	</ul>        
+                    </li><li data-id="4" data-name="start" class="" >
+                        <div>
+                            <i class="tree-icon-switch" onClick="switch_tree(this);"></i>
+                            <i class="tree-icon-item"></i><a href="javascript:void(0);">常见问题</a>
+                        </div>
+                        <ul>
+		                        <li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/39" target="article">app开发者常见问题</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/40" target="article">php开发者常见问题</a>
+                                                                                           </div>
+                                        </li>                       	</ul>        
+                    </li><li data-id="4" data-name="start" class="" >
+                        <div>
+                            <i class="tree-icon-switch" onClick="switch_tree(this);"></i>
+                            <i class="tree-icon-item"></i><a href="javascript:void(0);">技术支持</a>
+                        </div>
+                        <ul>
+		                        <li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/41" target="article">在线技术支持</a>
+                                                                                           </div>
+                                        </li>                       	</ul>        
+                    </li><li data-id="4" data-name="start" class="" >
+                        <div>
+                            <i class="tree-icon-switch" onClick="switch_tree(this);"></i>
+                            <i class="tree-icon-item"></i><a href="javascript:void(0);">视频教程</a>
+                        </div>
+                        <ul>
+		                        <li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/42" target="article">php视频教程</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/43" target="article">android视频教程</a>
+                                                                                           </div>
+                                        </li><li data-id="117" data-name="get_thinkphp">
+                                            <div>
+                                                <i class="tree-icon-switch"></i>
+                                                <i class="tree-icon-item"></i>
+                                                
+                                                                                               <a href="/index.php/Doc/Index/article/id/44" target="article">ios视频教程</a>
+                                                                                           </div>
+                                        </li>                       	</ul>        
+                    </li>                </ul>
+            </div>
+        </div>
+        <div class="kfsc-right fr">
+			<!-- iframe引用-start -->
+            <iframe name="article" id="article" width="100%" height="100%" frameborder="0" scrolling="" src="/index.php/Doc/Index/xuyan"></iframe>
+            <!-- iframe引用-end -->
+        </div>
+	</div>
+	<footer class="kfsc-footer">
+    	<p>@2015  深圳搜豹网络有限公司版权所有</p>
+    </footer>
+</body>
+<script>
+$(document).ready(function(){
+	$(".kfsc-box").height($(window).height() - 80 - 30);//浏览器当前窗口可视区域高度
+})
+
+// 搜索框
+function sourch_article(obj){
+
+	var sourch_key = $("input[name='sourch']").val();
+	if(sourch_key.length > 0)
+		$("#sourch_form").submit();	
+}
+// 展开收缩菜单
+function switch_tree(obj)
+{
+   $(obj).parent().siblings('ul').toggle();   
+   $(obj).toggleClass("tree-icon-switch-jia");
+}
+</script>
+</html>

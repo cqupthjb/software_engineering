@@ -1,0 +1,57 @@
+<include file="Public/header"/>
+<body>
+<div id="tbh5v0">
+    <div class="user_com">
+        <div class="com_top">
+            <h2 style="position:relative"><a href="{:U('Mobile/User/userinfo')}">设置</a></h2>
+            <p class="tuij_cas" style="margin-top: 8px;">
+                {$user['nickname']}
+                <if condition="$first_nickname neq ''">
+                    <span>由( {$first_nickname} )推荐</span>
+                </if>
+            </p>
+            <!-- 温馨提示只加在只显示省级、地级、县级、分销商 0 < role_id < 5 -->
+            <if condition="$user['role_id'] gt 0 and $user['role_id'] lt 5">
+
+            </if>
+
+            <!-- <dl>
+                <dt>
+                <img src="{$user['head_pic']|default=' __STATIC__/images/user68.jpg'}" class="head_pic" >
+                <dd>{$level_name}</dd>
+                </dt>
+            </dl> -->
+        </div>
+
+        <if condition="$ShareLink neq null">
+            <!-- <div class="endorse_hend" style="margin-top: 0px;">
+                <span style="margin-left: 60px;">推广二维码</span>
+            </div> -->
+            <p style="text-align: center;font-size: 20px;">推广二维码</p>
+            <!-- 广告一 -->
+
+            <div class="Wallet" style="text-align:center;">
+                <!--/**<img alt="扫码推广" src="/index.php?m=Home&c=Index&a=qr_code&data=" style="width:150px;height:150px;"/>**/	-->
+                <img alt="扫码推广" src="{$ShareLink}" style="width:150px;height:150px;"/>
+            </div>
+            <div style="text-align: left !important;line-height: 1.5;padding: 10px" class="endorse_hend">
+                1.多功能植物洗手净不含烧碱 ，防蚊止痒。汽车内饰干洗，除锈除臭，去墨迹，玻璃防雾。滋润手部皮肤。
+            </div>
+
+            <div class="endorse_hend" style="padding: 0 10px;">
+                2.将洗手净倒入3~5克在洗衣机混洗，防止窜色，防生螨虫、绵虫，霉菌效果更佳。会员终身5~8折！
+            </div>
+            <else/>
+            <div class="endorse_hend">
+                <p>你还不是分销商</p>
+            </div>
+            <div class="Wallet" style="text-align:center;">
+                <img alt="扫码推广" src="__STATIC__/images/sorry.jpg" style="width:190px;"/>
+            </div>
+        </if>
+    </div>
+    <include file="Public/footer"/>
+</div>
+<include file="Public/footer_nav"/>
+</body>
+</html>

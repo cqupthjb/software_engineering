@@ -1,0 +1,91 @@
+<include file="Public/min-header"/>
+<style>
+    ul.group-list {
+        width: 96%;
+        min-width: 1000px;
+        margin: auto 5px;
+        list-style: disc outside none;
+    }
+
+    ul.group-list li {
+        white-space: nowrap;
+        float: left;
+        width: 150px;
+        height: 25px;
+        padding: 3px 5px;
+        list-style-type: none;
+        list-style-position: outside;
+        border: 0px;
+        margin: 0px;
+    }
+
+    th.title {
+        background: #F3F3F3;
+        border-bottom: 1px solid #D7D7D7;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+</style>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i>获取会员信息</h3>
+                </div>
+                <div class="panel-body ">
+                    <form id="submit-form" method="post" onsubmit="return false;">
+                        <div class="form-group">
+                            <label for="info">会员二维码信息</label>
+                            <input type="text" class="form-control" name="info" id="info" placeholder="二维码信息" style="ime-mode:Disabled" ><!--会员ID号或-->
+                            <span class="help-block">（需扫码枪扫描会员二维码获取，请保持输入法为英文状态）</span>
+                        </div>
+                        <button type="button" class="btn btn-default" onclick="check_submit()" >提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<script type="text/javascript">
+    //Layer消息提示框
+    function popLayer(msg){
+        layer.msg(msg);
+    }
+    function check_submit(obj) {
+        if ($('input[name="info"]').val() == '') {
+            popLayer('请扫描用户二维码获取信息');
+            return false;
+        }
+
+        //提交表单
+        $.post("{:U('scan')}", $('#submit-form').serialize(),function (data) {
+            if (data.hasOwnProperty('msg')){
+                popLayer(data.msg);
+                if (data.hasOwnProperty('status')){
+                    if (data.status == 0){return false;}
+                }
+            }
+            if (data.hasOwnProperty('content')){
+                if (data.content != ''){
+                    window.parent.call_back_fun(data.content);
+                }
+            }
+        })
+    }
+
+    $(function () {
+        //input聚焦
+        $('input[name="info"]').trigger('focus');
+        //回车事件
+        $('input[name="info"]').bind('keypress',function(event){
+            if(event.keyCode == "13") {
+                check_submit();//执行查询
+            }
+        });
+    })
+</script>
+
+</body>
+</html>

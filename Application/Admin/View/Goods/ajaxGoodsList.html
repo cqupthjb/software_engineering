@@ -1,0 +1,165 @@
+<form method="post" enctype="multipart/form-data" target="_blank" id="goods_list_form">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <td style="width: 1px;" class="text-center">
+                    选择
+                </td>
+                <td class="text-right">
+                    <a href="javascript:sort('goods_id');">ID</a>
+                </td>
+                <td class="text-left">
+                    <a href="javascript:sort('goods_name');">商品名称</a>
+                </td>
+                <td class="text-left">
+                    <a href="javascript:sort('goods_sn');">货号</a>
+                </td>                                
+                <td class="text-left">
+                    <a href="javascript:sort('cat_id');">分类</a>
+                </td>                
+                <td class="text-left">
+                    <a href="javascript:sort('shop_price');">价格</a>
+                </td>
+                <td class="text-center">
+                    <a href="javascript:sort('is_recommend');">推荐</a>
+                </td>
+                <td class="text-center">
+                    <a href="javascript:sort('is_new');">新品</a>
+                </td>   
+                <td class="text-center">
+                    <a href="javascript:sort('is_hot');">热卖</a>
+                </td>
+                <td class="text-center">
+                    <a href="javascript:sort('is_activity');">活动票</a>
+                </td>
+                <td class="text-left">
+                    <a href="javascript:void(0);">库存</a>
+                </td>
+                <td class="text-left">
+                    <a href="javascript:sort('is_on_sale');">上/下架</a>
+                </td>
+                <td class="text-left">
+                    <a href="javascript:sort('goods_state');">审核状态</a>
+                </td>              
+                <td class="text-right">店铺名</td>
+                <td class="text-right">操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="goodsList" id="list">
+                <tr>
+                    <td class="text-center">
+                       <input type="checkbox" name="goods_id[]" value="{$list.goods_id}"/>
+                    </td>
+                    <td class="text-right">{$list.goods_id}</td>
+                    <td class="text-left" style="max-width: 200px;">{$list.goods_name|getSubstr=0,33}</td>
+                    <td class="text-left">{$list.goods_sn}</td>
+                    <td class="text-left">{$catList[$list[cat_id1]][name]}</td>
+                    <td class="text-left">{$list.shop_price}</td>
+                    <td class="text-center">
+                        <img width="20" height="20" src="__PUBLIC__/images/<if condition='$list[is_recommend] eq 1'>yes.png<else />cancel.png</if>" onclick="changeTableVal('goods','goods_id','{$list.goods_id}','is_recommend',this)"/>
+                    </td>                     
+                    <td class="text-center">
+                        <img width="20" height="20" src="__PUBLIC__/images/<if condition='$list[is_new] eq 1'>yes.png<else />cancel.png</if>" onclick="changeTableVal('goods','goods_id','{$list.goods_id}','is_new',this)"/>
+                    </td>
+                    <td class="text-center">
+                        <img width="20" height="20" src="__PUBLIC__/images/<if condition='$list[is_hot] eq 1'>yes.png<else />cancel.png</if>" onclick="changeTableVal('goods','goods_id','{$list.goods_id}','is_hot',this)"/>
+                    </td>
+                    <td class="text-center">
+                        <if condition="get_column('store','store_id='.$list['store_id'],'is_own_shop') eq 1">
+                            <img width="20" height="20" src="__PUBLIC__/images/<if condition='$list[is_activity] eq 1'>yes.png<else />cancel.png</if>" onclick="changeTableVal('goods','goods_id','{$list.goods_id}','is_activity',this)"/>
+                            <else/>
+                            <img width="20" height="20" src="__PUBLIC__/images/cancel.png" onclick="return false;"/>
+                        </if>
+                    </td>
+                    <td class="text-left">{$list.store_count}</td>
+                    <td class="text-left">
+                        <!--<if condition="$list[is_on_sale] eq 0">下架</if>
+                        <if condition="$list[is_on_sale] eq 1">上架</if>-->
+                        <img width="20" height="20" src="__PUBLIC__/images/<if condition='$list[is_on_sale] eq 1'>yes.png<else />cancel.png</if>" onclick="changeTableVal('goods','goods_id','{$list.goods_id}','is_on_sale',this)"/>
+                    </td>
+                    <td class="text-left">
+                        <if condition="$list[goods_state] eq 0">待审核</if>
+                        <if condition="$list[goods_state] eq 1">审核通过</if>
+                        <if condition="$list[goods_state] eq 2">审核失败</if>
+                        <if condition="$list[goods_state] eq 3">违规下架</if>
+                    </td>
+                    <td class="text-left">
+                        {:get_column('store',array('store_id'=>$list['store_id']),'store_name')}
+                    </td>
+                    <td class="text-right">
+                        <a  target="_blank" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$list['goods_id']))}" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="查看详情"><i class="fa fa-eye"></i></a>
+                        <a href="{:U('Goods/addEditGoods',array('goods_id'=>$list['goods_id'],'store_id'=>$list['store_id']))}" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="编辑"><i class="fa fa-pencil"></i></a>
+                        <a href="javascript:void(0);" onclick="del('{$list[goods_id]}')" id="button-delete6" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="删除"><i class="fa fa-trash-o"></i></a>
+                        <a href="javascript:void(0);" onclick="ClearGoodsHtml('{$list[goods_id]}')" class="btn btn-default" title="清除静态缓存页面" style="width:39.26px;"><i class="fa fa-fw fa-refresh"></i></a>
+                        <a href="javascript:void(0);" onclick="ClearGoodsThumb('{$list[goods_id]}')" class="btn btn-default" title="清除缩略图缓存"><i class="glyphicon glyphicon-picture"></i></a>
+                    </td>   
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+</form>
+<div class="row">
+    <div class="navbar-form form-inline">
+        <label for="check-all">全选</label>
+        <input type="checkbox" id="check-all" onclick="$('input[name=\'goods_id\[\]\']').prop('checked', this.checked);">
+        <div class="form-group">
+            <select id="func_id" class="form-control" style="width: 120px;" onchange="fuc_change(this);">
+                <option value="-1">请选择...</option>
+                <option value="0">推荐</option>
+                <option value="1">新品</option>
+                <option value="2">热卖</option>
+                <option value="3">审核商品</option>
+            </select>
+        </div>
+        <div class="form-group" id="state_div" >
+            <select id="state_id" class="form-control" style="display: none" onchange="state_change(this);">
+                <option value="">请选择...</option>
+                <foreach name="goods_state" item="vo" >
+                    <option value="{$key}">{$goods_state[$key]}</option>
+                </foreach>
+            </select>
+        </div>
+        <button id="act_button" type="button" onclick="act_submit();" class="btn btn-primary disabled"><i class="fa"></i> 确定</button>
+    </div>
+    <div class="col-sm-9 text-right">{$page}</div>
+</div>
+<script>
+    // 点击分页触发的事件
+    $(".pagination  a").click(function(){
+        cur_page = $(this).data('p');
+        ajax_get_table('search-form2',cur_page);
+    });
+    /*
+     * 清除静态页面缓存
+     */
+    function ClearGoodsHtml(goods_id)
+    {
+        $.ajax({
+            type:'GET',
+            url:"{:U('Admin/System/ClearGoodsHtml')}",
+            data:{goods_id:goods_id},
+            dataType:'json',
+            success:function(data){
+                layer.alert(data.msg, {icon: 2});
+            }
+        });
+    }
+    /*
+     * 清除商品缩列图缓存
+     */
+    function ClearGoodsThumb(goods_id)
+    {
+        $.ajax({
+            type:'GET',
+            url:"{:U('Admin/System/ClearGoodsThumb')}",
+            data:{goods_id:goods_id},
+            dataType:'json',
+            success:function(data){
+                layer.alert(data.msg, {icon: 2});
+            }
+        });
+    }
+</script>

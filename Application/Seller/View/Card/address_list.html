@@ -1,0 +1,181 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>&nbsp;
+                            {:isset($token) && !empty($card) ? '选取地址' : '地址管理'}
+                        </h3>
+                        <nav class="navbar navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <form class="navbar-form form-inline" role="search">
+                                    <div class="form-group">
+                                        <a class="btn btn-info buy-cards" onclick="address_edit()" href="javascript:void(0);" >添加地址</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </form>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <if condition="isset($card) and !empty($card) and isset($token)">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>卡券名称</th>
+                                        <th>卡券logo</th>
+                                        <th>卡券价格</th>
+                                        <th>卡券库存</th>
+                                        <th>是否包邮</th>
+                                        <th>邮费</th>
+                                        <th>优惠</th>
+                                        <th>选择数量</th>
+                                        <th>总计</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="card-list">
+                                    <foreach name="card" item="vo" key="k">
+                                        <tr role="row" align="center">
+                                            <td>{$vo.card_id}</td>
+                                            <td>{$vo.name}</td>
+                                            <td><img src="{:get_column('card','card_id='.$vo['card_id'],'cover')}" style="width: 30px;height: 30px;"></td>
+                                            <td>{:get_column('card','card_id='.$vo['card_id'],'price')}</td>
+                                            <td>{:get_column('card','card_id='.$vo['card_id'],'store_count')}</td>
+                                            <td>{:get_column('card','card_id='.$vo['card_id'],'is_free_shipping') == 1 ? '✓' : '✗'}</td>
+                                            <td>{:get_column('card','card_id='.$vo['card_id'],'is_free_shipping') != 1 ? get_column('card','card_id='.$vo['card_id'],'postage') : 0}</td>
+                                            <td>{:get_column('card','card_id='.$vo['card_id'],'default_rebate')}</td>
+                                            <td>{$vo.store_count}</td>
+                                            <td class="price">
+                                                <if condition="get_column('card','card_id='.$vo['card_id'],'is_free_shipping') eq 1">
+                                                    {:(get_column('card','card_id='.$vo['card_id'],'price') - get_column('card','card_id='.$vo['card_id'],'default_rebate')) * $vo['store_count']}
+                                                    <else/>
+                                                    {:((get_column('card','card_id='.$vo['card_id'],'price') - get_column('card','card_id='.$vo['card_id'],'default_rebate')) * $vo['store_count'])+get_column('card','card_id='.$vo['card_id'],'postage')}
+                                                </if>
+                                            </td>
+                                        </tr>
+                                    </foreach>
+                                    <tr>
+                                        <td colspan="9" class="sum-price"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </if>
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>选择</th>
+                                    <th>收货人</th>
+                                    <th>收货地址</th>
+                                    <th>联系电话</th>
+                                    <th></th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody id="data-list">
+                                <foreach name="lists" item="list" key="k">
+                                    <tr role="row" align="center">
+                                        <td><input type="radio" name="address" value="{$list.address_id}" <eq name="list.is_default" value="1">checked</eq>></td>
+                                        <td>{$list.consignee}</td>
+                                        <td>
+                                            {$region_list[$list['province']]['name']}，
+                                            {$region_list[$list['city']]['name']}，
+                                            {$region_list[$list['district']]['name']}，
+                                            {$region_list[$list['twon']]['name']}
+                                            {$list.address}
+                                        </td>
+                                        <td>{$list.mobile}</td>
+                                        <td><a href="{:U('set_default',array('id'=>$list['address_id']))}"  data-act="set" >设为默认收货地址</a></td>
+                                        <td>
+                                            <a href="javascript:address_edit({$list['address_id']})" data-act="edit" class="target_no" target="">修改</a>
+                                            <a href="{:U('del_address',array('id'=>$list['address_id']))}" class="J_delete target_no" data-act="del" target="">删除</a>
+                                        </td>
+                                    </tr>
+                                </foreach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <if condition="isset($token) && !empty($card)">
+                    <button type="button" class="btn btn-primary btn-buy">确认购买</button>
+                </if>
+            </div>
+        </div>
+    </section>
+</div>
+<script>
+    function popLayer(msg){
+        layer.msg(msg);
+    }
+    /**
+     * 新增修改收货地址
+     * id 为零 则为新增, 否则是修改
+     *  使用 公共的 layer 弹窗插件  参考官方手册 http://layer.layui.com/
+     */
+    function address_edit(id)
+    {
+        var url = '';
+        if(id > 0) {
+            url ="{:U('edit_address',array('scene'=>1,'call_back'=>'call_back_fun','id'=>'__ID__'))}";
+            //"/index.php?m=Seller&c=User&a=edit_address&scene=1&call_back=call_back_fun&id="+id;
+            url = url.replace('__ID__',id);
+        }
+        else
+            url = "{:U('add_address',array('scene'=>1,'call_back'=>'call_back_fun'))}";
+            //"/index.php?m=Seller&c=User&a=add_address&scene=1&call_back=call_back_fun";	// 新增地址
+        layer.open({
+            type: 2,
+            title: '收货地址',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['95%', '95%'],
+            content: url,
+        });
+    }
+    // 添加修改收货地址回调函数
+    function call_back_fun(v){
+        layer.closeAll(); // 关闭窗口
+        location.href = location.href;
+    }
+
+    //总计
+    $(document).ready(function () {
+        var sum = 0;
+        $('.price').each(function () {
+            sum += parseFloat($(this).html());
+        })
+        $('.sum-price').html('总计：'+sum);
+    })
+    
+    //下单
+    $('.btn-buy').on('click',function () {
+        var token = '{$token}';
+        var address_id = parseInt($('input[name="address"]:checked').val());
+        if (typeof address_id == 'undefined' || address_id < 0){
+            popLayer('请先选择或创建收货地址'); return;
+        }
+        $.post("{:U('order')}",{'token':token,'address_id':address_id},function (data) {
+            if (data.hasOwnProperty('msg')){
+                popLayer(data.msg);
+            }
+            if (data.hasOwnProperty('url')){
+                /*layer.open({
+                    type: 2,
+                    title: '请尽快支付',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['150px', '200px'],
+                    content: data.url,
+                });*/
+                window.location.href = data.url;
+            }
+        })
+    })
+</script>
+</body>
+</html>

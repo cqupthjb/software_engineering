@@ -1,0 +1,55 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+  <section class="content">
+    <div class="row">
+	        <div class="col-xs-3">
+	             <select name="cat_id" id="cat_id" onchange="get_category(this.value,'cat_id_2','0');" class="form-control" style="width:220px;">
+	               <option value="0">请选择商品分类</option>                                      
+	                    <foreach name="cat_list" item="v" key="k" >                                                                                          
+	                      <option value="{$v['id']}" <if condition="$v['id'] eq $level_cat['1']">selected="selected"</if> >
+	                      		{$v['name']}
+	                      </option>
+	                    </foreach>
+	             </select>
+	        </div>
+	        <div class="col-xs-3">
+	             <select name="cat_id_2" id="cat_id_2" onchange="get_category(this.value,'cat_id_3','0');" class="form-control" style="width:220px;">
+	               	<option value="0">请选择商品分类</option>
+	             </select>  
+	        </div>
+	        <div class="col-xs-3">                        
+	             <select name="cat_id_3" id="cat_id_3" class="form-control" style="width:220px;">
+	               <option value="0">请选择商品分类</option>
+	             </select> 
+	        </div>  
+    </div>
+    <div class="row" style="text-align:center;"><a href="javascript:void(0)" onclick="gosubmit()" class="btn btn-info margin">提交</a></div>
+  </section>
+</div>
+<script>
+function gosubmit(){
+	var cat_id = $('#cat_id').val();
+	var cat_id2 = $('#cat_id_2').val();
+	var cat_id3 = $('#cat_id_3').val();
+	if(cat_id == 0 || cat_id2 == 0 || cat_id3 == 0){
+		layer.msg('请选择完整分类', {icon: 2});
+		return false;
+	}
+	$.ajax({
+		type:'post',
+		url:"{:U('Store/get_bind_class')}",
+		data:{class_1:cat_id,class_2:cat_id2,class_3:cat_id3},
+		dataType : 'json',
+		success : function(data){
+			if(data.stat=='ok'){
+				layer.msg('操作成功', {icon: 3});
+				window.parent.location.reload();
+			}else{
+				layer.alert(data.msg, {icon: 2});
+			}
+		}
+	});
+}
+</script>
+</body>
+</html>

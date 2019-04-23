@@ -1,0 +1,171 @@
+<!--region 用户信息-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-list"></i>&nbsp;用户信息
+                </h3>
+            </div>
+            <div class="panel-body">
+                <nav class="navbar navbar-default">
+                    <div class="collapse navbar-collapse">
+                        <form class="navbar-form form-inline" role="search">
+                            <div class="form-group pull-right">
+                                <a href="javascript:void(0);" class="btn btn-primary pull-right btn-scan">
+                                    <i class="fa fa-plus"></i>领取活动票
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </nav>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>会员ID</th>
+                            <th>会员头像</th>
+                            <th>会员昵称</th>
+                            <th>手机号码</th>
+                            <eq name="activity_type" value="0">
+                                <th>活动时间内消费</th>
+                            </eq>
+                        </tr>
+                        </thead>
+                        <tbody id="data-list">
+                        <tr role="row" align="center">
+                            <td>{$user.user_id}</td>
+                            <td>
+                                <notempty name="user.head_pic">
+                                    <img src="{$user.head_pic}" alt="" style="max-height: 50px;">
+                                    <else/>
+                                    <img src="/Template/mobile/new/Static/images/user68.jpg" style="max-height: 50px;" >
+                                </notempty>
+                            </td>
+                            <td>{$user.nickname}</td>
+                            <td>{$user.mobile}</td>
+                            <eq name="activity_type" value="0">
+                                <td>{$total_amount}</td>
+                            </eq>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--region-->
+
+<!--region 订单信息-->
+<eq name="activity_type" value="1">
+    <notempty name="order_list">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <i class="fa fa-list"></i>&nbsp;订单信息
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>用户ID</th>
+                                    <th>订单ID</th>
+                                    <th>购买时间</th>
+                                    <th>商品ID</th>
+                                    <th>商品名称</th>
+                                    <th>商品数量</th>
+                                    <th>商品价格</th>
+                                </tr>
+                                </thead>
+                                <tbody id="goods-list">
+                                <volist name="order_list" id="vo">
+                                    <volist name="vo.goods" id="v">
+                                        <tr role="row" align="center">
+                                            <td>{$vo.user_id}</td>
+                                            <td>{$vo.order_id}</td>
+                                            <td>{$vo.add_time|date='Y-m-d H:i:s',###}</td>
+                                            <td>{$v.goods_id}</td>
+                                            <td>{$v.goods_name}</td>
+                                            <td>{$v.goods_num}</td>
+                                            <td>{$v.goods_price}</td>
+                                        </tr>
+                                    </volist>
+                                </volist>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </notempty>
+</eq>
+<!--endregion-->
+
+<!--region 可领取的活动票-->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    <i class="fa fa-list"></i>&nbsp;可领取的活动票
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>活动票类型</th>
+                            <th>编号</th>
+                            <th>名称</th>
+                            <th>图片</th>
+                            <eq name="activity_type" value="0">
+                                <th>满足条件（金额）</th>
+                                <else/>
+                                <th>指定商品ID</th>
+                            </eq>
+                            <th>活动票数量</th>
+                            <th>已发放数量</th>
+                            <th>未发放数量</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>活动票发放</th>
+                        </tr>
+                        </thead>
+                        <tbody id="card-list">
+                        <foreach name="card_list" item="vo" key="k">
+                            <if condition="get_column('admin',session('admin_id'),'role_id') eq 1">
+                                <tr role="row" align="center">
+                                    <td>{$vo.level_name}</td>
+                                    <td>{$vo.card_id}</td>
+                                    <td>{$vo.name}</td>
+                                    <td><a href="{$vo.cover}"><img src="{$vo.cover}" style="height: 50px;"></a></td>
+                                    <eq name="activity_type" value="0">
+                                        <td>{$vo.need_price}</td>
+                                        <else/>
+                                        <td>{$vo.goods_id}</td>
+                                    </eq>
+                                    <td>{$vo['store_count'] + $vo['user_count'] }</td>
+                                    <td>{$vo.user_count}</td>
+                                    <td>{$vo.store_count}</td>
+                                    <td>{$vo.start_time|date='Y/m/d',###}</td>
+                                    <td>{$vo.end_time|date='Y/m/d',###}</td>
+                                    <td><a href="javascript:void(0);" class="btn btn-info btn-send" title="发放" data-id="{$vo.card_id}"><i class="fa fa-send"></i></a></td>
+                                </tr>
+                            </if>
+                        </foreach>
+                        <input type="hidden" name="user_id" value="{$user['user_id']}">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--endregion-->
